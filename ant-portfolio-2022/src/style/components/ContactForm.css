@@ -1,0 +1,64 @@
+.ContactForm__name-email-subject-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ContactForm__inputs-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.ContactForm__name-input,
+.ContactForm__email-input,
+.ContactForm__subject-textarea,
+.ContactForm__message-textarea {
+  margin-bottom: 20px;
+}
+
+.ContactForm__message-textarea,
+.ContactForm__subject-textarea,
+.ContactForm__name-input,
+.ContactForm__email-input {
+  background-color: transparent;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 2px solid black;
+  font-family: inherit;
+}
+
+.ContactForm__submit-input {
+  border: 0;
+  padding: 10px 20px;
+}
+
+.ContactForm__message-textarea:focus,
+.ContactForm__subject-textarea:focus,
+.ContactForm__name-input:focus,
+.ContactForm__email-input:focus {
+  outline: 0;
+}
+
+.ContactForm__message-textarea::placeholder,
+.ContactForm__subject-textarea::placeholder,
+.ContactForm__name-input::placeholder,
+.ContactForm__email-input::placeholder {
+  color: black;
+  letter-spacing: 1px;
+}
+
+.ContactForm__message-textarea {
+  height: 200px;
+}
+
+.ContactForm__submit-input {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid black;
+}

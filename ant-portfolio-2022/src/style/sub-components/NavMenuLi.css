@@ -1,0 +1,56 @@
+.NavMenu__li {
+  list-style: inherit;
+}
+
+.NavMenu__button {
+  margin: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: inherit;
+  background: transparent;
+  border: none;
+  margin-bottom: 20px;
+  flex-direction: column;
+  letter-spacing: 2px;
+  font-weight: 700;
+  opacity: 1;
+  transform: translateZ(0);
+  max-width: 260px;
+}
+
+.NavMenu__subtitle {
+  font-size: 2.4rem;
+  text-align: center;
+  font-style: italic;
+  /* font-family: "Judson", serif; */
+  text-transform: none;
+  margin: 0;
+}
+
+.NavMenu__title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.NavMenu__title-span {
+  line-height: 0.9;
+  letter-spacing: inherit;
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.NavMenu__title-span--bold {
+  /* font-family: "Archivo Black", sans-serif; */
+}

@@ -1,0 +1,30 @@
+.NavMenu {
+  position: fixed;
+  z-index: 8;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  transform: translate3d(0, 100vh, 0);
+  visibility: hidden;
+  overflow-y: hidden;
+  overflow-y: scroll;
+  box-sizing: content-box;
+  width: 100%;
+  display: flex;
+  padding: 100px 0;
+}
+
+.NavMenu--active {
+  visibility: inherit;
+  transform: translateZ(0);
+  overflow-y: scroll;
+}
+
+.NavMenu__ul {
+  list-style: none;
+  max-width: 300px;
+  padding: 0;
+  margin: auto;
+}

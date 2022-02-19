@@ -1,0 +1,16 @@
+.ArtworkGrid {
+  padding-top: 100px;
+  margin-bottom: 100px;
+  background-color: white;
+  z-index: 10;
+}
+
+.ArtworkGrid__column-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.ArtworkGrid__column {
+  padding: 10px;
+}

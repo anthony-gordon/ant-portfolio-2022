@@ -1,0 +1,16 @@
+.Pagination__ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 0;
+}
+
+.Pagination__li {
+  padding: 5px;
+}
+
+.Pagination__link {
+  text-decoration: none;
+  color: black;
+}
