@@ -1,8 +1,117 @@
-import "./../style/pages/Cart.css";
-import React from "react";
+import "./../style/components/Cart.css";
+import React, { useContext } from "react";
+import { ShopContext } from "../context/shopContext";
+import { useSelector, useDispatch } from "react-redux";
+import { animated as a, useSpring } from "react-spring";
+import CartLineItem from "./../sub-components/CartLineItem";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "./../state/index";
+import CartCloseIcon from "./../sub-components/CartCloseIcon";
 
 function Cart() {
-  return <div className="Cart"></div>;
+  const dispatch = useDispatch();
+
+  const { toggleCartDisplay, toggleCartOpacity } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+
+  function toggleCartDisplayOpacity() {
+    if (!cartDisplay) {
+      toggleCartDisplay();
+      setTimeout(() => {
+        toggleCartOpacity();
+      }, 10);
+    } else if (cartDisplay) {
+      toggleCartOpacity();
+      setTimeout(() => {
+        toggleCartDisplay();
+      }, 500);
+    }
+  }
+
+  let { scrollBarWidth, navBarHeight, cartOpacity, cartDisplay } = useSelector(
+    (state) => state
+  );
+  const { checkout } = useContext(ShopContext);
+
+  const style = {
+    Cart: useSpring({
+      transform: `translateX(${cartOpacity ? 0 : 100}%)`,
+      paddingRight: `${scrollBarWidth}px`,
+      paddingTop: `${navBarHeight}px`,
+    }),
+    CartUnderlay: useSpring({
+      opacity: cartOpacity ? 0.5 : 0,
+      display: `${cartDisplay ? "block" : "none"}`,
+    }),
+  };
+  return (
+    <>
+      <a.div
+        style={style.CartUnderlay}
+        tabIndex={-1}
+        className="Cart__underlay"
+        onClick={toggleCartDisplayOpacity}
+      ></a.div>
+      <a.div
+        style={style.Cart}
+        className={`Cart ${cartDisplay ? "Cart--active" : ""}`}
+      >
+        <div className="Cart__header">
+          <div className="Cart__header-text-wrapper">
+            <h2 className="Cart__header-text">
+              Cart
+              <span className="Cart__header-text-cart-count">
+                {checkout.lineItems && ` - ${checkout.lineItems.length}`}
+              </span>
+            </h2>
+          </div>
+
+          <CartCloseIcon
+            cartDisplay={cartDisplay}
+            cartOpacity={cartOpacity}
+            toggleCartDisplayOpacity={toggleCartDisplayOpacity}
+          />
+        </div>
+        <table className="Cart__table">
+          <thead className="Cart_table-header">
+            <tr>
+              <th
+                className="Cart_table-header-cell-product"
+                scope="col"
+                colSpan="2"
+              >
+                Product
+              </th>
+              <th
+                className="Cart_table-header-cell-quantity"
+                scope="col"
+                colSpan="1"
+              >
+                Quantity
+              </th>
+              <th
+                className="Cart_table-header-cell-total"
+                scope="col"
+                colSpan="1"
+              >
+                Total
+              </th>
+            </tr>
+          </thead>
+          <hr className="Cart__hr" />
+
+          <tbody className="Cart__table-body">
+            {checkout.lineItems &&
+              checkout.lineItems.map((item) => {
+                return <CartLineItem key={item.id} item={item} />;
+              })}
+          </tbody>
+        </table>
+      </a.div>
+    </>
+  );
 }
 
 export default Cart;

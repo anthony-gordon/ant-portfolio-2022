@@ -1,0 +1,16 @@
+.ProductGrid {
+  padding-top: 100px;
+  margin-bottom: 100px;
+  background-color: white;
+  z-index: 10;
+}
+
+.ProductGrid__column-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.ProductGrid__column {
+  padding: 10px;
+}

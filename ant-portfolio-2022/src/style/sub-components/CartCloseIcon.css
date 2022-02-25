@@ -1,0 +1,3 @@
+.CartCloseIcon--unclickable {
+  pointer-events: none;
+}

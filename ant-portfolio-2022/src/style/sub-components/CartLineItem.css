@@ -1,0 +1,83 @@
+.CartLineItem {
+  list-style: inherit;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: none;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.CartLineItem:first-child {
+  margin-top: 30px;
+}
+
+.CartLineItem__subtitle {
+  font-size: 2.4rem;
+  text-align: center;
+  font-style: italic;
+  text-transform: none;
+  margin: 0;
+}
+
+.CartLineItem__title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.CartLineItem__title-span {
+  line-height: 0.9;
+  letter-spacing: inherit;
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.CartLineItem__product-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100px;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.CartLineItem__product-details-wrapper {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.CartLineItem__product-total-wrapper {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.CartLineItem__product-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.CartLineItem__product-image {
+  height: auto;
+  width: 100px;
+  border-radius: 15px;
+}
+
+.CartLineItem__product-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.CartLineItem__product-variant-option,
+.CartLineItem__product-variant-title,
+.CartLineItem__product-price {
+  color: #4b4b4b;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.CartLineItem__product-quantity-wrapper {
+  grid-column-start: 2;
+  grid-column-end: 5;
+}

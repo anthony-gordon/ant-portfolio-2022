@@ -70,19 +70,19 @@ export const updateCheckout = (data) => {
   };
 };
 
-export const updateIsCartOpen = (data) => {
+export const toggleCartOpacity = (data) => {
   return (dispatch) => {
     dispatch({
-      type: "updateIsCartOpen",
+      type: "toggleCartOpacity",
       payload: data,
     });
   };
 };
 
-export const updateClient = (data) => {
+export const toggleCartDisplay = (data) => {
   return (dispatch) => {
     dispatch({
-      type: "updateClient",
+      type: "toggleCartDisplay",
       payload: data,
     });
   };

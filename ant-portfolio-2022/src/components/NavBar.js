@@ -1,5 +1,7 @@
 import "../style/components/NavBar.css";
 import NavHamburgerIcon from "../sub-components/NavHamburgerIcon";
+import CartIcon from "../sub-components/CartIcon";
+
 import NavLogo from "../sub-components/NavLogo";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -8,8 +10,11 @@ function NavBar() {
 
   return (
     <div className={`NavBar ${menuOpacity ? "NavBar--menu-open" : ""}`}>
-      <NavLogo />
-      <NavHamburgerIcon />
+      <div className="NavBar__wrapper">
+        <NavHamburgerIcon />
+        <NavLogo />
+        <CartIcon />
+      </div>
     </div>
   );
 }

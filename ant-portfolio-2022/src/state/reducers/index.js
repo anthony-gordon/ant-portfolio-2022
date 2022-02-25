@@ -5,11 +5,8 @@ import toggleMenuDisplayReducer from "./toggleMenuDisplayReducer";
 import updateArtworkListReducer from "./updateArtworkListReducer";
 import updateWindowSizeReducer from "./updateWindowSizeReducer";
 import updateLoadingReducer from "./updateLoadingReducer";
-import updateProductReducer from "./updateProductReducer";
-import updateProductsReducer from "./updateProductsReducer";
-import updateCheckoutReducer from "./updateCheckoutReducer";
-import updateIsCartOpenReducer from "./updateIsCartOpenReducer";
-import updateClientReducer from "./updateClientReducer";
+import toggleCartDisplayReducer from "./toggleCartDisplayReducer";
+import toggleCartOpacityReducer from "./toggleCartOpacityReducer";
 
 const reducers = combineReducers({
   menuDisplay: toggleMenuDisplayReducer,
@@ -17,11 +14,8 @@ const reducers = combineReducers({
   artworkList: updateArtworkListReducer,
   windowSize: updateWindowSizeReducer,
   loading: updateLoadingReducer,
-  product: updateProductReducer,
-  products: updateProductsReducer,
-  checkout: updateCheckoutReducer,
-  isCartOpen: updateIsCartOpenReducer,
-  client: updateClientReducer,
+  cartDisplay: toggleCartDisplayReducer,
+  cartOpacity: toggleCartOpacityReducer,
 });
 
 export default reducers;

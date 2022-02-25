@@ -1,0 +1,39 @@
+.ProductPage__image {
+  width: 100%;
+}
+
+.ProductPage {
+  padding-top: 100px;
+  width: 300px;
+  margin: auto;
+  margin-bottom: 100px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.ProductPage__details {
+  padding: 20px 0;
+}
+
+.ProductPage__details-row {
+  display: flex;
+}
+
+.ProductPage__details-row-header {
+  width: 36%;
+  margin-right: 4%;
+  flex-shrink: unset;
+}
+
+@media only screen and (min-width: 769px) {
+  .ProductPage {
+    width: 640px;
+  }
+  .ProductPage__details {
+    width: 300px;
+    margin: auto;
+  }
+}

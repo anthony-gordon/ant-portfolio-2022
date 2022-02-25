@@ -1,8 +1,13 @@
 import "./../style/pages/Homepage.css";
 import React from "react";
+import ProductGrid from "./../components/ProductGrid";
 
-function Homepage() {
-  return <div className="Homepage"></div>;
+function Homepage({ productList }) {
+  return (
+    <div className="Homepage">
+      <ProductGrid productList={productList} />
+    </div>
+  );
 }
 
 export default Homepage;

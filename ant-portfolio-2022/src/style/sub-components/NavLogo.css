@@ -7,7 +7,14 @@
   align-items: center;
 }
 
-.NavBar__logo-image {
-  width: 300px;
-  color: black;
+.NavLogo__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.NavLogo__text {
+  font-family: durer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
 }

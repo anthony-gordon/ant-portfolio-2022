@@ -9,7 +9,7 @@ function Footer() {
         <div className="Footer__icons-wrapper">
           <a
             className="Footer__social-link"
-            href="https://www.facebook.com/Rmotionart"
+            href="https://www.facebook.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -17,14 +17,14 @@ function Footer() {
           </a>
           <a
             className="Footer__social-link"
-            href="https://www.instagram.com/robbie_motion/"
+            href="https://www.instagram.com/anthony_le_brun_gordon/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <InstagramIcon fontSize="large" />
           </a>
         </div>
-        <span className="Footer__copyright">Ⓒ Robbie Motion 2022</span>
+        <span className="Footer__copyright">Ⓒ Anthony Gordon 2022</span>
       </div>
     </div>
   );
