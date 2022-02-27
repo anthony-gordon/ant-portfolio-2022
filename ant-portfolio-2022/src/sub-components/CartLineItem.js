@@ -1,33 +1,22 @@
 import "../style/sub-components/CartLineItem.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
 import { v4 as uuidv4 } from "uuid";
+import { ShopContext } from "../context/shopContext";
 
 function CartLineItem({ item }) {
+  const { getImageString } = useContext(ShopContext);
+
   const dispatch = useDispatch();
-  let cartStyle = {
-    CartLineItemImage: {
-      backgroundImage: `url(${item.variant.image.src})`,
-    },
-  };
+
   let { cartDisplay } = useSelector((state) => state);
   const { toggleCartDisplay, toggleCartOpacity } = bindActionCreators(
     actionCreators,
     dispatch
   );
-
-  const getImageString = function (src, size) {
-    return src
-      .replace(
-        /_(pico|icon|thumb|small|compact|medium|large|grande|original|1024x1024|2048x2048|master)+\./g,
-        "."
-      )
-      .replace(/\.jpg|\.png|\.gif|\.jpeg/g, function (match) {
-        return "_" + size + match;
-      });
-  };
 
   function toggleCartDisplayOpacity() {
     if (!cartDisplay) {

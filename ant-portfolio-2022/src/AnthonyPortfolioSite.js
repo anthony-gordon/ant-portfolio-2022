@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./state/index";
 import SiteRoutes from "./SiteRoutes";
+import "./style/components/AnthonyPortfolioSite.css";
 
 function AnthonyPortfolioSite() {
   const dispatch = useDispatch();

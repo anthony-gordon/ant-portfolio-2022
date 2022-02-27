@@ -1,0 +1,11 @@
+.Image__wrapper {
+  position: relative;
+}
+
+.Image__placeholder {
+  position: absolute;
+}
+
+.Image__image {
+  width: 100%;
+}

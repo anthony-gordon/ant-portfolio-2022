@@ -3,15 +3,16 @@ import React, { useEffect, useContext } from "react";
 import { ShopContext } from "../context/shopContext";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
+import Image from "../sub-components/Image";
 
 function ProductPage() {
   let { productHandle } = useParams();
   const {
     product,
-    products,
     addItemToCheckout,
     checkout,
     fetchCurrentProduct,
+    getImageString,
   } = useContext(ShopContext);
 
   useEffect(() => {
@@ -27,7 +28,15 @@ function ProductPage() {
           content={`"${product.title}" - an artwork by Anthony Gordon, a painter based in Wellington, New Zealand.`}
         />
       </Helmet>
-      <img className="ProductPage__image" src={product.images[0].src} />
+      <div className="ProductPage__image-wrapper">
+        <Image
+          src={product.images[0].src}
+          size={"large"}
+          aspect={product.images[0].height / product.images[0].width}
+          product={product}
+        />
+      </div>
+
       <div className="ProductPage__details">
         <div className="ProductPage__details-row">
           <h4 className="ProductPage__details-row-header">Title:</h4>

@@ -1,3 +1,138 @@
+@font-face {
+  font-family: "Durer";
+  src: local("Durer"), url("./fonts/Durer/Durer.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Harmonia Sans Regular";
+  src: local("HarmoniaSans"),
+    url("./fonts/HarmoniaSans/HarmoniaSansProCyr-Regular.ttf")
+      format("truetype");
+  font-weight: regular;
+}
+
+@font-face {
+  font-family: "Harmonia Sans Light";
+  src: local("HarmoniaSans"),
+    url("./fonts/HarmoniaSans/HarmoniaSansProCyr-Light.ttf") format("truetype");
+  font-weight: light;
+}
+
+@font-face {
+  font-family: "Harmonia Sans Bold";
+  src: local("HarmoniaSans"),
+    url("./fonts/HarmoniaSans/HarmoniaSansProCyr-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+html {
+  --font-body-family: "Harmonia Sans Regular", sans-serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-heading-family: "Harmonia Sans Bold", sans-serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 600;
+  --font-body-scale: 1;
+  --font-heading-scale: 1.3;
+  --color-base-text: 46, 42, 57;
+  --color-shadow: 46, 42, 57;
+  --color-base-background-1: 250, 247, 242;
+  --color-base-background-2: 237, 255, 167;
+  --color-base-solid-button-labels: 250, 247, 242;
+  --color-base-outline-button-labels: 46, 42, 57;
+  --color-base-accent-1: 158, 92, 139;
+  --color-base-accent-2: 177, 103, 103;
+  --payment-terms-background-color: #faf7f2;
+  --gradient-base-background-1: linear-gradient(
+    180deg,
+    rgba(240, 244, 236, 1),
+    rgba(241, 235, 226, 1) 100%
+  );
+  --gradient-base-background-2: radial-gradient(
+    rgba(255, 229, 229, 1),
+    rgba(255, 224, 218, 1) 25%,
+    rgba(215, 255, 137, 1) 100%
+  );
+  --gradient-base-accent-1: #9e5c8b;
+  --gradient-base-accent-2: linear-gradient(
+    320deg,
+    rgba(214, 168, 168, 1) 23%,
+    rgba(158, 92, 139, 1) 100%
+  );
+  --media-padding: px;
+  --media-border-opacity: 0;
+  --media-border-width: 0px;
+  --media-radius: 12px;
+  --media-shadow-opacity: 0.1;
+  --media-shadow-horizontal-offset: 10px;
+  --media-shadow-vertical-offset: 12px;
+  --media-shadow-blur-radius: 20px;
+  --page-width: 120rem;
+  --page-width-margin: 0rem;
+  --card-image-padding: 0rem;
+  --card-corner-radius: 1.2rem;
+  --card-text-alignment: center;
+  --card-border-width: 0rem;
+  --card-border-opacity: 0;
+  --card-shadow-opacity: 0.05;
+  --card-shadow-horizontal-offset: 1rem;
+  --card-shadow-vertical-offset: 1rem;
+  --card-shadow-blur-radius: 3.5rem;
+  --badge-corner-radius: 2rem;
+  --popup-border-width: 1px;
+  --popup-border-opacity: 0.1;
+  --popup-corner-radius: 22px;
+  --popup-shadow-opacity: 0.1;
+  --popup-shadow-horizontal-offset: 10px;
+  --popup-shadow-vertical-offset: 12px;
+  --popup-shadow-blur-radius: 20px;
+  --drawer-border-width: 1px;
+  --drawer-border-opacity: 0.1;
+  --drawer-shadow-opacity: 0;
+  --drawer-shadow-horizontal-offset: 0px;
+  --drawer-shadow-vertical-offset: 0px;
+  --drawer-shadow-blur-radius: 0px;
+  --spacing-sections-desktop: 36px;
+  --spacing-sections-mobile: 25px;
+  --grid-desktop-vertical-spacing: 40px;
+  --grid-desktop-horizontal-spacing: 40px;
+  --grid-mobile-vertical-spacing: 20px;
+  --grid-mobile-horizontal-spacing: 20px;
+  --text-boxes-border-opacity: 0;
+  --text-boxes-border-width: 0px;
+  --text-boxes-radius: 24px;
+  --text-boxes-shadow-opacity: 0;
+  --text-boxes-shadow-horizontal-offset: 10px;
+  --text-boxes-shadow-vertical-offset: 12px;
+  --text-boxes-shadow-blur-radius: 20px;
+  --buttons-radius: 10px;
+  --buttons-radius-outset: 11px;
+  --buttons-border-width: 1px;
+  --buttons-border-opacity: 0.15;
+  --buttons-shadow-opacity: 0;
+  --buttons-shadow-horizontal-offset: 0px;
+  --buttons-shadow-vertical-offset: 0px;
+  --buttons-shadow-blur-radius: 0px;
+  --buttons-border-offset: 0.3px;
+  --inputs-radius: 10px;
+  --inputs-border-width: 1px;
+  --inputs-border-opacity: 0.15;
+  --inputs-shadow-opacity: 0;
+  --inputs-shadow-horizontal-offset: 0px;
+  --inputs-margin-offset: 0px;
+  --inputs-shadow-vertical-offset: 0px;
+  --inputs-shadow-blur-radius: 0px;
+  --inputs-radius-outset: 11px;
+  --variant-pills-radius: 2px;
+  --variant-pills-border-width: 0px;
+  --variant-pills-border-opacity: 0.55;
+  --variant-pills-shadow-opacity: 0;
+  --variant-pills-shadow-horizontal-offset: 0px;
+  --variant-pills-shadow-vertical-offset: 0px;
+  --variant-pills-shadow-blur-radius: 0px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -6,17 +141,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  background: var(--gradient-base-background-1);
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-@font-face {
-  font-family: "Durer";
-  src: local("Durer"), url("./fonts/Durer/Durer.ttf") format("truetype");
-  font-weight: bold;
 }
 
 * {

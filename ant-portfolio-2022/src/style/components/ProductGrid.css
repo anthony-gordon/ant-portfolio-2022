@@ -1,8 +1,22 @@
 .ProductGrid {
   padding-top: 100px;
   margin-bottom: 100px;
-  background-color: white;
   z-index: 10;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+.ProductGrid__column {
+  width: 50%;
+}
+
+.ProductGrid__column:first-child {
+  padding-right: calc(var(--grid-desktop-horizontal-spacing) / 2);
+}
+
+.ProductGrid__column:last-child {
+  padding-left: calc(var(--grid-desktop-horizontal-spacing) / 2);
 }
 
 .ProductGrid__column-wrapper {
@@ -11,6 +25,8 @@
   justify-content: center;
 }
 
-.ProductGrid__column {
-  padding: 10px;
+@media only screen and (min-width: 769px) {
+  .ProductGrid {
+    flex-direction: column;
+  }
 }

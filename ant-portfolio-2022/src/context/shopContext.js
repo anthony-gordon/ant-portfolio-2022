@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Client from "shopify-buy";
+import strings from "./strings.js";
+import {
+  formatMoney,
+  lowestVariantPrice,
+  getImageString,
+} from "./helperFunctions";
 
 const ShopContext = React.createContext();
 
@@ -80,6 +86,10 @@ function ShopProvider({ children }) {
         fetchAllProducts: fetchAllProducts,
         fetchCurrentProduct: fetchCurrentProduct,
         addItemToCheckout: addItemToCheckout,
+        strings: strings,
+        formatMoney: formatMoney,
+        lowestVariantPrice: lowestVariantPrice,
+        getImageString: getImageString,
       }}
     >
       {children}

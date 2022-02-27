@@ -1,37 +1,40 @@
 import "../style/sub-components/ProductGridItem.css";
 import { Link } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
 import { useSpring, animated as a } from "react-spring";
 import { ShopContext } from "../context/shopContext";
+import { usePalette } from "react-palette";
+import Image from "../sub-components/Image";
 
 function ProductGridItem({ product }) {
-  const [hoverOpacity, setHoverOpacity] = useSpring(() => ({
-    opacity: 0,
-  }));
+  const { checkout, formatMoney } = useContext(ShopContext);
+
   return (
     <div className="ProductGridItem">
       <Link
         className="ProductGridItem__link"
         to={`/products/${product.handle}`}
       >
-        <div>
-          <img className="ProductGridItem__image" src={product.images[0].src} />
-          <a.div
-            onMouseEnter={() =>
-              setHoverOpacity({
-                opacity: 1,
-              })
-            }
-            onMouseLeave={() =>
-              setHoverOpacity({
-                opacity: 0,
-              })
-            }
-            style={hoverOpacity}
-            className="ProductGridItem__title-wrapper"
-          >
-            <h2 className="ProductGridItem__title">{product.title}</h2>
-          </a.div>
-          <div className="ProductGridItem__caption">{`${product.title}`}</div>
+        <div className="ProductGridItem__content-wrapper">
+          <div className="ProductGridItem__image-wrapper">
+            <Image
+              src={product.images[0].src}
+              size={"large"}
+              aspect={product.images[0].height / product.images[0].width}
+              product={product}
+            />
+          </div>
+          <div className="ProductGridItem__details-wrapper">
+            <div className="ProductGridItem__title">{`${product.title}`}</div>
+            <div className="ProductGridItem__price">
+              {`${formatMoney(
+                parseFloat(product.variants[0].price) * 100,
+                "${{amount}}"
+              )}  ${
+                checkout.currencyCode !== undefined ? checkout.currencyCode : ""
+              }`}
+            </div>
+          </div>
         </div>
       </Link>
     </div>

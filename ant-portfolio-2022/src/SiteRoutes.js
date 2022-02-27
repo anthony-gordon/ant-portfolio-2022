@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import ProductPage from "./pages/ProductPage";
+import ContactPage from "./pages/ContactPage";
+
 import { useContext } from "react";
 import { ShopContext } from "./context/shopContext";
 
@@ -12,6 +14,7 @@ function SiteRoutes() {
       <Route exact path="/" element={<Homepage productList={products} />} />
       <Route exact path="/products/:productHandle" element={<ProductPage />} />
       <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/contact" element={<ContactPage />} />
     </Routes>
   );
 }
