@@ -6,10 +6,17 @@ import {
   lowestVariantPrice,
   getImageString,
 } from "./helperFunctions";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../state/index";
 
 const ShopContext = React.createContext();
 
 function ShopProvider({ children }) {
+  const dispatch = useDispatch();
+
+  const { updateLoading } = bindActionCreators(actionCreators, dispatch);
+
   useEffect(() => {
     if (localStorage.checkout) {
       fetchCheckout(localStorage.checkout);
@@ -22,6 +29,18 @@ function ShopProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const [checkout, setCheckout] = useState({});
+
+  useEffect(() => {
+    if (
+      products &&
+      products.length > 0 &&
+      checkout &&
+      typeof checkout != "undefined"
+    ) {
+      console.log("done");
+      updateLoading(false);
+    }
+  }, [products, checkout]);
 
   const client = Client.buildClient({
     domain: "lay-z-boy-1993.myshopify.com",

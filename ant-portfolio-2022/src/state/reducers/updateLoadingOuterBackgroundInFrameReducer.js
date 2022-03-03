@@ -1,6 +1,6 @@
-const reducer = (state = true, action) => {
+const reducer = (state = false, action) => {
   switch (action.type) {
-    case "updateLoading":
+    case "updateLoadingOuterBackgroundInFrame":
       return action.payload;
     default:
       return state;

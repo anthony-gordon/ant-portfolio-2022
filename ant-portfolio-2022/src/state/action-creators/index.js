@@ -87,3 +87,30 @@ export const toggleCartDisplay = (data) => {
     });
   };
 };
+
+export const updateLoadingDisplay = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateLoadingDisplay",
+      payload: data,
+    });
+  };
+};
+
+export const updateLoadingVisible = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateLoadingVisible",
+      payload: data,
+    });
+  };
+};
+
+export const updateLoadingOuterBackgroundInFrame = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateLoadingOuterBackgroundInFrame",
+      payload: data,
+    });
+  };
+};

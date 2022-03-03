@@ -8,6 +8,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "./state/index";
 import SiteRoutes from "./SiteRoutes";
 import "./style/components/AnthonyPortfolioSite.css";
+import LoadingWrapper from "./sub-components/LoadingWrapper";
 
 function AnthonyPortfolioSite() {
   const dispatch = useDispatch();
@@ -27,6 +28,8 @@ function AnthonyPortfolioSite() {
       <NavBar />
       <NavMenu />
       <Cart />
+      <LoadingWrapper />
+
       <SiteRoutes />
       <Footer />
     </div>

@@ -1,6 +1,6 @@
 const reducer = (state = true, action) => {
   switch (action.type) {
-    case "updateLoading":
+    case "updateLoadingVisible":
       return action.payload;
     default:
       return state;
