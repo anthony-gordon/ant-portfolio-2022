@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./../style/sub-components/Loading.css";
+import "./../style/sub-components/LoadingWrapper.css";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
@@ -21,7 +21,8 @@ function LoadingWrapper() {
   } = useSelector((state) => state);
 
   useEffect(() => {
-    if (loading == false) {
+    // if (loading == false) {
+    setTimeout(() => {
       updateLoadingOuterBackgroundInFrame(true);
       setTimeout(() => {
         updateLoadingVisible(false);
@@ -29,7 +30,8 @@ function LoadingWrapper() {
           updateLoadingDisplay(false);
         }, 500);
       }, 500);
-    }
+      // }
+    }, 5000);
   }, [loading]);
 
   return (

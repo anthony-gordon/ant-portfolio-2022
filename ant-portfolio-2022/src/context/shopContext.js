@@ -38,7 +38,7 @@ function ShopProvider({ children }) {
       typeof checkout != "undefined"
     ) {
       console.log("done");
-      updateLoading(false);
+      // updateLoading(false);
     }
   }, [products, checkout]);
 

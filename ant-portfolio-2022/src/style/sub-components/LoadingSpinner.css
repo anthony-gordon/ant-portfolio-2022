@@ -1,63 +1,34 @@
-.NavBar {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  z-index: 1000;
-  background: var(--gradient-base-background-1);
-  background-attachment: fixed;
-  transition: all 0.2s linear;
-  cursor: none;
-}
-
-.NavBar__wrapper {
-  width: 100%;
-  max-width: 1200px;
-  flex-direction: row;
-  display: flex;
-  padding-left: 15px;
-  padding-right: 15px;
-  height: 100px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* .NavBar__loading-cover {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-} */
-
-.cursor {
-  /* border: 3px solid white; */
-  /* border-radius: 50%; */
+.LoadingSpinner__wrapper {
   position: absolute;
-  /* box-shadow: 2px -3px 41px -1px rgba(250, 250, 250, 0.64); */
-  /* transition: all 0.1s linear; */
   pointer-events: none;
 }
 
-.NavBar__loading-cursor-wrapper--mobile {
-  position: absolute;
-  /* box-shadow: 2px -3px 41px -1px rgba(250, 250, 250, 0.64); */
-  /* transition: all 0.1s linear; */
-  pointer-events: none;
-}
-
-.NavBar__loading-cursor-wrapper {
-  background-color: transparent;
-}
-.NavBar__loading-cursor {
+.LoadingSpinner__line {
   width: 500px;
   height: 50px;
   background-color: inherit;
   position: absolute;
-  /* transform-origin: center center; */
 }
-.NavBar__loading-cursor--third {
+
+.LoadingSpinner__wrapper-3 .LoadingSpinner__line--third,
+.LoadingSpinner__wrapper-3 .LoadingSpinner__line--second,
+.LoadingSpinner__wrapper-3 .LoadingSpinner__line--first {
+  -webkit-animation-duration: 5000ms;
+  -moz-animation-duration: 5000ms;
+  -ms-animation-duration: 5000ms;
+  animation-duration: 5000ms;
+}
+
+.LoadingSpinner__wrapper-2 .LoadingSpinner__line--third,
+.LoadingSpinner__wrapper-2 .LoadingSpinner__line--second,
+.LoadingSpinner__wrapper-2 .LoadingSpinner__line--first {
+  -webkit-animation-duration: 12500ms;
+  -moz-animation-duration: 12500ms;
+  -ms-animation-duration: 12500ms;
+  animation-duration: 12500ms;
+}
+
+.LoadingSpinner__line--third {
   -webkit-animation-name: spin;
   -webkit-animation-duration: 10000ms;
   -webkit-animation-iteration-count: infinite;
@@ -76,7 +47,7 @@
   animation-timing-function: linear;
 }
 
-.NavBar__loading-cursor--first {
+.LoadingSpinner__line--first {
   -webkit-animation-name: spin2;
   -webkit-animation-duration: 10000ms;
   -webkit-animation-iteration-count: infinite;
@@ -95,7 +66,7 @@
   animation-timing-function: linear;
 }
 
-.NavBar__loading-cursor--second {
+.LoadingSpinner__line--second {
   -webkit-animation-name: spin3;
   -webkit-animation-duration: 10000ms;
   -webkit-animation-iteration-count: infinite;
@@ -114,26 +85,13 @@
   animation-timing-function: linear;
 }
 
-.NavBar__loading-cursor--second {
+.LoadingSpinner__line--second {
   transform: rotate(240deg);
 }
 
-.NavBar__wrapper ~ .cursor,
-.NavBar__wrapper ~ .NavBar__loading-cursor-wrapper--mobile {
-  /* transform: scale(1.4); */
+.NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper {
   mix-blend-mode: difference;
   background: white;
-}
-
-/* .NavBar__loading-cursor-wrapper--mobile {
-  height: 200px;
-  width: 200px;
-} */
-@media only screen and (min-width: 769px) {
-  .NavBar__wrapper {
-    padding-left: 50px;
-    padding-right: 50px;
-  }
 }
 
 @-ms-keyframes spin {
