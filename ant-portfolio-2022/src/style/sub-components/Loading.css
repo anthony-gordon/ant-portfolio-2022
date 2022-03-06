@@ -2,14 +2,14 @@
   height: 100vh;
   width: 100vw;
   display: flex;
-  position: relative;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  /* background-color: black; */
   z-index: 1005;
   overflow: hidden;
 }
@@ -63,7 +63,7 @@
   right: 0;
   background: var(--gradient-base-background-1);
   background-attachment: fixed;
-  z-index: 9999;
+  z-index: 2;
 }
 
 @media only screen and (min-width: 769px) {
@@ -75,41 +75,5 @@
   .Loading__image-wrapper {
     width: 500px;
     height: 500px;
-  }
-}
-
-@-ms-keyframes spin {
-  from {
-    -ms-transform: rotate(0deg);
-  }
-  to {
-    -ms-transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes spin {
-  from {
-    -moz-transform: rotate(0deg);
-  }
-  to {
-    -moz-transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }

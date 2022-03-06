@@ -5,10 +5,8 @@ import ProductGrid from "./../components/ProductGrid";
 function Homepage({ productList }) {
   return (
     <div className="Homepage">
-      {productList && productList.length > 0 ? (
+      {productList && productList.length > 0 && (
         <ProductGrid productList={productList} />
-      ) : (
-        ""
       )}
     </div>
   );

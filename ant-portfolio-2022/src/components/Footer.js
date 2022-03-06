@@ -1,31 +1,35 @@
 import "../style/components/Footer.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { useSelector } from "react-redux";
 
 function Footer() {
+  let { loadingVisible } = useSelector((state) => state);
   return (
     <div className="Footer">
-      <div className="Footer__content-wrapper">
-        <div className="Footer__icons-wrapper">
-          <a
-            className="Footer__social-link"
-            href="https://www.facebook.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FacebookIcon fontSize="large" />
-          </a>
-          <a
-            className="Footer__social-link"
-            href="https://www.instagram.com/anthony_le_brun_gordon/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <InstagramIcon fontSize="large" />
-          </a>
+      {!loadingVisible && (
+        <div className="Footer__content-wrapper">
+          <div className="Footer__icons-wrapper">
+            <a
+              className="Footer__social-link"
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FacebookIcon fontSize="large" />
+            </a>
+            <a
+              className="Footer__social-link"
+              href="https://www.instagram.com/anthony_le_brun_gordon/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <InstagramIcon fontSize="large" />
+            </a>
+          </div>
+          <span className="Footer__copyright">Ⓒ Anthony Gordon 2022</span>
         </div>
-        <span className="Footer__copyright">Ⓒ Anthony Gordon 2022</span>
-      </div>
+      )}
     </div>
   );
 }
