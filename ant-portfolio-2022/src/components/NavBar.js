@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
 import { useEffect } from "react";
 import LoadingSpinner from "./LoadingSpinner";
-import { useSpring } from "react-spring";
+import { useSpring, animated as a } from "react-spring";
 import LoadingWrapper from "./../sub-components/LoadingWrapper";
 
 function NavBar() {
@@ -23,12 +23,12 @@ function NavBar() {
   );
 
   const style = {
-    NavBar: {
-      height: loadingDisplay ? `100vh` : `100px`,
-    },
+    NavBar: useSpring({
+      height: loading ? `100vh` : `100px`,
+    }),
   };
   return (
-    <div
+    <a.div
       style={style.NavBar}
       className={`NavBar ${menuOpacity ? "NavBar--menu-open" : ""}`}
     >
@@ -41,8 +41,8 @@ function NavBar() {
       <LoadingSpinner rec_number={1} />
       <LoadingSpinner rec_number={2} />
       <LoadingSpinner rec_number={3} />
-      <LoadingWrapper />
-    </div>
+      {/* <LoadingWrapper /> */}
+    </a.div>
   );
 }
 

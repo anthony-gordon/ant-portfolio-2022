@@ -1,3 +1,4 @@
+import Palette from "react-palette";
 import React, { useEffect, useState } from "react";
 import Client from "shopify-buy";
 import strings from "./strings.js";
@@ -9,13 +10,19 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
+import { usePalette } from "react-palette";
 
 const ShopContext = React.createContext();
 
 function ShopProvider({ children }) {
   const dispatch = useDispatch();
 
-  const { updateLoading } = bindActionCreators(actionCreators, dispatch);
+  const {
+    updateLoading,
+    updateLoadingOuterBackgroundInFrame,
+    updateLoadingVisible,
+    updateLoadingDisplay,
+  } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     if (localStorage.checkout) {
@@ -27,6 +34,7 @@ function ShopProvider({ children }) {
   }, []);
 
   const [products, setProducts] = useState([]);
+  const [productsImageDetails, setProductsImageDetails] = useState([]);
   const [product, setProduct] = useState({});
   const [checkout, setCheckout] = useState({});
 
@@ -38,7 +46,16 @@ function ShopProvider({ children }) {
       typeof checkout != "undefined"
     ) {
       console.log("done");
-      // updateLoading(false);
+      updateLoading(false);
+      setTimeout(() => {
+        updateLoadingOuterBackgroundInFrame(true);
+        setTimeout(() => {
+          updateLoadingVisible(false);
+          setTimeout(() => {
+            updateLoadingDisplay(false);
+          }, 500);
+        }, 500);
+      }, 500);
     }
   }, [products, checkout]);
 
@@ -65,7 +82,31 @@ function ShopProvider({ children }) {
 
   const fetchAllProducts = function () {
     client.product.fetchAll().then((products) => {
-      setProducts(products);
+      let productsArray = [];
+      products.map((product) => {
+        let productObject = product;
+
+        productObject[`first_image_string`] = getImageString(
+          product.images[0].src,
+          "small"
+        );
+
+        productsArray.push(productObject);
+      });
+
+      setProducts(productsArray);
+      // let productsImageDetailsArray = [];
+      // products.forEach((product) => {
+      //   let productImageDetailsObject = {};
+      //   productImageDetailsObject[`id`] = product.id;
+      //   productImageDetailsObject[`image_string`] = getImageString(
+      //     product.images[0].src,
+      //     "small"
+      //   );
+
+      //   productsImageDetailsArray.push(productImageDetailsObject);
+      // });
+      // setProductsImageDetails(productsImageDetailsArray);
     });
   };
 

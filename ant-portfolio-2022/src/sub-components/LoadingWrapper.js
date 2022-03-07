@@ -21,17 +21,17 @@ function LoadingWrapper() {
   } = useSelector((state) => state);
 
   useEffect(() => {
-    // if (loading == false) {
-    setTimeout(() => {
-      updateLoadingOuterBackgroundInFrame(true);
+    if (loading == false) {
       setTimeout(() => {
-        updateLoadingVisible(false);
+        updateLoadingOuterBackgroundInFrame(true);
         setTimeout(() => {
-          updateLoadingDisplay(false);
+          updateLoadingVisible(false);
+          setTimeout(() => {
+            updateLoadingDisplay(false);
+          }, 500);
         }, 500);
-      }, 500);
-      // }
-    }, 5000);
+      }, 1000);
+    }
   }, [loading]);
 
   return (
