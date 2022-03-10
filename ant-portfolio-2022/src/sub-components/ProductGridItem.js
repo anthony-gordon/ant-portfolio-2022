@@ -34,6 +34,9 @@ function ProductGridItem({ product }) {
                 checkout.currencyCode !== undefined ? checkout.currencyCode : ""
               }`}
             </div>
+            <div className="ProductGridItem__view-button">
+              <p className="ProductGridItem__view-button-text">View</p>
+            </div>
           </div>
         </div>
       </Link>

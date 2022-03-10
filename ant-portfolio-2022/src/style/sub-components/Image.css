@@ -1,5 +1,19 @@
 .Image__wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.Image {
   position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
 }
 
 .Image__placeholder {
@@ -7,5 +21,22 @@
 }
 
 .Image__image {
-  width: 100%;
+  /* width: 100%; */
+  box-shadow: 5px 5px 10px rgba(var(--color-shadow), 0.3);
+  /* position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  object-fit: contain;
+  object-position: center center; */
+  max-height: 100%;
+  max-width: 100%;
+  margin: calc(var(--grid-mobile-horizontal-spacing) / 2);
+}
+
+@media only screen and (min-width: 769px) {
+  .Image__image {
+    margin: calc(var(--grid-desktop-horizontal-spacing) / 2);
+  }
 }

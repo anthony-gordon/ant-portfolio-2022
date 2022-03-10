@@ -6,7 +6,9 @@ import { animated as a, useSpring } from "react-spring";
 import { useDebouncedEffect } from "../hooks/useDebouncedEffect";
 
 function LoadingSpinner({ rec_number }) {
-  let { windowSize, loadingVisible } = useSelector((state) => state);
+  let { windowSize, loadingVisible, loadingDisplay } = useSelector(
+    (state) => state
+  );
 
   const requestRef = useRef();
 
@@ -23,29 +25,23 @@ function LoadingSpinner({ rec_number }) {
   let yOffset = Math.random() * (windowHeight - 40);
 
   const move = function () {
-    if (windowWidth) {
-      if (element) {
-        if (xOffset > windowWidth || xOffset < 0) {
-          xSpeed = xSpeed * -1;
-        }
+    if (windowWidth && element) {
+      if (xOffset > windowWidth || xOffset < 0) {
+        xSpeed = xSpeed * -1;
+      }
 
-        if (yOffset > windowHeight || yOffset < 0) {
-          ySpeed = ySpeed * -1;
-        }
+      if (yOffset > windowHeight || yOffset < 0) {
+        ySpeed = ySpeed * -1;
       }
 
       xOffset += xSpeed;
       yOffset += ySpeed;
 
-      if (element) {
-        element.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-      }
+      element.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
     }
-    return;
   };
 
   function onTick() {
-    console.log(loadingVisible);
     move();
     requestRef.current = requestAnimationFrame(onTick);
   }
@@ -58,25 +54,27 @@ function LoadingSpinner({ rec_number }) {
   }, [windowWidth, loadingVisible]);
 
   useEffect(() => {
-    const lines = document.querySelectorAll(
-      `.LoadingSpinner__wrapper-${rec_number} .LoadingSpinner__line`
-    );
+    if (windowSize && windowSize.length > 0) {
+      const lines = document.querySelectorAll(
+        `.LoadingSpinner__wrapper-${rec_number} .LoadingSpinner__line`
+      );
 
-    setWindowWidth(
-      windowSize && windowSize[0] < 769
-        ? windowSize[0] - 200
-        : windowSize[0] - 500
-    );
-    lines.forEach((line) => {
-      line.style.height = `${windowSize && windowSize[0] < 769 ? 20 : 50}px`;
-      line.style.width = `${windowSize && windowSize[0] < 769 ? 200 : 500}px`;
-    });
+      setWindowWidth(
+        windowSize && windowSize[0] < 769
+          ? windowSize[0] - 200
+          : windowSize[0] - 500
+      );
+      lines.forEach((line) => {
+        line.style.height = `${windowSize && windowSize[0] < 769 ? 20 : 50}px`;
+        line.style.width = `${windowSize && windowSize[0] < 769 ? 200 : 500}px`;
+      });
+    }
   }, [windowSize]);
 
   const style = {
     LoadingSpinner: useSpring({
       opacity: loadingVisible ? 1 : 0,
-      display: loadingVisible ? "flex" : "none",
+      display: loadingDisplay ? "flex" : "none",
     }),
   };
 

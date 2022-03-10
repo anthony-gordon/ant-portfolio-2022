@@ -3,8 +3,12 @@
   margin-bottom: 100px;
   z-index: 10;
   background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: var(--grid-mobile-vertical-spacing);
+  grid-column-gap: var(--grid-mobile-horizontal-spacing);
 }
 
 .ProductGrid__column {
@@ -27,6 +31,8 @@
 
 @media only screen and (min-width: 769px) {
   .ProductGrid {
-    flex-direction: column;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row-gap: var(--grid-desktop-vertical-spacing);
+    grid-column-gap: var(--grid-desktop-horizontal-spacing);
   }
 }
