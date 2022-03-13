@@ -6,6 +6,7 @@ import {
   formatMoney,
   lowestVariantPrice,
   getImageString,
+  addRemoveFixedPositionOnBody,
 } from "./helperFunctions";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -34,7 +35,7 @@ function ShopProvider({ children }) {
   }, []);
 
   const [products, setProducts] = useState([]);
-  const [productsImageDetails, setProductsImageDetails] = useState([]);
+  const [variantsAsProducts, setVariantsAsProducts] = useState([]);
   const [product, setProduct] = useState({});
   const [checkout, setCheckout] = useState({});
 
@@ -93,8 +94,33 @@ function ShopProvider({ children }) {
 
         productsArray.push(productObject);
       });
-
+      let variantsAsProductsArray = [];
       setProducts(productsArray);
+      productsArray.forEach((product) => {
+        product.variants.forEach((variant) => {
+          let variantObject = {
+            title: `${product.title}${
+              product.variants.length > 1 ? " - " : ""
+            }${product.variants.length > 1 ? variant.title : ""}`,
+            product_id: product.id,
+            variant_id: variant.id,
+            price: variant.price,
+            description: product.description,
+            available_for_sale: product.availableForSale,
+            images: product.images,
+            handle: `${product.handle}${
+              product.variants.length > 1 ? "-" : ""
+            }${
+              product.variants.length > 1
+                ? variant.title.toLowerCase().replace(" ", "-")
+                : ""
+            }`,
+          };
+          variantsAsProductsArray.push(variantObject);
+        });
+      });
+      setVariantsAsProducts(variantsAsProductsArray);
+
       // let productsImageDetailsArray = [];
       // products.forEach((product) => {
       //   let productImageDetailsObject = {};
@@ -111,13 +137,14 @@ function ShopProvider({ children }) {
   };
 
   const fetchCurrentProduct = function (productHandle) {
-    let currentProduct = products.find(
+    console.log(productHandle, productHandle.toLowerCase());
+    let currentProduct = variantsAsProducts.find(
       (product) => product.handle === productHandle.toLowerCase()
     );
     if (currentProduct) {
-      client.product.fetch(currentProduct.id).then((product) => {
-        setProduct(product);
-      });
+      // client.product.fetch(currentProduct.product_id).then((product) => {
+      setProduct(currentProduct);
+      // });
     }
   };
 
@@ -150,6 +177,8 @@ function ShopProvider({ children }) {
         formatMoney: formatMoney,
         lowestVariantPrice: lowestVariantPrice,
         getImageString: getImageString,
+        addRemoveFixedPositionOnBody: addRemoveFixedPositionOnBody,
+        variantsAsProducts: variantsAsProducts,
       }}
     >
       {children}

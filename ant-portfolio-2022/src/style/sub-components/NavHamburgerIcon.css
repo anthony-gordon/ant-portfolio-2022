@@ -31,16 +31,19 @@
   position: absolute;
   height: 0.2rem;
   width: 50%;
-  background: rgba(4, 28, 54, 1);
+  background: rgb(var(--color-base-text));
   opacity: 1;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -o-transform: rotate(0deg);
   transform: rotate(0deg);
-  -webkit-transition: 0.25s ease-in-out;
-  -moz-transition: 0.25s ease-in-out;
-  -o-transition: 0.25s ease-in-out;
-  transition: 0.25s ease-in-out;
+  -webkit-transition: transform 0.25s ease-in-out,
+    background var(--transition-on-hover);
+  -moz-transition: transform 0.25s ease-in-out,
+    background var(--transition-on-hover);
+  -o-transition: transform 0.25s ease-in-out,
+    background var(--transition-on-hover);
+  transition: transform 0.25s ease-in-out, background var(--transition-on-hover);
 }
 
 .NavHamburgerIcon__wrapper span:nth-child(even) {
@@ -112,4 +115,8 @@
 .NavHamburgerIcon__wrapper--open span:nth-child(6) {
   left: calc(50% - 0.156rem);
   top: 0.906rem;
+}
+
+.NavHamburgerIcon__wrapper:hover span {
+  background: rgb(var(--color-base-text-highlight));
 }

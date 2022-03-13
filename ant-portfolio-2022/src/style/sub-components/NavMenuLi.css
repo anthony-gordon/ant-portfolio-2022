@@ -27,6 +27,7 @@
   opacity: 1;
   transform: translateZ(0);
   max-width: 260px;
+  font-family: var(--font-heading-family);
 }
 
 .NavMenu__subtitle {

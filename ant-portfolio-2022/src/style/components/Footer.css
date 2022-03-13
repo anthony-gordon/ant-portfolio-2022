@@ -3,7 +3,7 @@
   height: 100px;
   position: fixed;
   bottom: 0;
-  z-index: -1;
+  z-index: 0;
   background: var(--gradient-base-background-1);
   background-attachment: fixed;
 }
@@ -26,4 +26,16 @@
 .Footer__social-link {
   color: inherit;
   margin: 0 5px;
+}
+
+Footer__social-link .Footer__social-link svg {
+  -webkit-transition: fill var(--transition-on-hover);
+  -moz-transition: fill var(--transition-on-hover);
+  -o-transition: fill var(--transition-on-hover);
+  transition: fill var(--transition-on-hover);
+  fill: rgb(var(--color-base-text));
+}
+
+.Footer__social-link:hover svg {
+  fill: rgb(var(--color-base-text-highlight));
 }

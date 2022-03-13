@@ -1,10 +1,13 @@
 import "../style/sub-components/NavHamburgerIcon.css";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
+import { useContext } from "react";
 import { actionCreators } from "./../state/index";
+import { ShopContext } from "../context/shopContext";
 
 function NavHamburgerIcon() {
   const dispatch = useDispatch();
+  const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
 
   let { menuDisplay, menuOpacity } = useSelector((state) => state);
   const { toggleMenuDisplay, toggleMenuOpacity } = bindActionCreators(
@@ -15,11 +18,16 @@ function NavHamburgerIcon() {
   function toggleMenuDisplayOpacity() {
     if (!menuDisplay) {
       toggleMenuDisplay();
+      addRemoveFixedPositionOnBody("add");
+
       setTimeout(() => {
         toggleMenuOpacity();
       }, 10);
     } else if (menuDisplay) {
       toggleMenuOpacity();
+      setTimeout(() => {
+        addRemoveFixedPositionOnBody("remove");
+      }, 500);
       setTimeout(() => {
         toggleMenuDisplay();
       }, 500);

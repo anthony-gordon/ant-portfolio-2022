@@ -60,3 +60,21 @@ export function getImageString(src, size) {
       return "_" + size + match;
     });
 }
+
+export function addRemoveFixedPositionOnBody(addOrRemove) {
+  const body = document.querySelector("body");
+  let vs = body.scrollHeight > body.clientHeight;
+  console.log("vs", vs);
+  if (
+    vs &&
+    addOrRemove == "add" &&
+    !body.classList.contains("body__no-scroll")
+  ) {
+    body.classList.add("body__no-scroll");
+  } else if (
+    addOrRemove == "remove" &&
+    body.classList.contains("body__no-scroll")
+  ) {
+    body.classList.remove("body__no-scroll");
+  }
+}

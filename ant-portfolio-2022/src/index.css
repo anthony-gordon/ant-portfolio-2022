@@ -37,6 +37,8 @@ html {
   --font-heading-scale: 1.3;
   --color-base-text: 49, 49, 49;
   --color-shadow: 49, 49, 49;
+  --color-base-text-highlight: 190, 124, 77;
+  --color-base-text-inverse: 240, 244, 236;
   --color-base-background-1: 250, 250, 250;
   --color-base-background-2: 237, 255, 167;
   --color-base-solid-button-labels: 250, 247, 242;
@@ -131,6 +133,13 @@ html {
   --variant-pills-shadow-horizontal-offset: 0px;
   --variant-pills-shadow-vertical-offset: 0px;
   --variant-pills-shadow-blur-radius: 0px;
+  --transition-on-hover: cubic-bezier(0.77, 0, 0.175, 1) 0.25s;
+  --transition-duration-on-hover: 0.2s;
+}
+
+html,
+body {
+  width: 100%;
 }
 
 body {
@@ -146,6 +155,27 @@ body {
   min-height: 100vh;
 }
 
+.body__no-scroll {
+  overflow-y: hidden;
+}
+
+.body__no-scroll .NavBar__wrapper,
+.body__no-scroll .Homepage {
+  padding-right: 30px;
+}
+
+@media only screen and (min-width: 769px) {
+  .body__no-scroll .NavBar__wrapper,
+  .body__no-scroll .Homepage {
+    max-width: 1215px;
+  }
+
+  .body__no-scroll .NavBar__wrapper,
+  .body__no-scroll .Homepage {
+    padding-right: 65px;
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -153,4 +183,18 @@ code {
 
 * {
   box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-family: var(--font-heading-family);
+}
+
+p {
+  font-family: var(--font-body-family);
 }

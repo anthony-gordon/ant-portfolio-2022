@@ -7,11 +7,15 @@ import { useContext } from "react";
 import { ShopContext } from "./context/shopContext";
 
 function SiteRoutes() {
-  const { products } = useContext(ShopContext);
+  const { products, variantsAsProducts } = useContext(ShopContext);
 
   return (
     <Routes>
-      <Route exact path="/" element={<Homepage productList={products} />} />
+      <Route
+        exact
+        path="/"
+        element={<Homepage productList={variantsAsProducts} />}
+      />
       <Route exact path="/products/:productHandle" element={<ProductPage />} />
       <Route path="*" element={<Navigate to="/" />} />
       <Route path="/contact" element={<ContactPage />} />

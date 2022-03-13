@@ -5,7 +5,6 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white;
   transform: translate3d(0, 100vh, 0);
   visibility: hidden;
   overflow-y: hidden;
@@ -14,12 +13,14 @@
   width: 100%;
   display: flex;
   padding: 100px 0;
+  background: var(--gradient-base-background-1);
+  background-attachment: fixed;
 }
 
 .NavMenu--active {
   visibility: inherit;
   transform: translateZ(0);
-  overflow-y: scroll;
+  overflow-y: visible;
 }
 
 .NavMenu__ul {

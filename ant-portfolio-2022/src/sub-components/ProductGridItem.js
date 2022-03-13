@@ -31,14 +31,14 @@ function ProductGridItem({ product }) {
                 product={product}
               />
             </div>
-            <QuickAddToCart />
+            {/* <QuickAddToCart /> */}
 
             <div className="ProductGridItem__details-wrapper">
               <div className="ProductGridItem__details-text-wrapper">
                 <div className="ProductGridItem__title">{`${product.title}`}</div>
                 <div className="ProductGridItem__price">
                   {`${formatMoney(
-                    parseFloat(product.variants[0].price) * 100,
+                    parseFloat(product.price) * 100,
                     "${{amount}}"
                   )}  ${
                     checkout.currencyCode !== undefined

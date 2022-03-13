@@ -1,9 +1,10 @@
 import "./../style/pages/ProductPage.css";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { ShopContext } from "../context/shopContext";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import Image from "../sub-components/Image";
+import { useSpring, animated as a } from "react-spring";
 
 function ProductPage() {
   let { productHandle } = useParams();
@@ -13,6 +14,8 @@ function ProductPage() {
     checkout,
     fetchCurrentProduct,
     getImageString,
+    formatMoney,
+    variantsAsProducts,
   } = useContext(ShopContext);
 
   useEffect(() => {
@@ -39,22 +42,21 @@ function ProductPage() {
 
       <div className="ProductPage__details">
         <div className="ProductPage__details-row">
-          <h4 className="ProductPage__details-row-header">Title:</h4>
-          <p className="ProductPage__details-row-text">{product.title}</p>
+          <h2 className="ProductPage__details-row-header">{product.title}</h2>
         </div>
-
         <div className="ProductPage__details-row">
-          <h4 className="ProductPage__details-row-header">Description:</h4>
+          <div className="ProductGridItem__price">
+            {`${formatMoney(parseFloat(product.price) * 100, "${{amount}}")}  ${
+              checkout.currencyCode !== undefined ? checkout.currencyCode : ""
+            }`}
+          </div>
+        </div>
+        <div className="ProductPage__details-row">
           <p className="ProductPage__details-row-text">{product.description}</p>
         </div>
         <div className="ProductPage__add-to-cart">
-          <button
-            onClick={() =>
-              addItemToCheckout(product.variants[0].id, 1, checkout.id)
-            }
-            className="ProductPage__add-to-cart-button"
-          >
-            Add to cart
+          <button className="ProductPage__add-to-cart-button">
+            <span className="ProductPage__add-to-cart-text">Add to cart</span>
           </button>
         </div>
       </div>

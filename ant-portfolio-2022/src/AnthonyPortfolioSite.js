@@ -3,7 +3,7 @@ import NavMenu from "./components/NavMenu";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
 import React, { useLayoutEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./state/index";
 import SiteRoutes from "./SiteRoutes";
@@ -27,7 +27,6 @@ function AnthonyPortfolioSite() {
       <NavBar />
       <NavMenu />
       <Cart />
-
       <SiteRoutes />
       <Footer />
     </div>

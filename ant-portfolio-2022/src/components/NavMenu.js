@@ -55,8 +55,10 @@ function NavMenu() {
       className={`NavMenu ${menuDisplay ? "NavMenu--active" : ""}`}
     >
       <ul className="NavMenu__ul">
-        {menuItems.map((menuItem) => {
-          return <NavMenuLi key={uuidv4()} menuItem={menuItem} />;
+        {menuItems.map((menuItem, index) => {
+          return (
+            <NavMenuLi key={uuidv4()} menuItem={menuItem} index={index + 1} />
+          );
         })}
       </ul>
     </a.nav>

@@ -5,22 +5,21 @@ import NavLogo from "../sub-components/NavLogo";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import { useSpring, animated as a } from "react-spring";
-import LoadingWrapper from "./../sub-components/LoadingWrapper";
+// import LoadingWrapper from "./../sub-components/LoadingWrapper";
 
 function NavBar() {
   const dispatch = useDispatch();
 
   const {
-    updateLoadingOuterBackgroundInFrame,
-    updateLoadingVisible,
-    updateLoadingDisplay,
+    // updateLoadingOuterBackgroundInFrame,
+    // updateLoadingVisible,
+    // updateLoadingDisplay,
   } = bindActionCreators(actionCreators, dispatch);
-  let { loading, loadingVisible, loadingDisplay, menuOpacity } = useSelector(
-    (state) => state
-  );
+  let { loading, loadingVisible, loadingDisplay, menuOpacity, windowSize } =
+    useSelector((state) => state);
 
   const style = {
     NavBar: useSpring({
