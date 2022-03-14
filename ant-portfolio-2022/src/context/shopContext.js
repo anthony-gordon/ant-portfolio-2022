@@ -149,19 +149,21 @@ function ShopProvider({ children }) {
   };
 
   const addItemToCheckout = function (variantId, quantity, checkoutId) {
-    const lineItemsToAdd = [
-      {
-        variantId,
-        quantity: parseInt(quantity),
-      },
-    ];
-    console.log(lineItemsToAdd);
+    return new Promise((resolve) => {
+      const lineItemsToAdd = [
+        {
+          variantId,
+          quantity: parseInt(quantity),
+        },
+      ];
 
-    client.checkout
-      .addLineItems(checkoutId, lineItemsToAdd)
-      .then((checkout) => {
-        setCheckout(checkout);
-      });
+      client.checkout
+        .addLineItems(checkoutId, lineItemsToAdd)
+        .then((checkout) => {
+          setCheckout(checkout);
+          resolve("resolved");
+        });
+    });
   };
 
   return (

@@ -4,6 +4,7 @@ import { ShopContext } from "../context/shopContext";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import Image from "../sub-components/Image";
+import AddToCartButton from "../sub-components/AddToCartButton";
 import { useSpring, animated as a } from "react-spring";
 
 function ProductPage() {
@@ -55,9 +56,12 @@ function ProductPage() {
           <p className="ProductPage__details-row-text">{product.description}</p>
         </div>
         <div className="ProductPage__add-to-cart">
-          <button className="ProductPage__add-to-cart-button">
-            <span className="ProductPage__add-to-cart-text">Add to cart</span>
-          </button>
+          <AddToCartButton
+            addItemToCheckout={addItemToCheckout}
+            variantId={product.variant_id}
+            quantity={1}
+            checkoutId={checkout.id}
+          />
         </div>
       </div>
     </div>
