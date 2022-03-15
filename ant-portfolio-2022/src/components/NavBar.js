@@ -23,12 +23,16 @@ function NavBar() {
 
   const style = {
     NavBar: useSpring({
-      height: loading ? `100vh` : `100px`,
+      // height: loadingVisible ? `100vh` : `100px`,
     }),
   };
   return (
-    <a.div
-      style={style.NavBar}
+    // <a.div
+    //   style={style.NavBar}
+    //   className={`NavBar ${menuOpacity ? "NavBar--menu-open" : ""}`}
+    // >
+    <div
+      // style={style.NavBar}
       className={`NavBar ${menuOpacity ? "NavBar--menu-open" : ""}`}
     >
       <div className="NavBar__wrapper">
@@ -41,7 +45,8 @@ function NavBar() {
       <LoadingSpinner rec_number={2} />
       <LoadingSpinner rec_number={3} />
       {/* <LoadingWrapper /> */}
-    </a.div>
+    </div>
+    // </a.div>
   );
 }
 

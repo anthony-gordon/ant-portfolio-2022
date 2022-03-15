@@ -2,7 +2,6 @@ import "./../style/components/Cart.css";
 import React, { useContext } from "react";
 import { ShopContext } from "../context/shopContext";
 import { useSelector, useDispatch } from "react-redux";
-import { animated as a, useSpring } from "react-spring";
 import CartLineItem from "./../sub-components/CartLineItem";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
@@ -35,28 +34,23 @@ function Cart() {
   );
   const { checkout, strings, formatMoney } = useContext(ShopContext);
 
-  const style = {
-    Cart: useSpring({
-      transform: `translateX(${cartOpacity ? 0 : 100}%)`,
-      paddingRight: `${scrollBarWidth}px`,
-      paddingTop: `${navBarHeight}px`,
-    }),
-    CartUnderlay: useSpring({
-      opacity: cartOpacity ? 0.5 : 0,
-      display: `${cartDisplay ? "block" : "none"}`,
-    }),
-  };
   return (
     <>
-      <a.div
-        style={style.CartUnderlay}
+      <div
         tabIndex={-1}
-        className="Cart__underlay"
+        className={`Cart__underlay ${
+          cartOpacity ? "Cart__underlay--visible" : ""
+        } ${cartDisplay ? "Cart__underlay--displaying" : ""}`}
         onClick={toggleCartDisplayOpacity}
-      ></a.div>
-      <a.div
-        style={style.Cart}
-        className={`Cart ${cartDisplay ? "Cart--active" : ""}`}
+      ></div>
+      <div
+        style={{
+          paddingRight: `${scrollBarWidth}px`,
+          paddingTop: `${navBarHeight}px`,
+        }}
+        className={`Cart ${cartOpacity ? "Cart--visible" : ""} ${
+          cartDisplay ? "Cart--active" : ""
+        }`}
       >
         <div className="Cart__content-wrapper">
           <div className="Cart__header">
@@ -133,7 +127,7 @@ function Cart() {
             </a>
           </div>
         </div>
-      </a.div>
+      </div>
     </>
   );
 }

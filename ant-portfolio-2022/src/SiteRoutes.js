@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { ShopContext } from "./context/shopContext";
 
 function SiteRoutes() {
-  const { products, variantsAsProducts } = useContext(ShopContext);
+  const { variantsAsProducts } = useContext(ShopContext);
 
   return (
     <Routes>

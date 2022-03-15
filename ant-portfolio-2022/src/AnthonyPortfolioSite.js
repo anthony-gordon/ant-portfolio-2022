@@ -27,7 +27,7 @@ function AnthonyPortfolioSite() {
       <NavBar />
       <NavMenu />
       <Cart />
-      <SiteRoutes />
+      {/* <SiteRoutes /> */}
       <Footer />
     </div>
   );

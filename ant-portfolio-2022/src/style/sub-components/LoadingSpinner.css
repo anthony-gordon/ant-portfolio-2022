@@ -91,7 +91,17 @@
 
 .NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper {
   mix-blend-mode: difference;
-  background: white;
+  background: rgba(255, 255, 255, 1);
+  display: flex;
+  transition: background var(--transition-on-hover);
+}
+
+.NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper-not-visible {
+  background: rgba(255, 255, 255, 0);
+}
+
+.NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper--not-displaying {
+  display: none;
 }
 
 @-ms-keyframes spin {

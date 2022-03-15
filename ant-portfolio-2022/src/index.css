@@ -134,6 +134,7 @@ html {
   --variant-pills-shadow-vertical-offset: 0px;
   --variant-pills-shadow-blur-radius: 0px;
   --transition-on-hover: cubic-bezier(0.77, 0, 0.175, 1) 0.25s;
+  --transition-move: cubic-bezier(0.77, 0, 0.175, 1) 0.5s;
   --transition-duration-on-hover: 0.2s;
 }
 

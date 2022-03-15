@@ -1,9 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import debounce from "lodash.debounce";
 import { useSelector } from "react-redux";
 import "../style/sub-components/LoadingSpinner.css";
-import { animated as a, useSpring } from "react-spring";
-import { useDebouncedEffect } from "../hooks/useDebouncedEffect";
 
 function LoadingSpinner({ rec_number }) {
   let { windowSize, loadingVisible, loadingDisplay } = useSelector(
@@ -18,10 +15,10 @@ function LoadingSpinner({ rec_number }) {
     `.LoadingSpinner__wrapper-${rec_number}`
   );
   const windowHeight = windowSize[1];
-  let xSpeed = Math.random() * 20;
+  let xSpeed = Math.random() * 5;
   let xOffset = Math.random() * (windowWidth - 40);
 
-  let ySpeed = Math.random() * 20;
+  let ySpeed = Math.random() * 5;
   let yOffset = Math.random() * (windowHeight - 40);
 
   const move = function () {
@@ -47,11 +44,11 @@ function LoadingSpinner({ rec_number }) {
   }
 
   useEffect(() => {
-    if (windowWidth && loadingVisible) {
+    if (windowWidth && loadingDisplay) {
       requestRef.current = requestAnimationFrame(onTick);
       return () => cancelAnimationFrame(requestRef.current);
     }
-  }, [windowWidth, loadingVisible]);
+  }, [windowWidth, loadingDisplay]);
 
   useEffect(() => {
     if (windowSize && windowSize.length > 0) {
@@ -71,23 +68,20 @@ function LoadingSpinner({ rec_number }) {
     }
   }, [windowSize]);
 
-  const style = {
-    LoadingSpinner: useSpring({
-      opacity: loadingVisible ? 1 : 0,
-      display: loadingDisplay ? "flex" : "none",
-    }),
-  };
-
   return (
-    <a.div style={style.LoadingSpinner} className={`LoadingSpinner`}>
+    <div className={`LoadingSpinner`}>
       <div
-        className={`LoadingSpinner__wrapper LoadingSpinner__wrapper-${rec_number}`}
+        // style={style.LoadingSpinner}
+        className={`LoadingSpinner__wrapper LoadingSpinner__wrapper-${rec_number} 
+        ${!loadingVisible ? "LoadingSpinner__wrapper-not-visible" : ""}
+        ${!loadingDisplay ? "LoadingSpinner__wrapper--not-displaying" : ""}
+        `}
       >
         <div className="LoadingSpinner__line LoadingSpinner__line--first"></div>
         <div className="LoadingSpinner__line LoadingSpinner__line--second"></div>
         <div className="LoadingSpinner__line LoadingSpinner__line--third"></div>
       </div>
-    </a.div>
+    </div>
   );
 }
 

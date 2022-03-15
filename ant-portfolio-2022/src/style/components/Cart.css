@@ -13,6 +13,12 @@
   display: flex;
   flex-direction: column;
   padding: 0 15px 0 15px;
+  transform: translateX(100%) !important;
+  transition: transform var(--transition-move);
+}
+
+.Cart--visible {
+  transform: translateX(0%) !important;
 }
 
 .Cart__underlay {
@@ -24,6 +30,17 @@
   position: fixed;
   cursor: pointer;
   z-index: 1000;
+  opacity: 0;
+  display: none;
+  transition: opacity var(--transition-move);
+}
+
+.Cart__underlay--visible {
+  opacity: 0.5;
+}
+
+.Cart__underlay--displaying {
+  display: block;
 }
 
 .Cart--active {

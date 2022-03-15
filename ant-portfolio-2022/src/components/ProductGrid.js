@@ -5,10 +5,6 @@ import ProductGridItem from "../sub-components/ProductGridItem";
 import { v4 as uuidv4 } from "uuid";
 
 function ProductGrid({ productList }) {
-  let { windowSize } = useSelector((state) => state);
-
-  useEffect(() => {});
-
   return (
     <div className="ProductGrid">
       {productList.map((product, index) => {
