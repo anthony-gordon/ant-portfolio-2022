@@ -115,7 +115,7 @@ function Cart() {
               </p>
             </div>
             <p className="Cart__footer-tax-shipping-note">
-              {strings.cart.tax_shipping_note}
+              {`${strings.cart.tax_shipping_note}`}
             </p>
             <a
               href={checkout.webUrl}

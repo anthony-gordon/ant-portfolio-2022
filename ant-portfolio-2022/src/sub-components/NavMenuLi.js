@@ -1,7 +1,5 @@
 import "../style/sub-components/NavMenuLi.css";
-import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
-import { useSpring, animated as a } from "react-spring";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
@@ -12,17 +10,9 @@ function NavMenuLi({ menuItem, index }) {
   const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
 
   const dispatch = useDispatch();
-  let { menuDisplay, menuOpacity } = useSelector((state) => state);
+  let { menuDisplay } = useSelector((state) => state);
 
   const [visible, setVisible] = useState(false);
-  const style = {
-    NavMenuLi: useSpring({
-      transform: visible
-        ? "translate3d(0px, 0px, 0px)"
-        : "translate3d(0px, 40px, 0px)",
-      opacity: visible ? 1 : 0,
-    }),
-  };
 
   useEffect(() => {
     if (menuDisplay) {
@@ -32,17 +22,11 @@ function NavMenuLi({ menuItem, index }) {
     } else {
       setVisible(false);
     }
-  }, [menuDisplay]);
+  }, [menuDisplay, index]);
 
   const { toggleMenuDisplay, toggleMenuOpacity } = bindActionCreators(
     actionCreators,
     dispatch
-  );
-
-  const [elementHoverLetterSpacing, setElementHoverLetterSpacing] = useSpring(
-    () => ({
-      letterSpacing: "2px",
-    })
   );
 
   function toggleMenuDisplayOpacity() {
@@ -61,10 +45,7 @@ function NavMenuLi({ menuItem, index }) {
     }
   }
   return (
-    <a.li
-      style={style.NavMenuLi}
-      className={`NavMenu__li ${visible ? "NavMenu__li--visible" : ""}`}
-    >
+    <li className={`NavMenu__li ${visible ? "NavMenu__li--visible" : ""}`}>
       <Link
         target={menuItem.internal ? "" : "_blank"}
         rel={menuItem.internal ? "" : "noopener noreferrer"}
@@ -72,33 +53,10 @@ function NavMenuLi({ menuItem, index }) {
         className="NavMenu__button"
       >
         <p onClick={toggleMenuDisplayOpacity} className="NavMenu__title">
-          {menuItem.words.map((word) => (
-            <a.span
-              style={elementHoverLetterSpacing}
-              onMouseEnter={() =>
-                setElementHoverLetterSpacing({
-                  letterSpacing: "5px",
-                })
-              }
-              onMouseLeave={() =>
-                setElementHoverLetterSpacing({
-                  letterSpacing: "2px",
-                })
-              }
-              onClick={() =>
-                setElementHoverLetterSpacing({
-                  letterSpacing: "2px",
-                })
-              }
-              key={uuidv4()}
-              className={`NavMenu__title-span `}
-            >
-              {`${word} `}
-            </a.span>
-          ))}
+          <span className={`NavMenu__title-span `}>{`${menuItem.words} `}</span>
         </p>
       </Link>
-    </a.li>
+    </li>
   );
 }
 

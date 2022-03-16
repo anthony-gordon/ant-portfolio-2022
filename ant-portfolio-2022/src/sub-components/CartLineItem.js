@@ -1,16 +1,27 @@
 import "../style/sub-components/CartLineItem.css";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
-import { v4 as uuidv4 } from "uuid";
 import { ShopContext } from "../context/shopContext";
 
 function CartLineItem({ item }) {
-  const { getImageString } = useContext(ShopContext);
-
+  const { getImageString, randomId } = useContext(ShopContext);
+  const [lineItemOptions] = useState(generateOptions());
   const dispatch = useDispatch();
+
+  function generateOptions() {
+    let optionsArray = [];
+    item.variant.selectedOptions.forEach((option) => {
+      let optionObject = {};
+      optionObject[`option_details`] = option;
+      optionObject[`key`] = randomId();
+
+      optionsArray.push(optionObject);
+    });
+    return optionsArray;
+  }
 
   let { cartDisplay } = useSelector((state) => state);
   const { toggleCartDisplay, toggleCartOpacity } = bindActionCreators(
@@ -31,10 +42,12 @@ function CartLineItem({ item }) {
       }, 500);
     }
   }
+
   return (
     <tr onClick={toggleCartDisplayOpacity} className="CartLineItem">
       <td className="CartLineItem__product-image-wrapper">
         <img
+          alt={item.variant.product.title}
           src={getImageString(item.variant.image.src, "medium")}
           className="CartLineItem__product-image"
         />
@@ -46,13 +59,13 @@ function CartLineItem({ item }) {
         >
           <h3 className="CartLineItem__product-title">{item.title}</h3>
         </Link>
-        {item.variant.selectedOptions.length > 0 ? (
-          item.variant.selectedOptions.map((option) => {
+        {lineItemOptions.length > 0 ? (
+          lineItemOptions.map((option) => {
             return (
               <div
-                key={uuidv4()}
+                key={option.key}
                 className="CartLineItem__product-variant-option"
-              >{`${option.name}: ${option.value}`}</div>
+              >{`${option.option_details.name}: ${option.option_details.value}`}</div>
             );
           })
         ) : (

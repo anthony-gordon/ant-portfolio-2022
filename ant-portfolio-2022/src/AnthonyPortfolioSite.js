@@ -3,7 +3,7 @@ import NavMenu from "./components/NavMenu";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
 import React, { useLayoutEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./state/index";
 import SiteRoutes from "./SiteRoutes";
@@ -14,12 +14,11 @@ function AnthonyPortfolioSite() {
   const { updateWindowSize } = bindActionCreators(actionCreators, dispatch);
 
   useLayoutEffect(() => {
-    function updateSize() {
+    const handleWindowResize = () => {
       updateWindowSize([window.innerWidth, window.innerHeight]);
-    }
-    window.addEventListener("resize", updateSize);
-    updateSize();
-    return () => window.removeEventListener("resize", updateSize);
+    };
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
   });
 
   return (
@@ -27,7 +26,7 @@ function AnthonyPortfolioSite() {
       <NavBar />
       <NavMenu />
       <Cart />
-      {/* <SiteRoutes /> */}
+      <SiteRoutes />
       <Footer />
     </div>
   );

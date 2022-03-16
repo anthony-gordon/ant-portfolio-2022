@@ -1,6 +1,6 @@
 const strings = {
   cart: {
-    tax_shipping_note: "Taxes and shipping calculated at checkout",
+    tax_shipping_note: `Taxes and shipping calculated at checkout`,
   },
 };
 
