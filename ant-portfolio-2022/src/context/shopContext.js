@@ -55,8 +55,8 @@ function ShopProvider({ children }) {
 
   const [client] = useState(
     Client.buildClient({
-      domain: "lay-z-boy-1993.myshopify.com",
-      storefrontAccessToken: "0aa1140efd450ddf2fd717f0de9b0e12",
+      domain: process.env.REACT_APP_STORE_DOMAIN,
+      storefrontAccessToken: process.env.REACT_APP_STORE_API_KEY,
     })
   );
 
