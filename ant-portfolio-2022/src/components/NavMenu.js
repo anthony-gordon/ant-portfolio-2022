@@ -1,67 +1,75 @@
-import React from "react";
 import "../style/components/NavMenu.css";
 import NavMenuLi from "./../sub-components/NavMenuLi";
 import { useSelector } from "react-redux";
-import { animated as a, useSpring } from "react-spring";
-import { v4 as uuidv4 } from "uuid";
+import { useContext, useState } from "react";
+import { ShopContext } from "../context/shopContext";
 
 function NavMenu() {
-  let { scrollBarWidth, navBarHeight, menuOpacity, menuDisplay } = useSelector(
+  let { menuOpacity, menuDisplay, scrollBarWidth } = useSelector(
     (state) => state
   );
 
+  const { randomId } = useContext(ShopContext);
   const style = {
-    NavMenu: useSpring({
-      opacity: menuOpacity ? 1 : 0,
+    NavMenu: {
       paddingRight: `${scrollBarWidth}px`,
-      paddingTop: `${navBarHeight}px`,
-    }),
-    NavMenuButton: useSpring({
-      letterSpacing: "0.1rem",
-    }),
+    },
   };
 
-  const menuItems = [
+  const [menuItems] = useState([
     {
       words: ["About"],
       link: "/about",
       internal: true,
+      key: randomId(),
     },
     {
       words: ["Links"],
       link: "/links",
       internal: true,
+      key: randomId(),
     },
     {
       words: ["Portfolio"],
       link: "/artworks/1",
       internal: true,
+      key: randomId(),
     },
     {
       words: ["Contact"],
       link: "/contact",
       internal: true,
+      key: randomId(),
     },
     {
       words: ["Shop"],
       link: "/shop",
       internal: false,
+      key: randomId(),
     },
-  ];
+  ]);
 
   return (
-    <a.nav
+    <nav
       style={style.NavMenu}
-      className={`NavMenu ${menuDisplay ? "NavMenu--active" : ""}`}
+      className={`NavMenu ${menuOpacity ? "NavMenu--visible" : ""} ${
+        menuDisplay ? "NavMenu--active" : ""
+      }`}
     >
-      <ul className="NavMenu__ul">
-        {menuItems.map((menuItem, index) => {
-          return (
-            <NavMenuLi key={uuidv4()} menuItem={menuItem} index={index + 1} />
-          );
-        })}
-      </ul>
-    </a.nav>
+      <div className="NavMenu__wrapper">
+        <ul className="NavMenu__ul">
+          {menuItems.map((menuItem, index) => {
+            return (
+              <NavMenuLi
+                key={menuItem.key}
+                menuItem={menuItem}
+                index={index + 1}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    </nav>
   );
 }
 

@@ -13,10 +13,13 @@
 }
 
 .NavLogo__text {
-  font-family: durer;
+  font-family: var(--font-header-logo-family);
+  font-style: var(--font-header-logo-style);
+  font-weight: var(--font-header-logo-weight);
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
+  color: rgb(var(--color-base-text));
   transition: color var(--transition-on-hover);
 }
 

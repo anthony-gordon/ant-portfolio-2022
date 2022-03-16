@@ -17,9 +17,6 @@
 .CartIcon svg {
   height: 32px;
   width: 32px;
-  -webkit-transition: fill var(--transition-on-hover);
-  -moz-transition: fill var(--transition-on-hover);
-  -o-transition: fill var(--transition-on-hover);
   transition: fill var(--transition-on-hover);
   fill: rgb(var(--color-base-text));
 }

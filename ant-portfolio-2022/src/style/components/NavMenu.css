@@ -5,22 +5,31 @@
   bottom: 0;
   left: 0;
   right: 0;
-  transform: translate3d(0, 100vh, 0);
   visibility: hidden;
-  overflow-y: hidden;
-  overflow-y: scroll;
+  overflow: hidden;
   box-sizing: content-box;
   width: 100%;
-  display: flex;
-  padding: 100px 0;
   background: var(--gradient-base-background-1);
   background-attachment: fixed;
+  height: 100px;
+  transition: var(--transition-move);
+}
+
+.NavMenu__wrapper {
+  display: flex;
+  height: 100vh;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .NavMenu--active {
   visibility: inherit;
-  transform: translateZ(0);
   overflow-y: visible;
+}
+
+.NavMenu--visible {
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .NavMenu__ul {

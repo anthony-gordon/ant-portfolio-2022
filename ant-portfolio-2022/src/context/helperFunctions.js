@@ -41,6 +41,8 @@ export function formatMoney(cents, format) {
     case "amount_no_decimals_with_comma_separator":
       value = formatWithDelimiters(cents, 0, ".", ",");
       break;
+    default:
+      value = value = formatWithDelimiters(cents, 2);
   }
 
   return formatString.replace(placeholderRegex, value);
@@ -67,14 +69,21 @@ export function addRemoveFixedPositionOnBody(addOrRemove) {
   console.log("vs", vs);
   if (
     vs &&
-    addOrRemove == "add" &&
+    addOrRemove === "add" &&
     !body.classList.contains("body__no-scroll")
   ) {
     body.classList.add("body__no-scroll");
   } else if (
-    addOrRemove == "remove" &&
+    addOrRemove === "remove" &&
     body.classList.contains("body__no-scroll")
   ) {
     body.classList.remove("body__no-scroll");
   }
+}
+
+export function randomId() {
+  let prefix = "key_";
+  return Math.random()
+    .toString(36)
+    .replace("0.", prefix || "");
 }

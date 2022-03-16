@@ -2,38 +2,15 @@ import "../style/components/NavBar.css";
 import NavHamburgerIcon from "../sub-components/NavHamburgerIcon";
 import CartIcon from "../sub-components/CartIcon";
 import NavLogo from "../sub-components/NavLogo";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../state/index";
-// import { useEffect } from "react";
-import LoadingSpinner from "./LoadingSpinner";
-import { useSpring, animated as a } from "react-spring";
-// import LoadingWrapper from "./../sub-components/LoadingWrapper";
+import { useSelector } from "react-redux";
+import LoadingSpinner from "../sub-components/LoadingSpinner";
 
 function NavBar() {
-  const dispatch = useDispatch();
+  let { loadingVisible } = useSelector((state) => state);
 
-  const {
-    // updateLoadingOuterBackgroundInFrame,
-    // updateLoadingVisible,
-    // updateLoadingDisplay,
-  } = bindActionCreators(actionCreators, dispatch);
-  let { loading, loadingVisible, loadingDisplay, menuOpacity, windowSize } =
-    useSelector((state) => state);
-
-  const style = {
-    NavBar: useSpring({
-      // height: loadingVisible ? `100vh` : `100px`,
-    }),
-  };
   return (
-    // <a.div
-    //   style={style.NavBar}
-    //   className={`NavBar ${menuOpacity ? "NavBar--menu-open" : ""}`}
-    // >
     <div
-      // style={style.NavBar}
-      className={`NavBar ${menuOpacity ? "NavBar--menu-open" : ""}`}
+      className={`NavBar ${!loadingVisible ? "NavBar--loading-completed" : ""}`}
     >
       <div className="NavBar__wrapper">
         <NavHamburgerIcon />
@@ -41,12 +18,10 @@ function NavBar() {
         <CartIcon />
       </div>
 
-      <LoadingSpinner rec_number={1} />
-      <LoadingSpinner rec_number={2} />
-      <LoadingSpinner rec_number={3} />
-      {/* <LoadingWrapper /> */}
+      <LoadingSpinner number={1} />
+      <LoadingSpinner number={2} />
+      <LoadingSpinner number={3} />
     </div>
-    // </a.div>
   );
 }
 

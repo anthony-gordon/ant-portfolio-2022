@@ -4,8 +4,8 @@
 }
 
 .LoadingSpinner__line {
-  width: 500px;
-  height: 50px;
+  width: 200px;
+  height: 20px;
   background-color: inherit;
   position: absolute;
 }
@@ -210,4 +210,14 @@
   to {
     transform: rotate(120deg);
   }
+}
+@media only screen and (min-width: 769px) {
+  .LoadingSpinner__line {
+    width: 500px;
+    height: 50px;
+  }
+}
+
+.LoadingSpinner--not-ready {
+  display: none;
 }

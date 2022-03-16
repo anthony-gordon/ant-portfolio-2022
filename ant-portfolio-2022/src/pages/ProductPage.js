@@ -1,11 +1,9 @@
 import "./../style/pages/ProductPage.css";
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { ShopContext } from "../context/shopContext";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
-import Image from "../sub-components/Image";
 import AddToCartButton from "../sub-components/AddToCartButton";
-import { useSpring, animated as a } from "react-spring";
 
 function ProductPage() {
   let { productHandle } = useParams();
@@ -14,16 +12,14 @@ function ProductPage() {
     addItemToCheckout,
     checkout,
     fetchCurrentProduct,
-    getImageString,
     formatMoney,
-    variantsAsProducts,
   } = useContext(ShopContext);
 
   useEffect(() => {
     fetchCurrentProduct(productHandle);
   }, [fetchCurrentProduct, productHandle]);
 
-  return product.title && productHandle == product.handle ? (
+  return product.title && productHandle === product.handle ? (
     <div className="ProductPage">
       <Helmet>
         <title>{`${product.title} - Anthony Gordon`}</title>
@@ -33,12 +29,12 @@ function ProductPage() {
         />
       </Helmet>
       <div className="ProductPage__image-wrapper">
-        <Image
+        {/* <Image
           src={product.images[0].src}
           size={"large"}
           aspect={product.images[0].height / product.images[0].width}
           product={product}
-        />
+        /> */}
       </div>
 
       <div className="ProductPage__details">

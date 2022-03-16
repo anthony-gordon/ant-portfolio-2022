@@ -1,5 +1,13 @@
 .NavMenu__li {
   list-style: inherit;
+  opacity: 0;
+  transform: translate3d(0px, 40px, 0px);
+  transition: var(--transition-move);
+}
+
+.NavMenu__li--visible {
+  opacity: 1;
+  transform: translate3d(0px, 0px, 0px);
 }
 
 .NavMenu__button {
@@ -50,8 +58,11 @@
   font-size: 30px;
   text-align: center;
   text-transform: uppercase;
+  transition: var(--transition-on-hover);
+  color: rgb(var(--color-base-text));
 }
 
-.NavMenu__title-span--bold {
-  /* font-family: "Archivo Black", sans-serif; */
+.NavMenu__title-span:hover {
+  letter-spacing: 5px;
+  color: rgb(var(--color-base-text-highlight));
 }
