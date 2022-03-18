@@ -59,7 +59,11 @@ function ShopProvider({ children }) {
       const res = await fetch(`/api/fetch-checkout?id=${checkoutId}`);
       const checkout = await res.json();
       console.log(checkout);
-      setCheckout(checkout[`checkout`]);
+      if (checkout[`checkout`]) {
+        setCheckout(checkout[`checkout`]);
+      } else {
+        loadServerlessCreateCheckoutFunction();
+      }
     } catch (error) {
       console.error(error);
     }
