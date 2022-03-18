@@ -1,0 +1,1 @@
+module.exports = require('./src/functions/add-item-to-checkout/add-item-to-checkout.js')

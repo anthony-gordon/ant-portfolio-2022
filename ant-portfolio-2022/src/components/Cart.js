@@ -58,7 +58,9 @@ function Cart() {
               <h2 className="Cart__header-text">
                 Cart
                 <span className="Cart__header-text-cart-count">
-                  {checkout.lineItems && ` - ${checkout.lineItems.length}`}
+                  {checkout.lineItems && checkout.lineItems.length > 0
+                    ? ` - ${checkout.lineItems.length}`
+                    : ""}
                 </span>
               </h2>
             </div>

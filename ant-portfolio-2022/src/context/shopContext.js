@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Client from "shopify-buy";
 import strings from "./strings.js";
 import {
   formatMoney,
@@ -53,12 +52,77 @@ function ShopProvider({ children }) {
     }
   }, [products, checkout, loadingProcessDone, dispatch]);
 
-  const [client] = useState(
-    Client.buildClient({
-      domain: process.env.REACT_APP_STORE_DOMAIN,
-      storefrontAccessToken: process.env.REACT_APP_STORE_API_KEY,
-    })
-  );
+  const loadServerlessFetchCheckoutFunction = async (checkoutId) => {
+    console.log("there");
+
+    try {
+      const res = await fetch(`/api/fetch-checkout?id=${checkoutId}`);
+      const checkout = await res.json();
+      console.log(checkout);
+      setCheckout(checkout[`checkout`]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const loadServerlessCreateCheckoutFunction = async () => {
+    console.log("here");
+    try {
+      const res = await fetch(`/api/create-checkout`);
+      const checkout = await res.json();
+      setCheckout(checkout[`checkout`]);
+      localStorage.setItem("checkout", checkout[`checkout`].id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const loadServerlessFunction = async () => {
+    try {
+      const res = await fetch("/api/build-client");
+
+      const products = await res.json();
+      console.log(products);
+      // setProducts(products[`products`]);
+      let productsArray = [];
+      products[`products`].forEach((product) => {
+        let productObject = product;
+        productObject[`first_image_string`] = getImageString(
+          product.images[0].src,
+          "small"
+        );
+        productsArray.push(productObject);
+      });
+      let variantsAsProductsArray = [];
+      setProducts(productsArray);
+      productsArray.forEach((product) => {
+        product.variants.forEach((variant) => {
+          let variantObject = {
+            title: `${product.title}${
+              product.variants.length > 1 ? " - " : ""
+            }${product.variants.length > 1 ? variant.title : ""}`,
+            product_id: product.id,
+            variant_id: variant.id,
+            price: variant.price,
+            description: product.description,
+            available_for_sale: product.availableForSale,
+            images: product.images,
+            handle: `${product.handle}${
+              product.variants.length > 1 ? "-" : ""
+            }${
+              product.variants.length > 1
+                ? variant.title.toLowerCase().replace(" ", "-")
+                : ""
+            }`,
+          };
+          variantsAsProductsArray.push(variantObject);
+        });
+      });
+      setVariantsAsProducts(variantsAsProductsArray);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fetchCurrentProduct = function (productHandle) {
     console.log(productHandle, productHandle.toLowerCase());
@@ -70,88 +134,32 @@ function ShopProvider({ children }) {
     }
   };
 
-  const addItemToCheckout = function (variantId, quantity, checkoutId) {
-    return new Promise((resolve) => {
-      const lineItemsToAdd = [
-        {
-          variantId,
-          quantity: parseInt(quantity),
-        },
-      ];
+  const addItemToCheckout = async (variantId, quantity, checkoutId) => {
+    let varId = variantId.replace(/=/g, "equalssymbol");
+    let checkId = checkoutId.replace(/=/g, "equalssymbol");
+    console.log(varId, quantity, varId);
 
-      client.checkout
-        .addLineItems(checkoutId, lineItemsToAdd)
-        .then((checkout) => {
-          setCheckout(checkout);
-          resolve("resolved");
-        });
-    });
+    try {
+      const res = await fetch(
+        `/api/add-item-to-checkout?quantity=${quantity}&variantid=${varId}&checkoutid=${checkId}`
+      );
+      const checkout = await res.json();
+      setCheckout(checkout[`checkout`]);
+      console.log(checkout);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    const fetchCheckout = function (checkoutId) {
-      client.checkout
-        .fetch(checkoutId)
-        .then((checkout) => {
-          setCheckout(checkout);
-        })
-        .catch((err) => console.log(err));
-    };
+    loadServerlessFunction();
 
-    const createCheckout = function () {
-      client.checkout.create().then((checkout) => {
-        setCheckout(checkout);
-        localStorage.setItem("checkout", checkout.id);
-      });
-    };
-
-    const fetchAllProducts = function () {
-      client.product.fetchAll().then((products) => {
-        let productsArray = [];
-        products.forEach((product) => {
-          let productObject = product;
-          productObject[`first_image_string`] = getImageString(
-            product.images[0].src,
-            "small"
-          );
-          productsArray.push(productObject);
-        });
-        let variantsAsProductsArray = [];
-        setProducts(productsArray);
-        productsArray.forEach((product) => {
-          product.variants.forEach((variant) => {
-            let variantObject = {
-              title: `${product.title}${
-                product.variants.length > 1 ? " - " : ""
-              }${product.variants.length > 1 ? variant.title : ""}`,
-              product_id: product.id,
-              variant_id: variant.id,
-              price: variant.price,
-              description: product.description,
-              available_for_sale: product.availableForSale,
-              images: product.images,
-              handle: `${product.handle}${
-                product.variants.length > 1 ? "-" : ""
-              }${
-                product.variants.length > 1
-                  ? variant.title.toLowerCase().replace(" ", "-")
-                  : ""
-              }`,
-            };
-            variantsAsProductsArray.push(variantObject);
-          });
-        });
-        setVariantsAsProducts(variantsAsProductsArray);
-      });
-    };
-
-    if (localStorage.checkout) {
-      fetchCheckout(localStorage.checkout);
+    if (localStorage.checkout && localStorage.checkout !== null) {
+      loadServerlessFetchCheckoutFunction(localStorage.checkout);
     } else {
-      createCheckout();
+      loadServerlessCreateCheckoutFunction();
     }
-    fetchAllProducts();
-  }, [client]);
+  }, []);
 
   return (
     <ShopContext.Provider

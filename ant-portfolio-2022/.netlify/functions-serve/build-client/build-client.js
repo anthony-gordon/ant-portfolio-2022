@@ -1,0 +1,1 @@
+module.exports = require('./src/functions/build-client/build-client.js')
