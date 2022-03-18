@@ -56,7 +56,9 @@ function ShopProvider({ children }) {
     console.log("there");
 
     try {
-      const res = await fetch(`/api/fetch-checkout?id=${checkoutId}`);
+      const res = await fetch(
+        `/.netlify/functions/fetch-checkout?id=${checkoutId}`
+      );
       const checkout = await res.json();
       console.log(checkout);
       if (checkout[`checkout`]) {
@@ -72,7 +74,7 @@ function ShopProvider({ children }) {
   const loadServerlessCreateCheckoutFunction = async () => {
     console.log("here");
     try {
-      const res = await fetch(`/api/create-checkout`);
+      const res = await fetch(`/.netlify/functions/create-checkout`);
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
       localStorage.setItem("checkout", checkout[`checkout`].id);
@@ -83,7 +85,7 @@ function ShopProvider({ children }) {
 
   const loadServerlessFunction = async () => {
     try {
-      const res = await fetch("/api/build-client");
+      const res = await fetch("/.netlify/functions/build-client");
 
       const products = await res.json();
       console.log(products);
@@ -145,7 +147,7 @@ function ShopProvider({ children }) {
 
     try {
       const res = await fetch(
-        `/api/add-item-to-checkout?quantity=${quantity}&variantid=${varId}&checkoutid=${checkId}`
+        `/.netlify/functions/add-item-to-checkout?quantity=${quantity}&variantid=${varId}&checkoutid=${checkId}`
       );
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
