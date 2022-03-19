@@ -28,7 +28,7 @@
   margin: 0 5px;
 }
 
-Footer__social-link .Footer__social-link svg {
+.Footer__social-link .Footer__social-link svg {
   -webkit-transition: fill var(--transition-on-hover);
   -moz-transition: fill var(--transition-on-hover);
   -o-transition: fill var(--transition-on-hover);

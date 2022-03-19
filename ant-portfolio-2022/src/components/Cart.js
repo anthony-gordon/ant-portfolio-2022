@@ -58,7 +58,9 @@ function Cart() {
               <h2 className="Cart__header-text">
                 Cart
                 <span className="Cart__header-text-cart-count">
-                  {checkout.lineItems && checkout.lineItems.length > 0
+                  {checkout &&
+                  checkout.lineItems &&
+                  checkout.lineItems.length > 0
                     ? ` - ${checkout.lineItems.length}`
                     : ""}
                 </span>
@@ -71,6 +73,8 @@ function Cart() {
               toggleCartDisplayOpacity={toggleCartDisplayOpacity}
             />
           </div>
+          <hr className="Cart__hr Cart__hr--header" />
+
           <table className="Cart__table">
             <thead className="Cart_table-header">
               <tr>
@@ -81,13 +85,7 @@ function Cart() {
                 >
                   Product
                 </th>
-                <th
-                  className="Cart_table-header-cell-quantity"
-                  scope="col"
-                  colSpan="1"
-                >
-                  Quantity
-                </th>
+
                 <th
                   className="Cart_table-header-cell-total"
                   scope="col"
@@ -99,33 +97,40 @@ function Cart() {
             </thead>
 
             <tbody className="Cart__table-body">
-              {checkout.lineItems &&
-                checkout.lineItems.map((item) => {
-                  return <CartLineItem key={item.id} item={item} />;
+              {checkout &&
+                checkout.lineItems &&
+                checkout.lineItems.map((item, index) => {
+                  return (
+                    <CartLineItem key={item.id} item={item} index={index + 1} />
+                  );
                 })}
             </tbody>
           </table>
-          <hr className="Cart__hr" />
           <div className="Cart__footer">
+            <hr className="Cart__hr" />
+
             <div className="Cart__footer-subtotal">
               <h3 className="Cart__footer-subtotal-header">Subtotal</h3>
               <p className="Cart__footer-subtotal-price">
-                {`${formatMoney(
-                  parseFloat(checkout.subtotalPrice) * 100,
-                  "${{amount}}"
-                )}  ${checkout.currencyCode}`}
+                {checkout &&
+                  `${formatMoney(
+                    parseFloat(checkout.subtotalPrice) * 100,
+                    "${{amount}}"
+                  )}  ${checkout.currencyCode}`}
               </p>
             </div>
             <p className="Cart__footer-tax-shipping-note">
               {`${strings.cart.tax_shipping_note}`}
             </p>
             <a
-              href={checkout.webUrl}
+              href={checkout && checkout.webUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="Cart__footer-checkout"
             >
-              <button className="Cart__footer-checkout-button">Checkout</button>
+              <button className="Cart__footer-checkout-button">
+                <span>Checkout</span>
+              </button>
             </a>
           </div>
         </div>

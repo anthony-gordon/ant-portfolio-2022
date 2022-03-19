@@ -1,15 +1,17 @@
 import "../style/sub-components/CartLineItem.css";
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
 import { ShopContext } from "../context/shopContext";
 
-function CartLineItem({ item }) {
+function CartLineItem({ item, index }) {
   const { getImageString, randomId } = useContext(ShopContext);
   const [lineItemOptions] = useState(generateOptions());
   const dispatch = useDispatch();
+
+  const [visible, setVisible] = useState(false);
 
   function generateOptions() {
     let optionsArray = [];
@@ -43,8 +45,20 @@ function CartLineItem({ item }) {
     }
   }
 
+  useEffect(() => {
+    if (cartDisplay) {
+      setTimeout(() => {
+        setVisible(true);
+      }, 100 + 200 * index);
+    } else {
+      setVisible(false);
+    }
+  }, [cartDisplay, index]);
+
   return (
-    <tr onClick={toggleCartDisplayOpacity} className="CartLineItem">
+    <tr
+      className={`CartLineItem ${visible ? "CartLineItem__li--visible" : ""}`}
+    >
       <td className="CartLineItem__product-image-wrapper">
         <img
           alt={item.variant.product.title}
@@ -54,17 +68,30 @@ function CartLineItem({ item }) {
       </td>
       <td className="CartLineItem__product-details-wrapper">
         <Link
-          to={`/products/${item.variant.product.handle}`}
+          to={`/products/${item.variant.product.handle}${
+            item.variant.title !== "Default Title" ? "-" : ""
+          }${
+            item.variant.title !== "Default Title"
+              ? item.variant.title.toLowerCase().replace(/ /g, "-")
+              : ""
+          }`}
           className="CartLineItem__product-link"
         >
-          <h3 className="CartLineItem__product-title">{item.title}</h3>
+          <h3
+            onClick={toggleCartDisplayOpacity}
+            className="CartLineItem__product-title"
+          >{`${item.quantity} x ${item.title}`}</h3>
         </Link>
         {lineItemOptions.length > 0 ? (
           lineItemOptions.map((option) => {
             return (
               <div
                 key={option.key}
-                className="CartLineItem__product-variant-option"
+                className={`CartLineItem__product-variant-option ${
+                  option.option_details.value == "Default Title"
+                    ? "CartLineItem__product-variant-option--hidden"
+                    : ""
+                }`}
               >{`${option.option_details.name}: ${option.option_details.value}`}</div>
             );
           })
@@ -80,10 +107,6 @@ function CartLineItem({ item }) {
 
       <td className="CartLineItem__product-total-wrapper">
         {`$${(item.variant.price * item.quantity).toFixed(2)} NZ`}
-      </td>
-      <td className="CartLineItem__product-quantity-wrapper">
-        <div className="CartLineItem__product-quantity-input-wrapper"></div>
-        <div className="CartLineItem__product-quantity-error"></div>
       </td>
     </tr>
   );

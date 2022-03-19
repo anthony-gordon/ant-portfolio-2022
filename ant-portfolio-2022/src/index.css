@@ -141,6 +141,11 @@ html {
   --transition-duration-on-hover: 0.2s;
   --grid-item-box-shadow: 5px 5px 10px rgba(46, 42, 57, 0.2);
   --grid-item-hover-box-shadow: 7px 7px 13px rgba(46, 42, 57, 0.15);
+  --cart-header-height: 100px;
+  --cart-footer-height: 230px;
+  --cart-table-header-height: 30px;
+  --cart-mobile-padding: 15px;
+  --cart-desktop-padding: 30px;
 }
 
 html,
