@@ -3,11 +3,11 @@ import ProductGrid from "./../components/ProductGrid";
 
 function Homepage({ productList }) {
   return (
-    <div className="Homepage">
+    <main className="Homepage">
       {productList && productList.length > 0 && (
         <ProductGrid productList={productList} />
       )}
-    </div>
+    </main>
   );
 }
 

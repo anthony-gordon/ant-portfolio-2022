@@ -1,0 +1,6 @@
+.ScrollContainer {
+  position: fixed;
+  will-change: transform;
+  right: 0;
+  left: 0;
+}

@@ -87,3 +87,92 @@ export function randomId() {
     .toString(36)
     .replace("0.", prefix || "");
 }
+
+export const gridScrollHelpers = {
+  gridItemDesktopLargeHeight: 600,
+  gridItemDesktopHeight: 400,
+  gridItemTabletHeight: 256.33333,
+  gridItemTopBottomMargin: 80,
+  gridDesktopColumns: 3,
+  getNumberOfRows: function (productListLength, gridDesktopColumns) {
+    let numberOfRows =
+      (productListLength +
+        (gridDesktopColumns - (productListLength % gridDesktopColumns))) /
+      gridDesktopColumns;
+    return numberOfRows;
+  },
+  getProductGridScrollHeight: function (
+    numberOfRows,
+    gridItemTopBottomMargin,
+    gridItemHeight,
+    windowHeight
+  ) {
+    let productGridHeight =
+      (numberOfRows - 1) * gridItemTopBottomMargin +
+      numberOfRows * gridItemHeight -
+      windowHeight;
+    return productGridHeight;
+  },
+  getProductGridStartingPosition: function (gridItemHeight, windowHeight) {
+    let productGridStartingPosition =
+      gridItemHeight > windowHeight ? 0 : (windowHeight - gridItemHeight) / 2;
+    return productGridStartingPosition;
+  },
+  getProductGridHeight: function (
+    numberOfRows,
+    gridItemTopBottomMargin,
+    gridItemHeight
+  ) {
+    let productGridHeight =
+      (numberOfRows - 1) * gridItemTopBottomMargin +
+      numberOfRows * gridItemHeight;
+    return productGridHeight;
+  },
+  getShortColumnExtraGridItemSpacing: function (
+    gridItemTopBottomMargin,
+    gridItemHeight,
+    numberOfRows
+  ) {
+    console.log(gridItemTopBottomMargin, gridItemHeight, numberOfRows);
+    console.log("firing");
+    let shortColumnExtraGridItemSpacing =
+      (gridItemTopBottomMargin + gridItemHeight) / (numberOfRows - 2);
+    console.log(
+      "shortColumnExtraGridItemSpacing",
+      shortColumnExtraGridItemSpacing
+    );
+    return shortColumnExtraGridItemSpacing;
+  },
+  getYTransform: function (
+    index,
+    y,
+    productGridStartingPosition,
+    productGridScrollHeight
+  ) {
+    console.log("Y", y, productGridStartingPosition, productGridScrollHeight);
+    let yTransform =
+      index !== 1
+        ? y +
+          productGridStartingPosition *
+            (1 - (0 - y) / productGridScrollHeight) -
+          productGridStartingPosition * ((0 - y) / productGridScrollHeight)
+        : -productGridScrollHeight -
+          y +
+          productGridStartingPosition * ((0 - y) / productGridScrollHeight) -
+          productGridStartingPosition * (1 - (0 - y) / productGridScrollHeight);
+    return yTransform;
+  },
+  determineShortColumn: function (
+    productListLength,
+    gridDesktopColumns,
+    index
+  ) {
+    let amountOfShortColumns =
+      gridDesktopColumns - (productListLength % gridDesktopColumns);
+    const shortColumn =
+      amountOfShortColumns > 0 &&
+      index >= gridDesktopColumns - amountOfShortColumns;
+
+    return shortColumn;
+  },
+};

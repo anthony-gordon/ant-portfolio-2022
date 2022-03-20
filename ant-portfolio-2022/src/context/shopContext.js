@@ -6,14 +6,16 @@ import {
   getImageString,
   addRemoveFixedPositionOnBody,
   randomId,
+  gridScrollHelpers,
 } from "./helperFunctions";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
+import { useSpring } from "react-spring";
 
 const ShopContext = React.createContext();
 
-function ShopProvider({ children }) {
+function ShopProvider({ children, y }) {
   const dispatch = useDispatch();
 
   const [products, setProducts] = useState([]);
@@ -182,6 +184,8 @@ function ShopProvider({ children }) {
         addRemoveFixedPositionOnBody: addRemoveFixedPositionOnBody,
         variantsAsProducts: variantsAsProducts,
         randomId: randomId,
+        y: y,
+        gridScrollHelpers: gridScrollHelpers,
       }}
     >
       {children}

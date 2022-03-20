@@ -1,0 +1,29 @@
+.AnthonyPortfolioSite {
+  /* width: 100%;
+  background: rgb(255, 255, 255); */
+  /* overflow: hidden;
+  height: calc(var(--vh) * 100);
+  overscroll-behavior: none; */
+  position: relative;
+}
+
+.AnthonyPortfolioSite__scrollable {
+  height: calc(var(--vh) * 100);
+  overflow: hidden scroll;
+  pointer-events: auto;
+}
+
+.AnthonyPortfolioSite__scrollable-spacer {
+  padding-top: var(--header-height);
+}
+@media only screen and (min-width: 769px) {
+  .AnthonyPortfolioSite__scrollable-spacer {
+    padding: 0;
+  }
+
+  .AnthonyPortfolioSite__scrollable {
+    height: auto;
+    overflow: auto;
+    pointer-events: auto;
+  }
+}

@@ -146,6 +146,7 @@ html {
   --cart-table-header-height: 30px;
   --cart-mobile-padding: 15px;
   --cart-desktop-padding: 30px;
+  --header-height: 100px;
 }
 
 html,
@@ -193,7 +194,11 @@ code {
 }
 
 * {
+  margin: 0px;
+  padding: 0px;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
 }
 
 h1,

@@ -114,3 +114,12 @@ export const updateLoadingOuterBackgroundInFrame = (data) => {
     });
   };
 };
+
+export const updateYOffset = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateYOffset",
+      payload: data,
+    });
+  };
+};
