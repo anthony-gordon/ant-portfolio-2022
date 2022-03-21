@@ -1,13 +1,12 @@
 import "../style/components/ProductGrid.css";
 import ProductGridItem from "../sub-components/ProductGridItem";
 import { useState, useContext, useEffect } from "react";
-import { animated as a, useSpring } from "react-spring";
+import { animated as a, useSpring, useTransition } from "react-spring";
 import { ShopContext } from "../context/shopContext";
 import { useSelector } from "react-redux";
 
 function ProductGrid({ productList }) {
-  const { windowSize } = useSelector((state) => state);
-
+  const { windowSize, YOffset } = useSelector((state) => state);
   const { y, gridScrollHelpers } = useContext(ShopContext);
   const {
     gridItemDesktopHeight,
@@ -21,6 +20,8 @@ function ProductGrid({ productList }) {
     getYTransform,
     determineShortColumn,
     getShortColumnExtraGridItemSpacing,
+    headerFooterHeight,
+    getXRotate,
   } = gridScrollHelpers;
 
   const [numberOfRows] = useState(
@@ -50,7 +51,14 @@ function ProductGrid({ productList }) {
   );
 
   const [productGridStartingPosition, setProductGridStartingPosition] =
-    useState(getProductGridStartingPosition(gridItemHeight, windowSize[1]));
+    useState(
+      getProductGridStartingPosition(
+        gridItemHeight,
+        windowSize[1],
+        gridItemTopBottomMargin,
+        headerFooterHeight
+      )
+    );
 
   useEffect(() => {
     setGridItemHeight(
@@ -68,7 +76,12 @@ function ProductGrid({ productList }) {
       )
     );
     setProductGridStartingPosition(
-      getProductGridStartingPosition(gridItemHeight, windowSize[1])
+      getProductGridStartingPosition(
+        gridItemHeight,
+        windowSize[1],
+        gridItemTopBottomMargin,
+        headerFooterHeight
+      )
     );
     setProductGridScrollHeight(
       getProductGridScrollHeight(
@@ -102,8 +115,9 @@ function ProductGrid({ productList }) {
         transform: y.to(
           (y) => `translate(0px,${windowSize[0] > 768 ? 0 : y}px) `
         ),
+        perspective: `${windowSize[0] > 768 ? `1000px` : `none`}`,
       }}
-      className="ProductGrid"
+      className={`ProductGrid`}
     >
       {splitProducts.map((splitProductsArray, index) => {
         let shortColumn = determineShortColumn(
@@ -116,7 +130,7 @@ function ProductGrid({ productList }) {
             style={{
               transform: y.to(
                 (y) =>
-                  `translate(0px,${
+                  `translateY(${
                     windowSize[0] < 769
                       ? 0
                       : getYTransform(
@@ -125,7 +139,11 @@ function ProductGrid({ productList }) {
                           productGridStartingPosition,
                           productGridScrollHeight
                         )
-                  }px) `
+                  }px) rotateX(${getXRotate(
+                    y,
+                    YOffset,
+                    productGridScrollHeight
+                  )}deg) `
               ),
             }}
             className={`ProductGrid__column-wrapper `}

@@ -18,33 +18,15 @@ function NavMenu() {
 
   const [menuItems] = useState([
     {
-      words: ["About"],
+      words: ["about"],
       link: "/about",
       internal: true,
       key: randomId(),
     },
     {
-      words: ["Links"],
-      link: "/links",
-      internal: true,
-      key: randomId(),
-    },
-    {
-      words: ["Portfolio"],
-      link: "/artworks/1",
-      internal: true,
-      key: randomId(),
-    },
-    {
-      words: ["Contact"],
-      link: "/contact",
-      internal: true,
-      key: randomId(),
-    },
-    {
-      words: ["Shop"],
+      words: ["shop"],
       link: "/shop",
-      internal: false,
+      internal: true,
       key: randomId(),
     },
   ]);

@@ -18,9 +18,9 @@
   height: 32px;
   width: 32px;
   transition: fill var(--transition-on-hover);
-  fill: rgb(var(--color-base-text));
+  fill: rgb(var(--color-base-text-inverse));
 }
 
-.CartIcon__wrapper:hover svg {
+/* .CartIcon__wrapper:hover svg {
   fill: rgb(var(--color-base-text-highlight));
-}
+} */

@@ -123,3 +123,12 @@ export const updateYOffset = (data) => {
     });
   };
 };
+
+export const updateCursorHover = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateCursorHover",
+      payload: data,
+    });
+  };
+};

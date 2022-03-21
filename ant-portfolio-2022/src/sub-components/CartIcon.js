@@ -8,10 +8,8 @@ function CartIcon() {
   const dispatch = useDispatch();
 
   let { cartDisplay, cartOpacity } = useSelector((state) => state);
-  const { toggleCartDisplay, toggleCartOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { toggleCartDisplay, toggleCartOpacity, updateCursorHover } =
+    bindActionCreators(actionCreators, dispatch);
 
   function toggleCartDisplayOpacity() {
     if (!cartDisplay) {
@@ -30,6 +28,8 @@ function CartIcon() {
     <div className="CartIcon">
       <div
         onClick={toggleCartDisplayOpacity}
+        onMouseEnter={() => updateCursorHover(true)}
+        onMouseLeave={() => updateCursorHover(false)}
         className={`CartIcon__wrapper${
           cartOpacity ? " CartIcon__wrapper--open" : ""
         } ${

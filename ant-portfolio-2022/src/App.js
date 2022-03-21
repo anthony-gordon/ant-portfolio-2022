@@ -17,12 +17,29 @@ function App() {
     config: {
       mass: 1,
       tension: 200,
-      friction: 70,
+      friction: 50,
       precision: 0.00001,
       velocity: 0,
       clamp: true,
+      bounce: true,
     },
   }));
+
+  const [{ mousePositionX, mousePositionY }, setMousePosition] = useSpring(
+    () => ({
+      mousePositionX: [0],
+      mousePositionY: [0],
+
+      config: {
+        mass: 1,
+        tension: 200,
+        friction: 30,
+        precision: 0.00001,
+        velocity: 0,
+        clamp: true,
+      },
+    })
+  );
 
   useEffect(() => {
     const handleScroll = () => set({ y: [-window.pageYOffset] });
@@ -30,9 +47,25 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [set]);
 
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        mousePositionX: [e.clientX],
+        mousePositionY: [e.clientY],
+      });
+    };
+    window.addEventListener("mousemove", (e) => handleMouseMove(e));
+    return () =>
+      window.removeEventListener("mousemove", (e) => handleMouseMove(e));
+  }, [setMousePosition]);
+
   return (
     <HelmetProvider>
-      <ShopProvider y={y}>
+      <ShopProvider
+        mousePositionX={mousePositionX}
+        mousePositionY={mousePositionY}
+        y={y}
+      >
         <div className="App">
           <AnthonyPortfolioSite />
         </div>

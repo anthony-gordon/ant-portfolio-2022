@@ -10,18 +10,20 @@ function NavHamburgerIcon() {
   const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
 
   let { menuDisplay, menuOpacity } = useSelector((state) => state);
-  const { toggleMenuDisplay, toggleMenuOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { toggleMenuDisplay, toggleMenuOpacity, updateCursorHover } =
+    bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
+    updateCursorHover(false);
     if (!menuDisplay) {
       toggleMenuDisplay();
       addRemoveFixedPositionOnBody("add");
 
       setTimeout(() => {
         toggleMenuOpacity();
+        setTimeout(() => {
+          updateCursorHover(true);
+        }, 500);
       }, 10);
     } else if (menuDisplay) {
       toggleMenuOpacity();
@@ -37,6 +39,8 @@ function NavHamburgerIcon() {
     <div className="NavHamburgerIcon">
       <div
         onClick={toggleMenuDisplayOpacity}
+        onMouseEnter={() => updateCursorHover(true)}
+        onMouseLeave={() => updateCursorHover(false)}
         className={`NavHamburgerIcon__wrapper${
           menuOpacity ? " NavHamburgerIcon__wrapper--open" : ""
         } ${

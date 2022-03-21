@@ -31,7 +31,7 @@
   position: absolute;
   height: 0.2rem;
   width: 50%;
-  background: rgb(var(--color-base-text));
+  background: rgb(var(--color-base-text-inverse));
   opacity: 1;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
@@ -117,6 +117,6 @@
   top: 0.906rem;
 }
 
-.NavHamburgerIcon__wrapper:hover span {
-  background: rgb(var(--color-base-text-highlight));
-}
+/* .NavHamburgerIcon__wrapper:hover span {
+  background: rgb(var(--color-base-text-inverse));
+} */

@@ -15,7 +15,7 @@ import { useSpring } from "react-spring";
 
 const ShopContext = React.createContext();
 
-function ShopProvider({ children, y }) {
+function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
   const dispatch = useDispatch();
 
   const [products, setProducts] = useState([]);
@@ -186,6 +186,8 @@ function ShopProvider({ children, y }) {
         randomId: randomId,
         y: y,
         gridScrollHelpers: gridScrollHelpers,
+        mousePositionX: mousePositionX,
+        mousePositionY: mousePositionY,
       }}
     >
       {children}

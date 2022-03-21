@@ -19,10 +19,10 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
-  color: rgb(var(--color-base-text));
+  color: rgb(var(--color-base-text-inverse));
   transition: color var(--transition-on-hover);
 }
 
 .NavLogo__text:hover {
-  color: rgb(var(--color-base-text-highlight));
+  /* color: rgb(var(--color-base-text-highlight)); */
 }

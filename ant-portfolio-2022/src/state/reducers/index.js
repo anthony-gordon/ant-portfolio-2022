@@ -11,6 +11,7 @@ import updateLoadingOuterBackgroundInFrameReducer from "./updateLoadingOuterBack
 import updateLoadingVisibleReducer from "./updateLoadingVisibleReducer";
 import updateLoadingDisplayReducer from "./updateLoadingDisplayReducer";
 import updateYOffsetReducer from "./updateYOffsetReducer";
+import updateCursorHoverReducer from "./updateCursorHoverReducer";
 
 const reducers = combineReducers({
   menuDisplay: toggleMenuDisplayReducer,
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   loadingVisible: updateLoadingVisibleReducer,
   loadingDisplay: updateLoadingDisplayReducer,
   YOffset: updateYOffsetReducer,
+  cursorHover: updateCursorHoverReducer,
 });
 
 export default reducers;

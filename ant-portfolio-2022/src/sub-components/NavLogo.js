@@ -8,10 +8,8 @@ function NavLogo() {
   const dispatch = useDispatch();
 
   let { menuDisplay } = useSelector((state) => state);
-  const { toggleMenuDisplay, toggleMenuOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { toggleMenuDisplay, toggleMenuOpacity, updateCursorHover } =
+    bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
     if (menuDisplay) {
@@ -24,7 +22,12 @@ function NavLogo() {
   return (
     <h1 className="NavLogo">
       <Link className="NavLogo__link" to={`/`}>
-        <div onClick={toggleMenuDisplayOpacity} className="NavLogo__text">
+        <div
+          onMouseEnter={() => updateCursorHover(true)}
+          onMouseLeave={() => updateCursorHover(false)}
+          onClick={toggleMenuDisplayOpacity}
+          className="NavLogo__text"
+        >
           Anthony Gordon
         </div>
       </Link>

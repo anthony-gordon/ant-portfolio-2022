@@ -9,6 +9,7 @@ import { actionCreators } from "./state/index";
 import SiteRoutes from "./SiteRoutes";
 import "./style/components/AnthonyPortfolioSite.css";
 import ScrollContainer from "./components/ScrollContainer";
+import CursorWrapper from "./components/CursorWrapper";
 
 function AnthonyPortfolioSite() {
   const dispatch = useDispatch();
@@ -44,11 +45,12 @@ function AnthonyPortfolioSite() {
 
   return (
     <div onScroll={console.log("hi")} className="AnthonyPortfolioSite">
-      {/* <header>
-        <NavBar />
-        <NavMenu />
-        <Cart />
-      </header> */}
+      <CursorWrapper />
+      {/* <header> */}
+      <NavBar />
+      <NavMenu />
+      <Cart />
+      {/* </header> */}
       {/* <div className="AnthonyPortfolioSite__scrollable">
         <div className="AnthonyPortfolioSite__scrollable-spacer"> */}
       <ScrollContainer>
@@ -56,8 +58,7 @@ function AnthonyPortfolioSite() {
       </ScrollContainer>
       {/* </div>
       </div> */}
-      {/* 
-      <Footer /> */}
+      {/* <Footer /> */}
     </div>
   );
 }

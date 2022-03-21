@@ -94,6 +94,7 @@ export const gridScrollHelpers = {
   gridItemTabletHeight: 256.33333,
   gridItemTopBottomMargin: 80,
   gridDesktopColumns: 3,
+  headerFooterHeight: 100,
   getNumberOfRows: function (productListLength, gridDesktopColumns) {
     let numberOfRows =
       (productListLength +
@@ -113,9 +114,40 @@ export const gridScrollHelpers = {
       windowHeight;
     return productGridHeight;
   },
-  getProductGridStartingPosition: function (gridItemHeight, windowHeight) {
+  getXRotate: function (y, YOffset, productGridScrollHeight) {
+    console.log(
+      "y, YOffset, productGridScrollHeight",
+      y,
+      YOffset,
+      productGridScrollHeight
+    );
+    let difference =
+      YOffset === 0 && y === 0
+        ? 1
+        : (YOffset + productGridScrollHeight) / (-y + productGridScrollHeight);
+    console.log("difference", difference);
+    let degs = (difference - 1) * 20;
+    return degs;
+  },
+  getProductGridStartingPosition: function (
+    gridItemHeight,
+    windowHeight,
+    gridItemTopBottomMargin,
+    headerFooterHeight
+  ) {
+    console.log(
+      "starting",
+      gridItemHeight,
+      windowHeight,
+      gridItemTopBottomMargin,
+      headerFooterHeight
+    );
+    // let productGridStartingPosition =
+    //   gridItemHeight > windowHeight ? 0 : (windowHeight - gridItemHeight) / 2;
     let productGridStartingPosition =
-      gridItemHeight > windowHeight ? 0 : (windowHeight - gridItemHeight) / 2;
+      gridItemHeight + headerFooterHeight > windowHeight
+        ? headerFooterHeight
+        : gridItemTopBottomMargin + headerFooterHeight;
     return productGridStartingPosition;
   },
   getProductGridHeight: function (
