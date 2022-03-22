@@ -12,6 +12,7 @@ import updateLoadingVisibleReducer from "./updateLoadingVisibleReducer";
 import updateLoadingDisplayReducer from "./updateLoadingDisplayReducer";
 import updateYOffsetReducer from "./updateYOffsetReducer";
 import updateCursorHoverReducer from "./updateCursorHoverReducer";
+import updateHoverDeviceReducer from "./updateHoverDeviceReducer";
 
 const reducers = combineReducers({
   menuDisplay: toggleMenuDisplayReducer,
@@ -26,6 +27,7 @@ const reducers = combineReducers({
   loadingDisplay: updateLoadingDisplayReducer,
   YOffset: updateYOffsetReducer,
   cursorHover: updateCursorHoverReducer,
+  hoverDevice: updateHoverDeviceReducer,
 });
 
 export default reducers;

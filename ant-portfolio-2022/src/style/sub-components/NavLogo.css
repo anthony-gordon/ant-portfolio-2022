@@ -10,6 +10,7 @@
 .NavLogo__link {
   text-decoration: none;
   color: inherit;
+  padding: 0 15px;
 }
 
 .NavLogo__text {

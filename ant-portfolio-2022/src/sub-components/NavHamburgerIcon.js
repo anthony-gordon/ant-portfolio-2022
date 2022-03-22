@@ -14,8 +14,9 @@ function NavHamburgerIcon() {
     bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
-    updateCursorHover(false);
     if (!menuDisplay) {
+      updateCursorHover(false);
+
       toggleMenuDisplay();
       addRemoveFixedPositionOnBody("add");
 
@@ -23,24 +24,28 @@ function NavHamburgerIcon() {
         toggleMenuOpacity();
         setTimeout(() => {
           updateCursorHover(true);
-        }, 500);
+        }, 250);
       }, 10);
     } else if (menuDisplay) {
+      updateCursorHover(false);
       toggleMenuOpacity();
       setTimeout(() => {
-        addRemoveFixedPositionOnBody("remove");
-      }, 500);
-      setTimeout(() => {
-        toggleMenuDisplay();
-      }, 500);
+        updateCursorHover(true);
+        setTimeout(() => {
+          toggleMenuDisplay();
+          addRemoveFixedPositionOnBody("remove");
+        }, 250);
+      }, 250);
     }
   }
   return (
-    <div className="NavHamburgerIcon">
+    <div
+      onMouseEnter={() => updateCursorHover(true)}
+      onMouseLeave={() => updateCursorHover(false)}
+      className="NavHamburgerIcon"
+    >
       <div
         onClick={toggleMenuDisplayOpacity}
-        onMouseEnter={() => updateCursorHover(true)}
-        onMouseLeave={() => updateCursorHover(false)}
         className={`NavHamburgerIcon__wrapper${
           menuOpacity ? " NavHamburgerIcon__wrapper--open" : ""
         } ${

@@ -10,8 +10,11 @@ import {
   useLayoutEffect,
 } from "react";
 import { animated as a, useSpring } from "react-spring";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { hoverDevice } = useSelector((state) => state);
+
   const [{ y }, set] = useSpring(() => ({
     y: [0],
     config: {
@@ -48,15 +51,17 @@ function App() {
   }, [set]);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        mousePositionX: [e.clientX],
-        mousePositionY: [e.clientY],
-      });
-    };
-    window.addEventListener("mousemove", (e) => handleMouseMove(e));
-    return () =>
-      window.removeEventListener("mousemove", (e) => handleMouseMove(e));
+    if (hoverDevice) {
+      const handleMouseMove = (e) => {
+        setMousePosition({
+          mousePositionX: [e.clientX],
+          mousePositionY: [e.clientY],
+        });
+      };
+      window.addEventListener("mousemove", (e) => handleMouseMove(e));
+      return () =>
+        window.removeEventListener("mousemove", (e) => handleMouseMove(e));
+    }
   }, [setMousePosition]);
 
   return (

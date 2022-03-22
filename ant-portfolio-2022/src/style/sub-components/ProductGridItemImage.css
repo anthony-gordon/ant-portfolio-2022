@@ -6,7 +6,7 @@
   right: 0;
   display: flex;
   justify-content: center;
-  padding: calc(var(--grid-mobile-horizontal-spacing) / 2);
+  padding: calc(var(--grid-mobile-horizontal-spacing));
   justify-content: center;
   align-items: center;
 }

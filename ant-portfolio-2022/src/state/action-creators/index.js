@@ -132,3 +132,12 @@ export const updateCursorHover = (data) => {
     });
   };
 };
+
+export const updateHoverDevice = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateHoverDevice",
+      payload: data,
+    });
+  };
+};

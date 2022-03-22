@@ -6,7 +6,7 @@
   width: 100vw;
   overflow: hidden;
   mix-blend-mode: difference;
-  z-index: 1001;
+  z-index: 1002;
   pointer-events: none;
 }
 

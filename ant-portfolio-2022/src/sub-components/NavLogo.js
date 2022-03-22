@@ -12,11 +12,20 @@ function NavLogo() {
     bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
+    updateCursorHover(false);
+
     if (menuDisplay) {
       toggleMenuOpacity();
       setTimeout(() => {
-        toggleMenuDisplay();
-      }, 500);
+        updateCursorHover(true);
+        setTimeout(() => {
+          toggleMenuDisplay();
+        }, 250);
+      }, 250);
+    } else {
+      setTimeout(() => {
+        updateCursorHover(true);
+      }, 250);
     }
   }
   return (

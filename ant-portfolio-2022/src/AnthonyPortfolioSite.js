@@ -13,10 +13,13 @@ import CursorWrapper from "./components/CursorWrapper";
 
 function AnthonyPortfolioSite() {
   const dispatch = useDispatch();
-  const { updateWindowSize, updateYOffset } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { updateWindowSize, updateYOffset, updateHoverDevice } =
+    bindActionCreators(actionCreators, dispatch);
+  const { windowSize, hoverDevice } = useSelector((state) => state);
+  useEffect(() => {
+    const canHover = window.matchMedia("(hover: hover)").matches;
+    updateHoverDevice(canHover);
+  }, [windowSize]);
 
   useEffect(() => {
     document
@@ -45,19 +48,13 @@ function AnthonyPortfolioSite() {
 
   return (
     <div onScroll={console.log("hi")} className="AnthonyPortfolioSite">
-      <CursorWrapper />
-      {/* <header> */}
+      {hoverDevice && <CursorWrapper />}
       <NavBar />
       <NavMenu />
       <Cart />
-      {/* </header> */}
-      {/* <div className="AnthonyPortfolioSite__scrollable">
-        <div className="AnthonyPortfolioSite__scrollable-spacer"> */}
       <ScrollContainer>
         <SiteRoutes />
       </ScrollContainer>
-      {/* </div>
-      </div> */}
       {/* <Footer /> */}
     </div>
   );

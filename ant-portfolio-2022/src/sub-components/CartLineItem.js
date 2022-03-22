@@ -59,53 +59,56 @@ function CartLineItem({ item, index }) {
     <tr
       className={`CartLineItem ${visible ? "CartLineItem__li--visible" : ""}`}
     >
-      <td className="CartLineItem__product-image-wrapper">
-        <img
-          alt={item.variant.product.title}
-          src={getImageString(item.variant.image.src, "medium")}
-          className="CartLineItem__product-image"
-        />
-      </td>
-      <td className="CartLineItem__product-details-wrapper">
-        <Link
-          to={`/products/${item.variant.product.handle}${
-            item.variant.title !== "Default Title" ? "-" : ""
-          }${
-            item.variant.title !== "Default Title"
-              ? item.variant.title.toLowerCase().replace(/ /g, "-")
-              : ""
-          }`}
-          className="CartLineItem__product-link"
-        >
-          <h3
-            onClick={toggleCartDisplayOpacity}
-            className="CartLineItem__product-title"
-          >{`${item.quantity} x ${item.title}`}</h3>
-        </Link>
-        {lineItemOptions.length > 0 ? (
-          lineItemOptions.map((option) => {
-            return (
-              <div
-                key={option.key}
-                className={`CartLineItem__product-variant-option ${
-                  option.option_details.value == "Default Title"
-                    ? "CartLineItem__product-variant-option--hidden"
-                    : ""
-                }`}
-              >{`${option.option_details.name}: ${option.option_details.value}`}</div>
-            );
-          })
-        ) : (
-          <div className="CartLineItem__product-variant-title">
-            {item.variant.title}
+      <td className="CartLineItem__product-wrapper">
+        <div className="CartLineItem__product-image-wrapper">
+          <img
+            alt={item.variant.product.title}
+            src={getImageString(item.variant.image.src, "medium")}
+            className="CartLineItem__product-image"
+          />
+        </div>
+        <div className="CartLineItem__product-details-wrapper">
+          <Link
+            to={`/products/${item.variant.product.handle}${
+              item.variant.title !== "Default Title" ? "-" : ""
+            }${
+              item.variant.title !== "Default Title"
+                ? item.variant.title.toLowerCase().replace(/ /g, "-")
+                : ""
+            }`}
+            className="CartLineItem__product-link"
+          >
+            <div
+              onClick={toggleCartDisplayOpacity}
+              className="CartLineItem__product-title"
+            >{`${item.title}`}</div>
+          </Link>
+          <div className="CartLineItem__product-price">
+            {`$${item.variant.price} NZ`}
           </div>
-        )}
-        <div className="CartLineItem__product-price">
-          {`$${item.variant.price} NZ`}
+          {lineItemOptions.length > 0 ? (
+            lineItemOptions.map((option) => {
+              return (
+                <div
+                  key={option.key}
+                  className={`CartLineItem__product-variant-option ${
+                    option.option_details.value == "Default Title"
+                      ? "CartLineItem__product-variant-option--hidden"
+                      : ""
+                  }`}
+                >{`${option.option_details.name}: ${option.option_details.value}`}</div>
+              );
+            })
+          ) : (
+            <div className="CartLineItem__product-variant-title">
+              {item.variant.title}
+            </div>
+          )}
         </div>
       </td>
+      <td className="CartLineItem__quantity-wrapper"></td>
 
-      <td className="CartLineItem__product-total-wrapper">
+      <td className="CartLineItem__total-wrapper">
         {`$${(item.variant.price * item.quantity).toFixed(2)} NZ`}
       </td>
     </tr>

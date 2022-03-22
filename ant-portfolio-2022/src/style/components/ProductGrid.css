@@ -7,6 +7,7 @@
   width: 100vw;
   overflow: hidden;
   max-width: 1200px;
+  padding: 100px 0px;
 }
 
 .ProductGrid__column {
@@ -22,6 +23,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 769px;
     margin: 0 auto;
+    padding: 0px;
   }
 }
 
