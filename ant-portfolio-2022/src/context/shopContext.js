@@ -7,6 +7,7 @@ import {
   addRemoveFixedPositionOnBody,
   randomId,
   gridScrollHelpers,
+  onClickBounce,
 } from "./helperFunctions";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -159,6 +160,23 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
     }
   };
 
+  const updateLineItems = async (variantId, quantity, checkoutId) => {
+    let varId = variantId.replace(/=/g, "equalssymbol");
+    let checkId = checkoutId.replace(/=/g, "equalssymbol");
+    console.log(varId, quantity, checkId);
+
+    try {
+      const res = await fetch(
+        `/.netlify/functions/update-line-items?quantity=${quantity}&variantid=${varId}&checkoutid=${checkId}`
+      );
+      const checkout = await res.json();
+      setCheckout(checkout[`checkout`]);
+      console.log(checkout);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     loadServerlessFunction();
 
@@ -188,6 +206,8 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
         gridScrollHelpers: gridScrollHelpers,
         mousePositionX: mousePositionX,
         mousePositionY: mousePositionY,
+        updateLineItems: updateLineItems,
+        onClickBounce: onClickBounce,
       }}
     >
       {children}

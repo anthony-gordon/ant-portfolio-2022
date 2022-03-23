@@ -47,7 +47,7 @@ function AnthonyPortfolioSite() {
   });
 
   return (
-    <div onScroll={console.log("hi")} className="AnthonyPortfolioSite">
+    <div className="AnthonyPortfolioSite">
       {hoverDevice && <CursorWrapper />}
       <NavBar />
       <NavMenu />

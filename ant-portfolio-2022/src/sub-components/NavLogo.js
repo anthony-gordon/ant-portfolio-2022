@@ -7,12 +7,24 @@ import { actionCreators } from "./../state/index";
 function NavLogo() {
   const dispatch = useDispatch();
 
-  let { menuDisplay } = useSelector((state) => state);
-  const { toggleMenuDisplay, toggleMenuOpacity, updateCursorHover } =
-    bindActionCreators(actionCreators, dispatch);
+  let { menuDisplay, cartDisplay } = useSelector((state) => state);
+  const {
+    toggleMenuDisplay,
+    toggleMenuOpacity,
+    toggleCartOpacity,
+    toggleCartDisplay,
+    updateCursorHover,
+  } = bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
     updateCursorHover(false);
+
+    if (cartDisplay) {
+      toggleCartOpacity();
+      setTimeout(() => {
+        toggleCartDisplay();
+      }, 500);
+    }
 
     if (menuDisplay) {
       toggleMenuOpacity();

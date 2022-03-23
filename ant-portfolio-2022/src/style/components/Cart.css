@@ -90,7 +90,8 @@
   letter-spacing: 0.5px;
   /* text-transform: uppercase; */
   color: var(--color-base-text);
-  font-family: var(--font-heading-family);
+  font-family: var(--font-body-family);
+  font-weight: 300;
 }
 
 .Cart_table-header-cell-quantity {
@@ -144,7 +145,6 @@
   font-size: var(--font-heading-size-large);
   letter-spacing: 0.5px;
   color: rgb(var(--color-base-text));
-  font-weight: 600;
 }
 
 .Cart__footer-tax-shipping-note {
@@ -183,7 +183,11 @@
 
 .Cart__footer-checkout-button span {
   height: fit-content;
-  font-size: 18px;
+  font-size: var(--font-heading-size-large);
+  font-weight: 300;
+  font-family: var(--font-body-family);
+  text-transform: uppercase;
+  letter-spacing: calc(var(--font-heading-size-large) / 30);
 }
 
 .Cart__hr--header {
@@ -205,13 +209,17 @@
 }
 
 th.Cart_table-header-cell-item {
-  width: 66.6666%;
+  width: 75%;
 }
 
-th.Cart_table-header-cell-quantity,
 th.Cart_table-header-cell-total {
-  width: 16.6666%;
+  width: 12.5%;
   text-align: right;
+}
+
+th.Cart_table-header-cell-quantity {
+  width: 12.5%;
+  text-align: center;
 }
 
 .Cart_table-header {
@@ -239,6 +247,22 @@ th.Cart_table-header-cell-total {
   font-size: var(--font-body-size);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.CartLineItem__quantity-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: calc(var(--grid-desktop-horizontal-spacing) / 2);
+}
+
+.CartLineItem-increment {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: calc(var(--grid-desktop-horizontal-spacing) / 4);
 }
 
 @media only screen and (min-width: 769px) {

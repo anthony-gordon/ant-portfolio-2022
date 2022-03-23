@@ -52,6 +52,12 @@ export function lowestVariantPrice() {
   return;
 }
 
+export function onClickBounce(setHover, booleanOne, booleanTwo) {
+  console.log(setHover, booleanOne, booleanTwo);
+  setHover(booleanOne);
+  setTimeout(setHover(booleanTwo), 250);
+}
+
 export function getImageString(src, size) {
   return src
     .replace(
@@ -66,7 +72,7 @@ export function getImageString(src, size) {
 export function addRemoveFixedPositionOnBody(addOrRemove) {
   const body = document.querySelector("body");
   let vs = body.scrollHeight > body.clientHeight;
-  console.log("vs", vs);
+  // console.log("vs", vs);
   if (
     vs &&
     addOrRemove === "add" &&
@@ -115,17 +121,17 @@ export const gridScrollHelpers = {
     return productGridHeight;
   },
   getXRotate: function (y, YOffset, productGridScrollHeight) {
-    console.log(
-      "y, YOffset, productGridScrollHeight",
-      y,
-      YOffset,
-      productGridScrollHeight
-    );
+    // console.log(
+    //   "y, YOffset, productGridScrollHeight",
+    //   y,
+    //   YOffset,
+    //   productGridScrollHeight
+    // );
     let difference =
       YOffset === 0 && y === 0
         ? 1
         : (YOffset + productGridScrollHeight) / (-y + productGridScrollHeight);
-    console.log("difference", difference);
+    // console.log("difference", difference);
     let degs = (difference - 1) * 20;
     return degs;
   },
@@ -135,13 +141,13 @@ export const gridScrollHelpers = {
     gridItemTopBottomMargin,
     headerFooterHeight
   ) {
-    console.log(
-      "starting",
-      gridItemHeight,
-      windowHeight,
-      gridItemTopBottomMargin,
-      headerFooterHeight
-    );
+    // console.log(
+    //   "starting",
+    //   gridItemHeight,
+    //   windowHeight,
+    //   gridItemTopBottomMargin,
+    //   headerFooterHeight
+    // );
     // let productGridStartingPosition =
     //   gridItemHeight > windowHeight ? 0 : (windowHeight - gridItemHeight) / 2;
     let productGridStartingPosition =
@@ -165,14 +171,14 @@ export const gridScrollHelpers = {
     gridItemHeight,
     numberOfRows
   ) {
-    console.log(gridItemTopBottomMargin, gridItemHeight, numberOfRows);
-    console.log("firing");
+    // console.log(gridItemTopBottomMargin, gridItemHeight, numberOfRows);
+    // console.log("firing");
     let shortColumnExtraGridItemSpacing =
       (gridItemTopBottomMargin + gridItemHeight) / (numberOfRows - 2);
-    console.log(
-      "shortColumnExtraGridItemSpacing",
-      shortColumnExtraGridItemSpacing
-    );
+    // console.log(
+    //   "shortColumnExtraGridItemSpacing",
+    //   shortColumnExtraGridItemSpacing
+    // );
     return shortColumnExtraGridItemSpacing;
   },
   getYTransform: function (
@@ -181,7 +187,7 @@ export const gridScrollHelpers = {
     productGridStartingPosition,
     productGridScrollHeight
   ) {
-    console.log("Y", y, productGridStartingPosition, productGridScrollHeight);
+    // console.log("Y", y, productGridStartingPosition, productGridScrollHeight);
     let yTransform =
       index !== 1
         ? y +

@@ -7,21 +7,49 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 function CartIcon() {
   const dispatch = useDispatch();
 
-  let { cartDisplay, cartOpacity } = useSelector((state) => state);
-  const { toggleCartDisplay, toggleCartOpacity, updateCursorHover } =
-    bindActionCreators(actionCreators, dispatch);
+  let { cartDisplay, cartOpacity, menuDisplay } = useSelector((state) => state);
+  const {
+    toggleMenuDisplay,
+    toggleMenuOpacity,
+    toggleCartDisplay,
+    toggleCartOpacity,
+    updateCursorHover,
+  } = bindActionCreators(actionCreators, dispatch);
 
   function toggleCartDisplayOpacity() {
+    updateCursorHover(false);
     if (!cartDisplay) {
-      toggleCartDisplay();
-      setTimeout(() => {
-        toggleCartOpacity();
-      }, 10);
+      if (menuDisplay) {
+        toggleMenuOpacity();
+        setTimeout(() => {
+          updateCursorHover(true);
+
+          setTimeout(() => {
+            toggleMenuDisplay();
+            toggleCartDisplay();
+            setTimeout(() => {
+              toggleCartOpacity();
+            }, 10);
+          }, 250);
+        }, 250);
+      } else {
+        toggleCartDisplay();
+        setTimeout(() => {
+          toggleCartOpacity();
+        }, 10);
+        setTimeout(() => {
+          updateCursorHover(true);
+        }, 250);
+      }
     } else if (cartDisplay) {
       toggleCartOpacity();
       setTimeout(() => {
-        toggleCartDisplay();
-      }, 500);
+        updateCursorHover(true);
+
+        setTimeout(() => {
+          toggleCartDisplay();
+        }, 250);
+      }, 250);
     }
   }
   return (

@@ -141,3 +141,12 @@ export const updateHoverDevice = (data) => {
     });
   };
 };
+
+export const updateCheckoutUpdating = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateCheckoutUpdating",
+      payload: data,
+    });
+  };
+};

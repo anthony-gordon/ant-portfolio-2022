@@ -9,23 +9,47 @@ function NavHamburgerIcon() {
   const dispatch = useDispatch();
   const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
 
-  let { menuDisplay, menuOpacity } = useSelector((state) => state);
-  const { toggleMenuDisplay, toggleMenuOpacity, updateCursorHover } =
-    bindActionCreators(actionCreators, dispatch);
+  let { menuDisplay, menuOpacity, cartDisplay } = useSelector((state) => state);
+  const {
+    toggleMenuDisplay,
+    toggleMenuOpacity,
+    updateCursorHover,
+    toggleCartDisplay,
+    toggleCartOpacity,
+  } = bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
     if (!menuDisplay) {
+      console.log(cartDisplay);
+
       updateCursorHover(false);
-
-      toggleMenuDisplay();
-      addRemoveFixedPositionOnBody("add");
-
-      setTimeout(() => {
-        toggleMenuOpacity();
+      if (cartDisplay) {
+        console.log("cart display");
+        toggleCartOpacity();
         setTimeout(() => {
           updateCursorHover(true);
+
+          setTimeout(() => {
+            toggleCartDisplay();
+            toggleMenuDisplay();
+            addRemoveFixedPositionOnBody("add");
+
+            setTimeout(() => {
+              toggleMenuOpacity();
+            }, 10);
+          }, 250);
         }, 250);
-      }, 10);
+      } else {
+        toggleMenuDisplay();
+        addRemoveFixedPositionOnBody("add");
+
+        setTimeout(() => {
+          toggleMenuOpacity();
+          setTimeout(() => {
+            updateCursorHover(true);
+          }, 250);
+        }, 10);
+      }
     } else if (menuDisplay) {
       updateCursorHover(false);
       toggleMenuOpacity();

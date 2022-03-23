@@ -11,15 +11,22 @@ function AddToCartButton({
 }) {
   const dispatch = useDispatch();
 
-  let { cartDisplay } = useSelector((state) => state);
-  const { toggleCartDisplay, toggleCartOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  let { cartDisplay, checkoutUpdating } = useSelector((state) => state);
+  const {
+    toggleCartDisplay,
+    toggleCartOpacity,
+    updateCheckoutUpdating,
+    updateCursorHover,
+  } = bindActionCreators(actionCreators, dispatch);
 
   function handleAddToCart(variantId, quantity, checkoutId) {
+    updateCheckoutUpdating(true);
+    updateCursorHover(false);
+    setTimeout(() => updateCursorHover(true), 250);
     addItemToCheckout(variantId, quantity, checkoutId).then(() => {
-      setTimeout(toggleCartDisplayOpacity(), 500);
+      updateCheckoutUpdating(false);
+
+      toggleCartDisplayOpacity();
     });
   }
 
@@ -34,7 +41,11 @@ function AddToCartButton({
   return (
     <button
       onClick={() => handleAddToCart(variantId, quantity, checkoutId)}
-      className="AddToCartButton"
+      onMouseEnter={() => updateCursorHover(true)}
+      onMouseLeave={() => updateCursorHover(false)}
+      className={`AddToCartButton ${
+        checkoutUpdating ? "AddToCartButton--no-click" : ""
+      }`}
     >
       <span className="AddToCartButton__text">Add to cart</span>
     </button>

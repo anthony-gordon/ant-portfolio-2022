@@ -7,11 +7,34 @@ import { actionCreators } from "./../state/index";
 import { ShopContext } from "../context/shopContext";
 
 function CartLineItem({ item, index }) {
-  const { getImageString, randomId } = useContext(ShopContext);
+  const {
+    getImageString,
+    randomId,
+    checkout,
+    addItemToCheckout,
+    updateLineItems,
+    onClickBounce,
+  } = useContext(ShopContext);
   const [lineItemOptions] = useState(generateOptions());
   const dispatch = useDispatch();
+  let { cartDisplay, checkoutUpdating } = useSelector((state) => state);
+  const {
+    toggleCartDisplay,
+    toggleCartOpacity,
+    updateCursorHover,
+    updateCheckoutUpdating,
+  } = bindActionCreators(actionCreators, dispatch);
 
   const [visible, setVisible] = useState(false);
+
+  function handleUpdateLineItems(variantId, quantity, checkoutId) {
+    updateCheckoutUpdating(true);
+    updateCursorHover(false);
+    setTimeout(() => updateCursorHover(true), 250);
+    updateLineItems(variantId, quantity, checkoutId).then(() => {
+      updateCheckoutUpdating(false);
+    });
+  }
 
   function generateOptions() {
     let optionsArray = [];
@@ -24,12 +47,6 @@ function CartLineItem({ item, index }) {
     });
     return optionsArray;
   }
-
-  let { cartDisplay } = useSelector((state) => state);
-  const { toggleCartDisplay, toggleCartOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
 
   function toggleCartDisplayOpacity() {
     if (!cartDisplay) {
@@ -69,6 +86,8 @@ function CartLineItem({ item, index }) {
         </div>
         <div className="CartLineItem__product-details-wrapper">
           <Link
+            onMouseEnter={() => updateCursorHover(true)}
+            onMouseLeave={() => updateCursorHover(false)}
             to={`/products/${item.variant.product.handle}${
               item.variant.title !== "Default Title" ? "-" : ""
             }${
@@ -104,9 +123,49 @@ function CartLineItem({ item, index }) {
               {item.variant.title}
             </div>
           )}
+          <div
+            onClick={() => handleUpdateLineItems(item.id, 0, checkout.id)}
+            onMouseEnter={() => updateCursorHover(true)}
+            onMouseLeave={() => updateCursorHover(false)}
+            className="CartLineItem__remove"
+          >
+            Remove
+          </div>
         </div>
       </td>
-      <td className="CartLineItem__quantity-wrapper"></td>
+      <td className="CartLineItem__quantity-wrapper">
+        <div
+          onMouseEnter={() => updateCursorHover(true)}
+          onMouseLeave={() => updateCursorHover(false)}
+          className="CartLineItem-increment"
+        >
+          <button
+            onClick={() => {
+              handleUpdateLineItems(item.id, item.quantity - 1, checkout.id);
+            }}
+            className={`CartLineItem-increment-decrease ${
+              checkoutUpdating
+                ? "CartLineItem-increment-increase--no-click"
+                : ""
+            }`}
+          >
+            -
+          </button>
+          <span>{item.quantity}</span>
+          <button
+            onClick={() => {
+              handleUpdateLineItems(item.id, item.quantity + 1, checkout.id);
+            }}
+            className={`CartLineItem-increment-increase ${
+              checkoutUpdating
+                ? "CartLineItem-increment-decrease--no-click"
+                : ""
+            }`}
+          >
+            +
+          </button>
+        </div>
+      </td>
 
       <td className="CartLineItem__total-wrapper">
         {`$${(item.variant.price * item.quantity).toFixed(2)} NZ`}

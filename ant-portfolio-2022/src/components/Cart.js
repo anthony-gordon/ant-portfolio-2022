@@ -5,15 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import CartLineItem from "./../sub-components/CartLineItem";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
-import CartCloseIcon from "./../sub-components/CartCloseIcon";
 
 function Cart() {
   const dispatch = useDispatch();
 
-  const { toggleCartDisplay, toggleCartOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { toggleCartDisplay, toggleCartOpacity, updateCursorHover } =
+    bindActionCreators(actionCreators, dispatch);
 
   function toggleCartDisplayOpacity() {
     if (!cartDisplay) {
@@ -32,7 +29,8 @@ function Cart() {
   let { scrollBarWidth, navBarHeight, cartOpacity, cartDisplay } = useSelector(
     (state) => state
   );
-  const { checkout, strings, formatMoney } = useContext(ShopContext);
+  const { checkout, strings, formatMoney, addItemToCheckout } =
+    useContext(ShopContext);
 
   return (
     <>
@@ -133,7 +131,12 @@ function Cart() {
                 rel="noopener noreferrer"
                 className="Cart__footer-checkout"
               >
-                <button className="Cart__footer-checkout-button">
+                <button
+                  onMouseEnter={() => updateCursorHover(true)}
+                  onMouseLeave={() => updateCursorHover(false)}
+                  onClick={() => updateCursorHover(false)}
+                  className="Cart__footer-checkout-button"
+                >
                   <span>Checkout</span>
                 </button>
               </a>
