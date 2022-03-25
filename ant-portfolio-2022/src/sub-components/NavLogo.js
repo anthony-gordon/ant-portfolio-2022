@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
+import { ShopContext } from "../context/shopContext";
+import { useContext } from "react";
 
 function NavLogo() {
   const dispatch = useDispatch();
-
-  let { menuDisplay, cartDisplay } = useSelector((state) => state);
+  const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
+  let { menuDisplay, cartDisplay, windowSize } = useSelector((state) => state);
   const {
     toggleMenuDisplay,
     toggleMenuOpacity,
@@ -23,15 +25,15 @@ function NavLogo() {
       toggleCartOpacity();
       setTimeout(() => {
         toggleCartDisplay();
+        addRemoveFixedPositionOnBody("remove", windowSize[0]);
       }, 500);
-    }
-
-    if (menuDisplay) {
+    } else if (menuDisplay) {
       toggleMenuOpacity();
       setTimeout(() => {
         updateCursorHover(true);
         setTimeout(() => {
           toggleMenuDisplay();
+          addRemoveFixedPositionOnBody("remove", windowSize[0]);
         }, 250);
       }, 250);
     } else {

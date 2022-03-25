@@ -5,11 +5,29 @@
   flex-direction: column;
   position: fixed;
   z-index: 1000;
-  /* background: var(--gradient-base-background-1);
-  background-attachment: fixed; */
+
   transition: all 0.2s linear;
   overflow: hidden;
   mix-blend-mode: difference;
+}
+
+.NavBar--loading {
+  background: var(--gradient-base-background-1);
+  background-attachment: fixed;
+  mix-blend-mode: inherit;
+}
+
+.NavBar--loading.NavBar--loading-completed .NavHamburgerIcon__word,
+.NavBar--loading.NavBar--loading-completed .NavLogo__text,
+.NavBar--loading.NavBar--loading-completed .CartIcon__word {
+  display: inherit;
+}
+
+.NavBar--loading .NavHamburgerIcon__word,
+.NavBar--loading .NavLogo__text,
+.NavBar--loading .CartIcon__word {
+  color: rgb(var(--color-base-text));
+  display: none;
 }
 
 .NavBar__wrapper {

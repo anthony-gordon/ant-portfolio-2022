@@ -9,7 +9,9 @@ function NavHamburgerIcon() {
   const dispatch = useDispatch();
   const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
 
-  let { menuDisplay, menuOpacity, cartDisplay } = useSelector((state) => state);
+  let { menuDisplay, menuOpacity, cartDisplay, windowSize } = useSelector(
+    (state) => state
+  );
   const {
     toggleMenuDisplay,
     toggleMenuOpacity,
@@ -32,7 +34,7 @@ function NavHamburgerIcon() {
           setTimeout(() => {
             toggleCartDisplay();
             toggleMenuDisplay();
-            addRemoveFixedPositionOnBody("add");
+            addRemoveFixedPositionOnBody("add", windowSize[0]);
 
             setTimeout(() => {
               toggleMenuOpacity();
@@ -41,7 +43,7 @@ function NavHamburgerIcon() {
         }, 250);
       } else {
         toggleMenuDisplay();
-        addRemoveFixedPositionOnBody("add");
+        addRemoveFixedPositionOnBody("add", windowSize[0]);
 
         setTimeout(() => {
           toggleMenuOpacity();
@@ -57,7 +59,7 @@ function NavHamburgerIcon() {
         updateCursorHover(true);
         setTimeout(() => {
           toggleMenuDisplay();
-          addRemoveFixedPositionOnBody("remove");
+          addRemoveFixedPositionOnBody("remove", windowSize[0]);
         }, 250);
       }, 250);
     }
@@ -78,12 +80,13 @@ function NavHamburgerIcon() {
             : ""
         }`}
       >
+        {/* <span></span>
         <span></span>
         <span></span>
         <span></span>
         <span></span>
-        <span></span>
-        <span></span>
+        <span></span> */}
+        <div className="NavHamburgerIcon__word">Menu</div>
       </div>
     </div>
   );

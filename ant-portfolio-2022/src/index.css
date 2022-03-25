@@ -52,7 +52,10 @@ html {
   --font-heading-weight: 600;
   --font-heading-size: 16px;
   --font-heading-size-large: 20px;
+  --font-heading-size-extra-large: 26px;
   --font-header-logo-family: "durer", sans-serif;
+  --font-header-logo-size: 32px;
+  --font-header-logo-size-desktop: 52px;
   --font-header-logo-style: normal;
   --font-header-logo-weight: 600;
   --font-body-scale: 1;
@@ -194,7 +197,7 @@ body {
 
 .body__no-scroll .NavBar__wrapper,
 .body__no-scroll .Homepage {
-  padding-right: 30px;
+  /* padding-right: 30px; */
 }
 
 @media only screen and (min-width: 769px) {
@@ -205,7 +208,7 @@ body {
 
   .body__no-scroll .NavBar__wrapper,
   .body__no-scroll .Homepage {
-    padding-right: 65px;
+    padding-right: 35px;
   }
 }
 

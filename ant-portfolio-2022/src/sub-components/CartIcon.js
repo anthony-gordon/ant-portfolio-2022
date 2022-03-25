@@ -3,11 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { ShopContext } from "../context/shopContext";
+import { useContext } from "react";
 
 function CartIcon() {
   const dispatch = useDispatch();
-
-  let { cartDisplay, cartOpacity, menuDisplay } = useSelector((state) => state);
+  const { checkoutTotalLineItems, addRemoveFixedPositionOnBody } =
+    useContext(ShopContext);
+  let { cartDisplay, cartOpacity, menuDisplay, windowSize } = useSelector(
+    (state) => state
+  );
   const {
     toggleMenuDisplay,
     toggleMenuOpacity,
@@ -27,6 +32,7 @@ function CartIcon() {
           setTimeout(() => {
             toggleMenuDisplay();
             toggleCartDisplay();
+            addRemoveFixedPositionOnBody("add", windowSize[0]);
             setTimeout(() => {
               toggleCartOpacity();
             }, 10);
@@ -34,6 +40,7 @@ function CartIcon() {
         }, 250);
       } else {
         toggleCartDisplay();
+        addRemoveFixedPositionOnBody("add", windowSize[0]);
         setTimeout(() => {
           toggleCartOpacity();
         }, 10);
@@ -48,6 +55,7 @@ function CartIcon() {
 
         setTimeout(() => {
           toggleCartDisplay();
+          addRemoveFixedPositionOnBody("remove", windowSize[0]);
         }, 250);
       }, 250);
     }
@@ -64,7 +72,8 @@ function CartIcon() {
           cartDisplay !== cartOpacity ? "CartIcon__wrapper--unclickable" : ""
         }`}
       >
-        <ShoppingCartOutlinedIcon />
+        {/* <ShoppingCartOutlinedIcon /> */}
+        <div className="CartIcon__word">Bag ({checkoutTotalLineItems})</div>
       </div>
     </div>
   );

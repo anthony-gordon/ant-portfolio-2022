@@ -8,11 +8,11 @@ import {
   randomId,
   gridScrollHelpers,
   onClickBounce,
+  totalCheckoutQuantity,
 } from "./helperFunctions";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
-import { useSpring } from "react-spring";
 
 const ShopContext = React.createContext();
 
@@ -24,6 +24,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
   const [product, setProduct] = useState({});
   const [checkout, setCheckout] = useState({});
   const [loadingProcessDone, setLoadingProcessDone] = useState(false);
+  const [checkoutTotalLineItems, setCheckoutTotalLineItems] = useState(0);
 
   useEffect(() => {
     const {
@@ -66,6 +67,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       console.log(checkout);
       if (checkout[`checkout`]) {
         setCheckout(checkout[`checkout`]);
+        setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
       } else {
         loadServerlessCreateCheckoutFunction();
       }
@@ -80,6 +82,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       const res = await fetch(`/.netlify/functions/create-checkout`);
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
+      setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
       localStorage.setItem("checkout", checkout[`checkout`].id);
     } catch (error) {
       console.error(error);
@@ -154,6 +157,8 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       );
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
+      setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
+
       console.log(checkout);
     } catch (error) {
       console.error(error);
@@ -171,6 +176,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       );
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
+      setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
       console.log(checkout);
     } catch (error) {
       console.error(error);
@@ -208,6 +214,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
         mousePositionY: mousePositionY,
         updateLineItems: updateLineItems,
         onClickBounce: onClickBounce,
+        checkoutTotalLineItems: checkoutTotalLineItems,
       }}
     >
       {children}

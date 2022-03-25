@@ -17,13 +17,20 @@
   font-family: var(--font-header-logo-family);
   font-style: var(--font-header-logo-style);
   font-weight: var(--font-header-logo-weight);
+  font-size: var(--font-header-logo-size);
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
   color: rgb(var(--color-base-text-inverse));
-  transition: color var(--transition-on-hover);
+  /* transition: color var(--transition-on-hover); */
 }
 
 .NavLogo__text:hover {
   /* color: rgb(var(--color-base-text-highlight)); */
+}
+
+@media only screen and (min-width: 769px) {
+  .NavLogo__text {
+    font-size: var(--font-header-logo-size-desktop);
+  }
 }

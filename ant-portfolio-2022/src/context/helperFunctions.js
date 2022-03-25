@@ -52,6 +52,18 @@ export function lowestVariantPrice() {
   return;
 }
 
+export function totalCheckoutQuantity(checkout) {
+  if (checkout && checkout.lineItems && checkout.lineItems.length > 0) {
+    let totalCheckoutLineItemQuantity = 0;
+    checkout.lineItems.forEach((lineItem) => {
+      totalCheckoutLineItemQuantity += lineItem.quantity;
+    });
+    return totalCheckoutLineItemQuantity;
+  } else {
+    return 0;
+  }
+}
+
 export function onClickBounce(setHover, booleanOne, booleanTwo) {
   console.log(setHover, booleanOne, booleanTwo);
   setHover(booleanOne);
@@ -69,10 +81,10 @@ export function getImageString(src, size) {
     });
 }
 
-export function addRemoveFixedPositionOnBody(addOrRemove) {
+export function addRemoveFixedPositionOnBody(addOrRemove, windowHeight) {
   const body = document.querySelector("body");
-  let vs = body.scrollHeight > body.clientHeight;
-  // console.log("vs", vs);
+  let vs = body.scrollHeight > windowHeight;
+  console.log("vs", body.scrollHeight, windowHeight);
   if (
     vs &&
     addOrRemove === "add" &&
