@@ -24,7 +24,7 @@ function ProductGridItem({ product }) {
             />
           </div>
 
-          <div className="ProductGridItem__details-wrapper">
+          {/* <div className="ProductGridItem__details-wrapper">
             <div className="ProductGridItem__details-text-wrapper">
               <div className="ProductGridItem__title">{`${product.title}`}</div>
               <div className="ProductGridItem__price">
@@ -41,7 +41,7 @@ function ProductGridItem({ product }) {
             <div className="ProductGridItem__view-button">
               <p className="ProductGridItem__view-button-text">View</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </Link>
     </div>

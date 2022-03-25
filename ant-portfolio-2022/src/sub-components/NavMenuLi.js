@@ -24,20 +24,13 @@ function NavMenuLi({ menuItem, index }) {
     }
   }, [menuDisplay, index]);
 
-  const { toggleMenuDisplay, toggleMenuOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { toggleMenuDisplay, toggleMenuOpacity, updateCursorHover } =
+    bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
-    if (!menuDisplay) {
-      toggleMenuDisplay();
-      addRemoveFixedPositionOnBody("add");
-      setTimeout(() => {
-        toggleMenuOpacity();
-      }, 10);
-    } else if (menuDisplay) {
+    if (menuDisplay) {
       toggleMenuOpacity();
+      updateCursorHover(false);
       setTimeout(() => {
         toggleMenuDisplay();
         addRemoveFixedPositionOnBody("remove");
@@ -52,7 +45,12 @@ function NavMenuLi({ menuItem, index }) {
         to={menuItem.link}
         className="NavMenu__button"
       >
-        <p onClick={toggleMenuDisplayOpacity} className="NavMenu__title">
+        <p
+          onMouseEnter={() => updateCursorHover(true)}
+          onMouseLeave={() => updateCursorHover(false)}
+          onClick={toggleMenuDisplayOpacity}
+          className="NavMenu__title"
+        >
           <span className={`NavMenu__title-span `}>{`${menuItem.words} `}</span>
         </p>
       </Link>

@@ -4,12 +4,6 @@
 }
 
 .ProductGridItem {
-  /* box-shadow: var(--card-shadow-horizontal-offset)
-    var(--card-shadow-vertical-offset) var(--card-shadow-blur-radius)
-    rgba(var(--color-shadow), var(--card-shadow-opacity));
-  border-radius: var(--card-corner-radius);
-  background-color: rgb(var(--color-base-background-1)); */
-  margin-bottom: var(--grid-desktop-horizontal-spacing);
   height: 100%;
 }
 

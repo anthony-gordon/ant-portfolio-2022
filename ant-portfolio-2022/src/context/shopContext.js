@@ -6,6 +6,9 @@ import {
   getImageString,
   addRemoveFixedPositionOnBody,
   randomId,
+  gridScrollHelpers,
+  onClickBounce,
+  totalCheckoutQuantity,
 } from "./helperFunctions";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -13,7 +16,7 @@ import { actionCreators } from "../state/index";
 
 const ShopContext = React.createContext();
 
-function ShopProvider({ children }) {
+function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
   const dispatch = useDispatch();
 
   const [products, setProducts] = useState([]);
@@ -21,6 +24,7 @@ function ShopProvider({ children }) {
   const [product, setProduct] = useState({});
   const [checkout, setCheckout] = useState({});
   const [loadingProcessDone, setLoadingProcessDone] = useState(false);
+  const [checkoutTotalLineItems, setCheckoutTotalLineItems] = useState(0);
 
   useEffect(() => {
     const {
@@ -63,6 +67,7 @@ function ShopProvider({ children }) {
       console.log(checkout);
       if (checkout[`checkout`]) {
         setCheckout(checkout[`checkout`]);
+        setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
       } else {
         loadServerlessCreateCheckoutFunction();
       }
@@ -77,6 +82,7 @@ function ShopProvider({ children }) {
       const res = await fetch(`/.netlify/functions/create-checkout`);
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
+      setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
       localStorage.setItem("checkout", checkout[`checkout`].id);
     } catch (error) {
       console.error(error);
@@ -151,6 +157,26 @@ function ShopProvider({ children }) {
       );
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
+      setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
+
+      console.log(checkout);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateLineItems = async (variantId, quantity, checkoutId) => {
+    let varId = variantId.replace(/=/g, "equalssymbol");
+    let checkId = checkoutId.replace(/=/g, "equalssymbol");
+    console.log(varId, quantity, checkId);
+
+    try {
+      const res = await fetch(
+        `/.netlify/functions/update-line-items?quantity=${quantity}&variantid=${varId}&checkoutid=${checkId}`
+      );
+      const checkout = await res.json();
+      setCheckout(checkout[`checkout`]);
+      setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
       console.log(checkout);
     } catch (error) {
       console.error(error);
@@ -182,6 +208,13 @@ function ShopProvider({ children }) {
         addRemoveFixedPositionOnBody: addRemoveFixedPositionOnBody,
         variantsAsProducts: variantsAsProducts,
         randomId: randomId,
+        y: y,
+        gridScrollHelpers: gridScrollHelpers,
+        mousePositionX: mousePositionX,
+        mousePositionY: mousePositionY,
+        updateLineItems: updateLineItems,
+        onClickBounce: onClickBounce,
+        checkoutTotalLineItems: checkoutTotalLineItems,
       }}
     >
       {children}

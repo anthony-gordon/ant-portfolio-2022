@@ -5,15 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import CartLineItem from "./../sub-components/CartLineItem";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
-import CartCloseIcon from "./../sub-components/CartCloseIcon";
 
 function Cart() {
   const dispatch = useDispatch();
 
-  const { toggleCartDisplay, toggleCartOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { toggleCartDisplay, toggleCartOpacity, updateCursorHover } =
+    bindActionCreators(actionCreators, dispatch);
 
   function toggleCartDisplayOpacity() {
     if (!cartDisplay) {
@@ -32,7 +29,8 @@ function Cart() {
   let { scrollBarWidth, navBarHeight, cartOpacity, cartDisplay } = useSelector(
     (state) => state
   );
-  const { checkout, strings, formatMoney } = useContext(ShopContext);
+  const { checkout, strings, formatMoney, addItemToCheckout } =
+    useContext(ShopContext);
 
   return (
     <>
@@ -53,7 +51,7 @@ function Cart() {
         }`}
       >
         <div className="Cart__content-wrapper">
-          <div className="Cart__header">
+          {/* <div className="Cart__header">
             <div className="Cart__header-text-wrapper">
               <h2 className="Cart__header-text">
                 Cart
@@ -72,20 +70,26 @@ function Cart() {
               cartOpacity={cartOpacity}
               toggleCartDisplayOpacity={toggleCartDisplayOpacity}
             />
-          </div>
-          <hr className="Cart__hr Cart__hr--header" />
+          </div> */}
+          {/* <hr className="Cart__hr Cart__hr--header" /> */}
 
           <table className="Cart__table">
             <thead className="Cart_table-header">
               <tr>
                 <th
-                  className="Cart_table-header-cell-product"
+                  className="Cart_table-header-cell-item"
                   scope="col"
-                  colSpan="2"
+                  colSpan="4"
                 >
-                  Product
+                  Item
                 </th>
-
+                <th
+                  className="Cart_table-header-cell-quantity"
+                  scope="col"
+                  colSpan="1"
+                >
+                  Quantity
+                </th>
                 <th
                   className="Cart_table-header-cell-total"
                   scope="col"
@@ -107,31 +111,36 @@ function Cart() {
             </tbody>
           </table>
           <div className="Cart__footer">
-            <hr className="Cart__hr" />
-
-            <div className="Cart__footer-subtotal">
-              <h3 className="Cart__footer-subtotal-header">Subtotal</h3>
-              <p className="Cart__footer-subtotal-price">
-                {checkout &&
-                  `${formatMoney(
-                    parseFloat(checkout.subtotalPrice) * 100,
-                    "${{amount}}"
-                  )}  ${checkout.currencyCode}`}
+            <div className="Cart__footer-content-wrapper">
+              <div className="Cart__footer-subtotal">
+                <p className="Cart__footer-subtotal-header">Subtotal</p>
+                <p className="Cart__footer-subtotal-price">
+                  {checkout &&
+                    `${formatMoney(
+                      parseFloat(checkout.subtotalPrice) * 100,
+                      "${{amount}}"
+                    )}  ${checkout.currencyCode}`}
+                </p>
+              </div>
+              <p className="Cart__footer-tax-shipping-note">
+                {`${strings.cart.tax_shipping_note}`}
               </p>
+              <a
+                href={checkout && checkout.webUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="Cart__footer-checkout"
+              >
+                <button
+                  onMouseEnter={() => updateCursorHover(true)}
+                  onMouseLeave={() => updateCursorHover(false)}
+                  onClick={() => updateCursorHover(false)}
+                  className="Cart__footer-checkout-button"
+                >
+                  <span>Checkout</span>
+                </button>
+              </a>
             </div>
-            <p className="Cart__footer-tax-shipping-note">
-              {`${strings.cart.tax_shipping_note}`}
-            </p>
-            <a
-              href={checkout && checkout.webUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="Cart__footer-checkout"
-            >
-              <button className="Cart__footer-checkout-button">
-                <span>Checkout</span>
-              </button>
-            </a>
           </div>
         </div>
       </div>

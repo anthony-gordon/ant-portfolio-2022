@@ -89,7 +89,8 @@
   transform: rotate(240deg);
 }
 
-.NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper {
+.NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper,
+.NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__inner-wrapper {
   mix-blend-mode: difference;
   background: rgba(255, 255, 255, 1);
   display: flex;

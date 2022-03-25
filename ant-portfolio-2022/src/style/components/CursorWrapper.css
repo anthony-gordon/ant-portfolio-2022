@@ -1,0 +1,47 @@
+.CursorWrapper {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  height: 100%;
+  width: 100vw;
+  overflow: hidden;
+  mix-blend-mode: difference;
+  z-index: 1002;
+  pointer-events: none;
+}
+
+.Cursor__ball {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.Cursor__ball-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 100%;
+  transform: scale(0.2);
+  transform-origin: center;
+  transition: var(--transition-on-hover);
+}
+
+.Cursor__ball-inner--hover {
+  transform: scale(1.2);
+}
+
+.Cursor__ball-wrapper {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: inherit;
+}

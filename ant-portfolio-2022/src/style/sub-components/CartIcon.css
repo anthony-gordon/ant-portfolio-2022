@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   margin: auto;
-  height: 50px;
+  /* height: 50px; */
   margin-right: 0px;
 }
 
@@ -14,13 +14,32 @@
   cursor: pointer;
 }
 
+.CartIcon__word {
+  color: rgb(var(--color-base-text-inverse));
+  font-family: var(--font-body-family);
+  font-size: var(--font-heading-size-large);
+}
+
 .CartIcon svg {
   height: 32px;
   width: 32px;
   transition: fill var(--transition-on-hover);
-  fill: rgb(var(--color-base-text));
+  fill: rgb(var(--color-base-text-inverse));
 }
 
-.CartIcon__wrapper:hover svg {
+/* .CartIcon__wrapper:hover svg {
   fill: rgb(var(--color-base-text-highlight));
+} */
+
+.CartIcon {
+  width: 25%;
+}
+
+@media only screen and (min-width: 769px) {
+  .CartIcon__word {
+    font-size: var(--font-heading-size-extra-large);
+  }
+  .CartIcon {
+    width: 12.5%;
+  }
 }

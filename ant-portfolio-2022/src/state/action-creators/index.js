@@ -114,3 +114,39 @@ export const updateLoadingOuterBackgroundInFrame = (data) => {
     });
   };
 };
+
+export const updateYOffset = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateYOffset",
+      payload: data,
+    });
+  };
+};
+
+export const updateCursorHover = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateCursorHover",
+      payload: data,
+    });
+  };
+};
+
+export const updateHoverDevice = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateHoverDevice",
+      payload: data,
+    });
+  };
+};
+
+export const updateCheckoutUpdating = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateCheckoutUpdating",
+      payload: data,
+    });
+  };
+};

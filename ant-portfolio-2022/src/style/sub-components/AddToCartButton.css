@@ -25,3 +25,7 @@
   height: fit-content;
   font-size: 18px;
 }
+
+.AddToCartButton--no-click {
+  pointer-events: none;
+}

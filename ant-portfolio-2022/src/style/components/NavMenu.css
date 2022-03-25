@@ -11,7 +11,7 @@
   width: 100%;
   background: var(--gradient-base-background-1);
   background-attachment: fixed;
-  height: 100px;
+  height: 0px;
   transition: var(--transition-move);
 }
 
@@ -24,12 +24,12 @@
 
 .NavMenu--active {
   visibility: inherit;
-  overflow-y: visible;
+  /* overflow-y: visible; */
 }
 
 .NavMenu--visible {
   height: 100vh;
-  overflow-y: scroll;
+  /* overflow-y: hidden; */
 }
 
 .NavMenu__ul {

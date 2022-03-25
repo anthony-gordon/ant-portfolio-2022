@@ -26,14 +26,36 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: "Suisse International Regular";
+  src: local("SuisseInternational"),
+    url("./fonts/SuisseInternational/SuisseIntl-Regular.otf") format("opentype");
+  font-weight: regular;
+}
+
+@font-face {
+  font-family: "Suisse International Semi Bold";
+  src: local("SuisseInternational"),
+    url("./fonts/SuisseInternational/SuisseIntl-SemiBold.otf")
+      format("opentype");
+  font-weight: bold;
+}
+
 html {
-  --font-body-family: "Harmonia Sans Regular", sans-serif;
+  --font-body-family: "Suisse International Regular", sans-serif;
   --font-body-style: normal;
   --font-body-weight: 400;
-  --font-heading-family: "Harmonia Sans Bold", sans-serif;
+  --font-small-body-size: 12px;
+  --font-body-size: 16px;
+  --font-heading-family: "Suisse International Semi Bold", sans-serif;
   --font-heading-style: normal;
   --font-heading-weight: 600;
+  --font-heading-size: 16px;
+  --font-heading-size-large: 20px;
+  --font-heading-size-extra-large: 26px;
   --font-header-logo-family: "durer", sans-serif;
+  --font-header-logo-size: 32px;
+  --font-header-logo-size-desktop: 52px;
   --font-header-logo-style: normal;
   --font-header-logo-weight: 600;
   --font-body-scale: 1;
@@ -146,6 +168,9 @@ html {
   --cart-table-header-height: 30px;
   --cart-mobile-padding: 15px;
   --cart-desktop-padding: 30px;
+  --header-height: 100px;
+  --desktop-margin: 30px;
+  --mobile-margin: 15px;
 }
 
 html,
@@ -172,7 +197,7 @@ body {
 
 .body__no-scroll .NavBar__wrapper,
 .body__no-scroll .Homepage {
-  padding-right: 30px;
+  /* padding-right: 30px; */
 }
 
 @media only screen and (min-width: 769px) {
@@ -183,7 +208,7 @@ body {
 
   .body__no-scroll .NavBar__wrapper,
   .body__no-scroll .Homepage {
-    padding-right: 65px;
+    padding-right: 35px;
   }
 }
 
@@ -193,7 +218,11 @@ code {
 }
 
 * {
+  margin: 0px;
+  padding: 0px;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
 }
 
 h1,

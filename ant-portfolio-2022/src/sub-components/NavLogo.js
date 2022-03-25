@@ -3,28 +3,54 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
+import { ShopContext } from "../context/shopContext";
+import { useContext } from "react";
 
 function NavLogo() {
   const dispatch = useDispatch();
-
-  let { menuDisplay } = useSelector((state) => state);
-  const { toggleMenuDisplay, toggleMenuOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
+  let { menuDisplay, cartDisplay, windowSize } = useSelector((state) => state);
+  const {
+    toggleMenuDisplay,
+    toggleMenuOpacity,
+    toggleCartOpacity,
+    toggleCartDisplay,
+    updateCursorHover,
+  } = bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
-    if (menuDisplay) {
+    updateCursorHover(false);
+
+    if (cartDisplay) {
+      toggleCartOpacity();
+      setTimeout(() => {
+        toggleCartDisplay();
+        addRemoveFixedPositionOnBody("remove", windowSize[0]);
+      }, 500);
+    } else if (menuDisplay) {
       toggleMenuOpacity();
       setTimeout(() => {
-        toggleMenuDisplay();
-      }, 500);
+        updateCursorHover(true);
+        setTimeout(() => {
+          toggleMenuDisplay();
+          addRemoveFixedPositionOnBody("remove", windowSize[0]);
+        }, 250);
+      }, 250);
+    } else {
+      setTimeout(() => {
+        updateCursorHover(true);
+      }, 250);
     }
   }
   return (
     <h1 className="NavLogo">
       <Link className="NavLogo__link" to={`/`}>
-        <div onClick={toggleMenuDisplayOpacity} className="NavLogo__text">
+        <div
+          onMouseEnter={() => updateCursorHover(true)}
+          onMouseLeave={() => updateCursorHover(false)}
+          onClick={toggleMenuDisplayOpacity}
+          className="NavLogo__text"
+        >
           Anthony Gordon
         </div>
       </Link>

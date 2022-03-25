@@ -9,32 +9,67 @@ function NavHamburgerIcon() {
   const dispatch = useDispatch();
   const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
 
-  let { menuDisplay, menuOpacity } = useSelector((state) => state);
-  const { toggleMenuDisplay, toggleMenuOpacity } = bindActionCreators(
-    actionCreators,
-    dispatch
+  let { menuDisplay, menuOpacity, cartDisplay, windowSize } = useSelector(
+    (state) => state
   );
+  const {
+    toggleMenuDisplay,
+    toggleMenuOpacity,
+    updateCursorHover,
+    toggleCartDisplay,
+    toggleCartOpacity,
+  } = bindActionCreators(actionCreators, dispatch);
 
   function toggleMenuDisplayOpacity() {
     if (!menuDisplay) {
-      toggleMenuDisplay();
-      addRemoveFixedPositionOnBody("add");
+      console.log(cartDisplay);
 
-      setTimeout(() => {
-        toggleMenuOpacity();
-      }, 10);
+      updateCursorHover(false);
+      if (cartDisplay) {
+        console.log("cart display");
+        toggleCartOpacity();
+        setTimeout(() => {
+          updateCursorHover(true);
+
+          setTimeout(() => {
+            toggleCartDisplay();
+            toggleMenuDisplay();
+            addRemoveFixedPositionOnBody("add", windowSize[0]);
+
+            setTimeout(() => {
+              toggleMenuOpacity();
+            }, 10);
+          }, 250);
+        }, 250);
+      } else {
+        toggleMenuDisplay();
+        addRemoveFixedPositionOnBody("add", windowSize[0]);
+
+        setTimeout(() => {
+          toggleMenuOpacity();
+          setTimeout(() => {
+            updateCursorHover(true);
+          }, 250);
+        }, 10);
+      }
     } else if (menuDisplay) {
+      updateCursorHover(false);
       toggleMenuOpacity();
       setTimeout(() => {
-        addRemoveFixedPositionOnBody("remove");
-      }, 500);
-      setTimeout(() => {
-        toggleMenuDisplay();
-      }, 500);
+        updateCursorHover(true);
+        setTimeout(() => {
+          toggleMenuDisplay();
+          addRemoveFixedPositionOnBody("remove", windowSize[0]);
+        }, 250);
+      }, 250);
     }
   }
   return (
-    <div className="NavHamburgerIcon">
+    <div
+      onMouseEnter={() => updateCursorHover(true)}
+      onMouseLeave={() => updateCursorHover(false)}
+      className="NavHamburgerIcon"
+    >
       <div
         onClick={toggleMenuDisplayOpacity}
         className={`NavHamburgerIcon__wrapper${
@@ -45,12 +80,13 @@ function NavHamburgerIcon() {
             : ""
         }`}
       >
+        {/* <span></span>
         <span></span>
         <span></span>
         <span></span>
         <span></span>
-        <span></span>
-        <span></span>
+        <span></span> */}
+        <div className="NavHamburgerIcon__word">Menu</div>
       </div>
     </div>
   );
