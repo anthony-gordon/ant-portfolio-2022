@@ -1,46 +1,24 @@
 import "../style/components/NavMenu.css";
 import NavMenuLi from "./../sub-components/NavMenuLi";
 import { useSelector } from "react-redux";
-import { useContext, useState } from "react";
-import { ShopContext } from "../context/shopContext";
+import { useContext } from "react";
+import { LayoutContext } from "../context/layoutContext";
 
 function NavMenu() {
   let { menuOpacity, menuDisplay, scrollBarWidth } = useSelector(
     (state) => state
   );
-
-  const { randomId } = useContext(ShopContext);
-  const style = {
-    NavMenu: {
-      paddingRight: `${scrollBarWidth}px`,
-    },
-  };
-
-  const [menuItems] = useState([
-    {
-      words: ["about"],
-      link: "/about",
-      internal: true,
-      key: randomId(),
-    },
-    {
-      words: ["shop"],
-      link: "/shop",
-      internal: true,
-      key: randomId(),
-    },
-  ]);
-
+  const { navMenuItems } = useContext(LayoutContext);
   return (
     <nav
-      style={style.NavMenu}
+      style={{ paddingRight: `${scrollBarWidth}px` }}
       className={`NavMenu ${menuOpacity ? "NavMenu--visible" : ""} ${
         menuDisplay ? "NavMenu--active" : ""
       }`}
     >
       <div className="NavMenu__wrapper">
         <ul className="NavMenu__ul">
-          {menuItems.map((menuItem, index) => {
+          {navMenuItems.map((menuItem, index) => {
             return (
               <NavMenuLi
                 key={menuItem.key}

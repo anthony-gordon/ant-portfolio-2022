@@ -6,18 +6,19 @@ import {
   getImageString,
   addRemoveFixedPositionOnBody,
   randomId,
-  gridScrollHelpers,
   onClickBounce,
   totalCheckoutQuantity,
 } from "./helperFunctions";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
+import { helpers } from "../helpers/helpersIndex";
 
 const ShopContext = React.createContext();
 
 function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
   const dispatch = useDispatch();
+  const { updateLineItemQuantity, generateProductLink } = helpers;
 
   const [products, setProducts] = useState([]);
   const [variantsAsProducts, setVariantsAsProducts] = useState([]);
@@ -209,12 +210,13 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
         variantsAsProducts: variantsAsProducts,
         randomId: randomId,
         y: y,
-        gridScrollHelpers: gridScrollHelpers,
         mousePositionX: mousePositionX,
         mousePositionY: mousePositionY,
         updateLineItems: updateLineItems,
         onClickBounce: onClickBounce,
         checkoutTotalLineItems: checkoutTotalLineItems,
+        updateLineItemQuantity: updateLineItemQuantity,
+        generateProductLink: generateProductLink,
       }}
     >
       {children}

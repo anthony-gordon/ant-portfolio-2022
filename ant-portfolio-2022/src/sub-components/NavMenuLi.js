@@ -5,12 +5,14 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "./../state/index";
 import { ShopContext } from "../context/shopContext";
 import { useContext, useState, useEffect } from "react";
+import { LayoutContext } from "../context/layoutContext";
 
 function NavMenuLi({ menuItem, index }) {
   const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
+  const { menuIconClick } = useContext(LayoutContext);
 
   const dispatch = useDispatch();
-  let { menuDisplay } = useSelector((state) => state);
+  let { menuDisplay, cartDisplay, windowSize } = useSelector((state) => state);
 
   const [visible, setVisible] = useState(false);
 
@@ -24,34 +26,45 @@ function NavMenuLi({ menuItem, index }) {
     }
   }, [menuDisplay, index]);
 
-  const { toggleMenuDisplay, toggleMenuOpacity, updateCursorHover } =
-    bindActionCreators(actionCreators, dispatch);
+  const {
+    toggleMenuDisplay,
+    toggleMenuOpacity,
+    updateCursorHover,
+    toggleCartOpacity,
+    toggleCartDisplay,
+  } = bindActionCreators(actionCreators, dispatch);
 
-  function toggleMenuDisplayOpacity() {
-    if (menuDisplay) {
-      toggleMenuOpacity();
-      updateCursorHover(false);
-      setTimeout(() => {
-        toggleMenuDisplay();
-        addRemoveFixedPositionOnBody("remove");
-      }, 500);
-    }
+  function handleClick() {
+    menuIconClick(
+      menuDisplay,
+      cartDisplay,
+      windowSize,
+      toggleMenuDisplay,
+      toggleMenuOpacity,
+      updateCursorHover,
+      toggleCartDisplay,
+      toggleCartOpacity,
+      addRemoveFixedPositionOnBody
+    );
   }
+
   return (
     <li className={`NavMenu__li ${visible ? "NavMenu__li--visible" : ""}`}>
       <Link
         target={menuItem.internal ? "" : "_blank"}
         rel={menuItem.internal ? "" : "noopener noreferrer"}
         to={menuItem.link}
-        className="NavMenu__button"
+        className="NavMenu__li-button"
       >
         <p
           onMouseEnter={() => updateCursorHover(true)}
           onMouseLeave={() => updateCursorHover(false)}
-          onClick={toggleMenuDisplayOpacity}
-          className="NavMenu__title"
+          onClick={handleClick}
+          className="NavMenu__li-title"
         >
-          <span className={`NavMenu__title-span `}>{`${menuItem.words} `}</span>
+          <span
+            className={`NavMenu__li-title-span `}
+          >{`${menuItem.words} `}</span>
         </p>
       </Link>
     </li>

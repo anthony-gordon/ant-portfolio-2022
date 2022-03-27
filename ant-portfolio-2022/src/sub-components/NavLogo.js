@@ -1,14 +1,19 @@
 import "../style/sub-components/NavLogo.css";
+
+import { actionCreators } from "./../state/index";
+import { ShopContext } from "../context/shopContext";
+import { LayoutContext } from "../context/layoutContext";
+
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreators } from "./../state/index";
-import { ShopContext } from "../context/shopContext";
 import { useContext } from "react";
 
 function NavLogo() {
   const dispatch = useDispatch();
   const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
+  const { navLogoClick } = useContext(LayoutContext);
+
   let { menuDisplay, cartDisplay, windowSize } = useSelector((state) => state);
   const {
     toggleMenuDisplay,
@@ -18,37 +23,27 @@ function NavLogo() {
     updateCursorHover,
   } = bindActionCreators(actionCreators, dispatch);
 
-  function toggleMenuDisplayOpacity() {
-    updateCursorHover(false);
-
-    if (cartDisplay) {
-      toggleCartOpacity();
-      setTimeout(() => {
-        toggleCartDisplay();
-        addRemoveFixedPositionOnBody("remove", windowSize[0]);
-      }, 500);
-    } else if (menuDisplay) {
-      toggleMenuOpacity();
-      setTimeout(() => {
-        updateCursorHover(true);
-        setTimeout(() => {
-          toggleMenuDisplay();
-          addRemoveFixedPositionOnBody("remove", windowSize[0]);
-        }, 250);
-      }, 250);
-    } else {
-      setTimeout(() => {
-        updateCursorHover(true);
-      }, 250);
-    }
+  function handleClick() {
+    navLogoClick(
+      menuDisplay,
+      cartDisplay,
+      windowSize,
+      toggleMenuDisplay,
+      toggleMenuOpacity,
+      toggleCartOpacity,
+      toggleCartDisplay,
+      updateCursorHover,
+      addRemoveFixedPositionOnBody
+    );
   }
+
   return (
     <h1 className="NavLogo">
       <Link className="NavLogo__link" to={`/`}>
         <div
           onMouseEnter={() => updateCursorHover(true)}
           onMouseLeave={() => updateCursorHover(false)}
-          onClick={toggleMenuDisplayOpacity}
+          onClick={handleClick}
           className="NavLogo__text"
         >
           Anthony Gordon

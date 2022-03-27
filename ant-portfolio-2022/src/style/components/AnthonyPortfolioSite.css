@@ -1,9 +1,4 @@
 .AnthonyPortfolioSite {
-  /* width: 100%;
-  background: rgb(255, 255, 255); */
-  /* overflow: hidden;
-  height: calc(var(--vh) * 100);
-  overscroll-behavior: none; */
   position: relative;
   background: var(--gradient-base-background-1);
   background-attachment: fixed;

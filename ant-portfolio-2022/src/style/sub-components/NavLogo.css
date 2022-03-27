@@ -1,5 +1,4 @@
 .NavLogo {
-  height: 50px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -8,29 +7,23 @@
 }
 
 .NavLogo__link {
-  text-decoration: none;
-  color: inherit;
-  padding: 0 15px;
+  padding: 0 var(--page-margin);
 }
 
 .NavLogo__text {
   font-family: var(--font-header-logo-family);
-  font-style: var(--font-header-logo-style);
-  font-weight: var(--font-header-logo-weight);
-  font-size: var(--font-header-logo-size);
-  letter-spacing: 1px;
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: var(--font-header-h1-size);
+  letter-spacing: calc(var(--font-header-h1-size) / 50);
   text-transform: uppercase;
   text-align: center;
   color: rgb(var(--color-base-text-inverse));
-  /* transition: color var(--transition-on-hover); */
-}
-
-.NavLogo__text:hover {
-  /* color: rgb(var(--color-base-text-highlight)); */
 }
 
 @media only screen and (min-width: 769px) {
   .NavLogo__text {
-    font-size: var(--font-header-logo-size-desktop);
+    font-size: var(--font-header-h1-size-desktop);
+    letter-spacing: calc(var(--font-header-h1-size-desktop) / 50);
   }
 }

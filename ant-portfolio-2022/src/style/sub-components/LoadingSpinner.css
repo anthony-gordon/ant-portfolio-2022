@@ -1,3 +1,7 @@
+.LoadingSpinner--not-ready {
+  display: none;
+}
+
 .LoadingSpinner__wrapper {
   position: absolute;
   pointer-events: none;
@@ -8,15 +12,39 @@
   height: 20px;
   background-color: inherit;
   position: absolute;
+  -webkit-animation-duration: 10000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-duration: 10000ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-duration: 10000ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+  animation-duration: 10000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
-.LoadingSpinner__wrapper-3 .LoadingSpinner__line--third,
-.LoadingSpinner__wrapper-3 .LoadingSpinner__line--second,
-.LoadingSpinner__wrapper-3 .LoadingSpinner__line--first {
-  -webkit-animation-duration: 5000ms;
-  -moz-animation-duration: 5000ms;
-  -ms-animation-duration: 5000ms;
-  animation-duration: 5000ms;
+.LoadingSpinner__line--first {
+  -webkit-animation-name: spin2;
+  -moz-animation-name: spin2;
+  -ms-animation-name: spin2;
+  animation-name: spin2;
+}
+
+.LoadingSpinner__line--second {
+  -webkit-animation-name: spin3;
+  -moz-animation-name: spin3;
+  -ms-animation-name: spin3;
+  animation-name: spin3;
+}
+
+.LoadingSpinner__line--third {
+  -webkit-animation-name: spin;
+  -moz-animation-name: spin;
+  -ms-animation-name: spin;
+  animation-name: spin;
 }
 
 .LoadingSpinner__wrapper-2 .LoadingSpinner__line--third,
@@ -28,77 +56,25 @@
   animation-duration: 12500ms;
 }
 
-.LoadingSpinner__line--third {
-  -webkit-animation-name: spin;
-  -webkit-animation-duration: 10000ms;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  -moz-animation-name: spin;
-  -moz-animation-duration: 10000ms;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: linear;
-  -ms-animation-name: spin;
-  -ms-animation-duration: 10000ms;
-  -ms-animation-iteration-count: infinite;
-  -ms-animation-timing-function: linear;
-  animation-name: spin;
-  animation-duration: 10000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.LoadingSpinner__line--first {
-  -webkit-animation-name: spin2;
-  -webkit-animation-duration: 10000ms;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  -moz-animation-name: spin2;
-  -moz-animation-duration: 10000ms;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: linear;
-  -ms-animation-name: spin2;
-  -ms-animation-duration: 10000ms;
-  -ms-animation-iteration-count: infinite;
-  -ms-animation-timing-function: linear;
-  animation-name: spin2;
-  animation-duration: 10000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.LoadingSpinner__line--second {
-  -webkit-animation-name: spin3;
-  -webkit-animation-duration: 10000ms;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  -moz-animation-name: spin3;
-  -moz-animation-duration: 10000ms;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: linear;
-  -ms-animation-name: spin3;
-  -ms-animation-duration: 10000ms;
-  -ms-animation-iteration-count: infinite;
-  -ms-animation-timing-function: linear;
-  animation-name: spin3;
-  animation-duration: 10000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.LoadingSpinner__line--second {
-  transform: rotate(240deg);
+.LoadingSpinner__wrapper-3 .LoadingSpinner__line--third,
+.LoadingSpinner__wrapper-3 .LoadingSpinner__line--second,
+.LoadingSpinner__wrapper-3 .LoadingSpinner__line--first {
+  -webkit-animation-duration: 5000ms;
+  -moz-animation-duration: 5000ms;
+  -ms-animation-duration: 5000ms;
+  animation-duration: 5000ms;
 }
 
 .NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper,
 .NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__inner-wrapper {
   mix-blend-mode: difference;
-  background: rgba(255, 255, 255, 1);
+  background: rgb(var(--color-base-text-inverse));
   display: flex;
   transition: background var(--transition-on-hover);
 }
 
 .NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper-not-visible {
-  background: rgba(255, 255, 255, 0);
+  background: rgb(var(--font-base-text));
 }
 
 .NavBar__wrapper ~ .LoadingSpinner .LoadingSpinner__wrapper--not-displaying {
@@ -212,13 +188,10 @@
     transform: rotate(120deg);
   }
 }
+
 @media only screen and (min-width: 769px) {
   .LoadingSpinner__line {
     width: 500px;
     height: 50px;
   }
-}
-
-.LoadingSpinner--not-ready {
-  display: none;
 }

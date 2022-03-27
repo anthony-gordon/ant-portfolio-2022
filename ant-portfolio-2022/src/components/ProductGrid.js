@@ -1,20 +1,21 @@
 import "../style/components/ProductGrid.css";
 import ProductGridItem from "../sub-components/ProductGridItem";
 import { useState, useContext, useEffect } from "react";
-import { animated as a, useSpring, useTransition } from "react-spring";
-import { ShopContext } from "../context/shopContext";
+import { animated as a } from "react-spring";
+import { LayoutContext } from "../context/layoutContext";
 import { useSelector } from "react-redux";
 
 function ProductGrid({ productList }) {
   const { windowSize, YOffset } = useSelector((state) => state);
-  const { y, gridScrollHelpers } = useContext(ShopContext);
+  const { y, gridScroll } = useContext(LayoutContext);
+
   const {
     gridItemDesktopHeight,
-    gridItemTabletHeight,
+    desktopPageMargin,
     gridItemTopBottomMargin,
     gridDesktopColumns,
     getNumberOfRows,
-    getProductGridHeight,
+
     getProductGridScrollHeight,
     getProductGridStartingPosition,
     getYTransform,
@@ -22,7 +23,11 @@ function ProductGrid({ productList }) {
     getShortColumnExtraGridItemSpacing,
     headerFooterHeight,
     getXRotate,
-  } = gridScrollHelpers;
+  } = gridScroll;
+
+  const [gridItemTabletHeight, setGridItemTabletHeight] = useState(
+    (windowSize[0] - desktopPageMargin - desktopPageMargin) / gridDesktopColumns
+  );
 
   const [numberOfRows] = useState(
     getNumberOfRows(productList.length, gridDesktopColumns)
@@ -61,10 +66,17 @@ function ProductGrid({ productList }) {
     );
 
   useEffect(() => {
+    setGridItemTabletHeight(
+      (windowSize[0] - desktopPageMargin - desktopPageMargin) /
+        gridDesktopColumns
+    );
+  }, [windowSize]);
+
+  useEffect(() => {
     setGridItemHeight(
       windowSize[0] < 1200 ? gridItemTabletHeight : gridItemDesktopHeight
     );
-  }, [windowSize]);
+  }, [gridItemTabletHeight, windowSize]);
 
   useEffect(() => {
     console.log("setting");
@@ -166,6 +178,7 @@ function ProductGrid({ productList }) {
                     <ProductGridItem
                       key={product.variant_id}
                       product={product}
+                      windowWidth={windowSize[0]}
                     />
                   );
                 })}

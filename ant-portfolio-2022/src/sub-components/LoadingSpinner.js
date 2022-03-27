@@ -1,6 +1,7 @@
+import "../style/sub-components/LoadingSpinner.css";
+
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import "../style/sub-components/LoadingSpinner.css";
 
 function LoadingSpinner({ number }) {
   let { windowSize, loadingVisible, loadingDisplay } = useSelector(
@@ -14,29 +15,30 @@ function LoadingSpinner({ number }) {
   );
   const [element, setElement] = useState(null);
   const [ready, setReady] = useState(false);
+  const windowHeight = useRef(windowSize[1]);
+
+  const xSpeed = useRef(Math.random() * 5);
+  const xOffset = useRef(Math.random() * (windowWidth - 40));
+
+  const ySpeed = useRef(Math.random() * 5);
+  const yOffset = useRef(Math.random() * (windowHeight.current - 40));
 
   useEffect(() => {
     const windowHeight = windowSize[1];
-    let xSpeed = Math.random() * 5;
-    let xOffset = Math.random() * (windowWidth - 40);
-
-    let ySpeed = Math.random() * 5;
-    let yOffset = Math.random() * (windowHeight - 40);
 
     const move = function () {
       if (element) {
-        if (xOffset > windowWidth || xOffset < 0) {
-          xSpeed = xSpeed * -1;
+        if (xOffset.current > windowWidth || xOffset.current < 0) {
+          xSpeed.current = xSpeed.current * -1;
         }
 
-        if (yOffset > windowHeight || yOffset < 0) {
-          ySpeed = ySpeed * -1;
+        if (yOffset.current > windowHeight || yOffset.current < 0) {
+          ySpeed.current = ySpeed.current * -1;
         }
 
-        xOffset += xSpeed;
-        yOffset += ySpeed;
-
-        element.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+        xOffset.current = xOffset.current + xSpeed.current;
+        yOffset.current = yOffset.current + ySpeed.current;
+        element.style.transform = `translate(${xOffset.current}px, ${yOffset.current}px)`;
         if (!ready) {
           setReady(true);
         }

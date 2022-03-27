@@ -1,7 +1,7 @@
 import React, { useEffect, createRef } from "react";
 import "./../style/components/ScrollContainer.css";
 
-function ScrollContainer({ children, y }) {
+function ScrollContainer({ children }) {
   const viewportRef = createRef();
 
   function getRefDimensions(ref) {

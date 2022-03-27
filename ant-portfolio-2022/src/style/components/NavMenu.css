@@ -18,18 +18,16 @@
 .NavMenu__wrapper {
   display: flex;
   height: 100vh;
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: var(--header-height);
+  padding-bottom: var(--header-height);
 }
 
 .NavMenu--active {
   visibility: inherit;
-  /* overflow-y: visible; */
 }
 
 .NavMenu--visible {
   height: 100vh;
-  /* overflow-y: hidden; */
 }
 
 .NavMenu__ul {

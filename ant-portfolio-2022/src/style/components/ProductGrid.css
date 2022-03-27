@@ -21,7 +21,8 @@
 @media only screen and (min-width: 769px) {
   .ProductGrid {
     grid-template-columns: 1fr 1fr 1fr;
-    max-width: 769px;
+    max-width: calc(var(--page-max-width) - (2 * var(--page-desktop-margin)));
+    width: inherit;
     margin: 0 auto;
     padding: 0px;
   }
@@ -30,6 +31,7 @@
 @media only screen and (min-width: 1200px) {
   .ProductGrid {
     grid-template-columns: 1fr 1fr 1fr;
-    max-width: 1200px;
+    max-width: calc(var(--page-max-width) - (2 * var(--page-desktop-margin)));
+    margin: auto;
   }
 }
