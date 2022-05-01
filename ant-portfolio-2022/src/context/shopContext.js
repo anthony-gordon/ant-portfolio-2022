@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import strings from "./strings.js";
 import {
   formatMoney,
   lowestVariantPrice,
-  getImageString,
   addRemoveFixedPositionOnBody,
   randomId,
   onClickBounce,
@@ -18,7 +16,8 @@ const ShopContext = React.createContext();
 
 function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
   const dispatch = useDispatch();
-  const { updateLineItemQuantity, generateProductLink } = helpers;
+  const { updateLineItemQuantity, generateProductLink, getImageString } =
+    helpers;
 
   const [products, setProducts] = useState([]);
   const [variantsAsProducts, setVariantsAsProducts] = useState([]);
@@ -26,6 +25,13 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
   const [checkout, setCheckout] = useState({});
   const [loadingProcessDone, setLoadingProcessDone] = useState(false);
   const [checkoutTotalLineItems, setCheckoutTotalLineItems] = useState(0);
+  const {
+    updateLoading,
+    updateLoadingOuterBackgroundInFrame,
+    updateLoadingVisible,
+    updateLoadingDisplay,
+    updateCartCount,
+  } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     const {
@@ -33,6 +39,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       updateLoadingOuterBackgroundInFrame,
       updateLoadingVisible,
       updateLoadingDisplay,
+      updateCartCount,
     } = bindActionCreators(actionCreators, dispatch);
 
     if (
@@ -68,7 +75,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       console.log(checkout);
       if (checkout[`checkout`]) {
         setCheckout(checkout[`checkout`]);
-        setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
+        updateCartCount(totalCheckoutQuantity(checkout[`checkout`]));
       } else {
         loadServerlessCreateCheckoutFunction();
       }
@@ -83,7 +90,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       const res = await fetch(`/.netlify/functions/create-checkout`);
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
-      setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
+      updateCartCount(totalCheckoutQuantity(checkout[`checkout`]));
       localStorage.setItem("checkout", checkout[`checkout`].id);
     } catch (error) {
       console.error(error);
@@ -177,7 +184,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       );
       const checkout = await res.json();
       setCheckout(checkout[`checkout`]);
-      setCheckoutTotalLineItems(totalCheckoutQuantity(checkout[`checkout`]));
+      updateCartCount(totalCheckoutQuantity(checkout[`checkout`]));
       console.log(checkout);
     } catch (error) {
       console.error(error);
@@ -202,10 +209,8 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
         checkout: checkout,
         fetchCurrentProduct: fetchCurrentProduct,
         addItemToCheckout: addItemToCheckout,
-        strings: strings,
         formatMoney: formatMoney,
         lowestVariantPrice: lowestVariantPrice,
-        getImageString: getImageString,
         addRemoveFixedPositionOnBody: addRemoveFixedPositionOnBody,
         variantsAsProducts: variantsAsProducts,
         randomId: randomId,

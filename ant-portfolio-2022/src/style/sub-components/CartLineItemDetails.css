@@ -10,18 +10,9 @@
 
 .CartLineItemDetails__product-image {
   height: 160px;
-  width: 120px;
-  object-fit: cover;
-  vertical-align: top;
-}
-
-.CartLineItemDetails__product-variant-option {
-  margin-top: calc(var(--grid-spacing) / 2);
-  font-size: var(--font-small-body-size);
-}
-
-.CartLineItemDetails__product-variant-option--hidden {
-  display: none;
+  width: 160px;
+  object-fit: contain;
+  object-position: 0 0;
 }
 
 .CartLineItemDetails__remove {
@@ -31,10 +22,17 @@
   text-decoration: underline;
 }
 
+.CartLineItemDetails__product-title,
+.CartLineItemDetails__product-price {
+  font-family: var(--font-body-family);
+  font-size: var(--font-body-size);
+  margin-bottom: calc(var(--grid-spacing) / 4);
+  color: var(--color-base-text);
+}
+
 @media only screen and (min-width: 769px) {
   .CartLineItemDetails__product-image {
     height: 200px;
-    width: 150px;
-    object-fit: cover;
+    width: 200px;
   }
 }

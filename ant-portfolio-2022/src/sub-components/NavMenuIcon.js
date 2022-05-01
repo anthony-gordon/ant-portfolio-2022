@@ -1,60 +1,45 @@
 import "../style/sub-components/NavMenuIcon.css";
+import React, { useEffect, useMemo } from "react";
+import useHandleNavMenuIconClick from "../hooks/useHandleNavMenuIconClick";
+import useSetCursorHover from "../hooks/useSetCursorHover";
 
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { useContext } from "react";
-import { actionCreators } from "../state/index";
-import { ShopContext } from "../context/shopContext";
-import { LayoutContext } from "../context/layoutContext";
+import { useSelector, shallowEqual } from "react-redux";
 
-function NavMenuIcon() {
-  const dispatch = useDispatch();
-  const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
-  const { menuIconClick } = useContext(LayoutContext);
+const NavMenuIcon = () => {
+  const { handleNavMenuIconClick } = useHandleNavMenuIconClick();
+  const { setCursorHover } = useSetCursorHover();
 
-  let { menuDisplay, menuOpacity, cartDisplay, windowSize } = useSelector(
-    (state) => state
+  let menuDisplay = useSelector((state) => state.menuDisplay, shallowEqual);
+  let menuOpacity = useSelector((state) => state.menuOpacity, shallowEqual);
+  let cartDisplay = useSelector((state) => state.cartDisplay, shallowEqual);
+  let windowSize = useSelector((state) => state.windowSize, shallowEqual);
+  let scrollBarWidth = useSelector(
+    (state) => state.scrollBarWidth,
+    shallowEqual
   );
-  const {
-    toggleMenuDisplay,
-    toggleMenuOpacity,
-    updateCursorHover,
-    toggleCartDisplay,
-    toggleCartOpacity,
-  } = bindActionCreators(actionCreators, dispatch);
 
-  function handleClick() {
-    menuIconClick(
-      menuDisplay,
-      cartDisplay,
-      windowSize,
-      toggleMenuDisplay,
-      toggleMenuOpacity,
-      updateCursorHover,
-      toggleCartDisplay,
-      toggleCartOpacity,
-      addRemoveFixedPositionOnBody
-    );
-  }
-
-  return (
-    <div
-      onMouseEnter={() => updateCursorHover(true)}
-      onMouseLeave={() => updateCursorHover(false)}
-      className="NavMenuIcon"
-    >
+  return useMemo(() => {
+    return (
       <div
-        onClick={handleClick}
-        className={`NavMenuIcon__wrapper${
-          menuOpacity ? " NavMenuIcon__wrapper--open" : ""
-        } ${
-          menuDisplay !== menuOpacity ? "NavMenuIcon__wrapper--unclickable" : ""
-        }`}
+        onMouseEnter={() => setCursorHover(true)}
+        onMouseLeave={() => setCursorHover(false)}
+        onClick={() => handleNavMenuIconClick()}
+        className="NavMenuIcon"
       >
-        <div className="NavMenuIcon__word">Menu</div>
+        <div
+          className={`NavMenuIcon__wrapper${
+            menuOpacity ? " NavMenuIcon__wrapper--open" : ""
+          } ${
+            menuDisplay !== menuOpacity
+              ? "NavMenuIcon__wrapper--unclickable"
+              : ""
+          }`}
+        >
+          <div className="NavMenuIcon__word">Menu</div>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }, [menuDisplay, menuOpacity, cartDisplay, scrollBarWidth, windowSize]);
+};
 
 export default NavMenuIcon;

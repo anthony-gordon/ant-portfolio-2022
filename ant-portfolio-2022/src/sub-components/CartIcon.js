@@ -1,62 +1,49 @@
 import "../style/sub-components/CartIcon.css";
 
-import { actionCreators } from "./../state/index";
-import { ShopContext } from "../context/shopContext";
-import { LayoutContext } from "../context/layoutContext";
-
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-
-import { useContext } from "react";
+import { useSelector, shallowEqual } from "react-redux";
+import { useEffect, useMemo } from "react";
+import useHandleCartIconClick from "../hooks/useHandleCartIconClick";
+import useSetCursorHover from "../hooks/useSetCursorHover";
 
 function CartIcon() {
-  const dispatch = useDispatch();
-  const { checkoutTotalLineItems, addRemoveFixedPositionOnBody } =
-    useContext(ShopContext);
-  const { cartIconClick } = useContext(LayoutContext);
+  const { handleCartIconClick } = useHandleCartIconClick();
+  const { setCursorHover } = useSetCursorHover();
 
-  let { cartDisplay, cartOpacity, menuDisplay, windowSize } = useSelector(
-    (state) => state
+  let cartDisplay = useSelector((state) => state.cartDisplay, shallowEqual);
+  let cartOpacity = useSelector((state) => state.cartOpacity, shallowEqual);
+  let cartCount = useSelector((state) => state.cartCount, shallowEqual);
+  let menuDisplay = useSelector((state) => state.menuDisplay, shallowEqual);
+  let windowSize = useSelector((state) => state.windowSize, shallowEqual);
+  let scrollBarWidth = useSelector(
+    (state) => state.scrollBarWidth,
+    shallowEqual
   );
-  const {
-    toggleMenuDisplay,
-    toggleMenuOpacity,
-    toggleCartDisplay,
-    toggleCartOpacity,
-    updateCursorHover,
-  } = bindActionCreators(actionCreators, dispatch);
 
-  function handleClick() {
-    cartIconClick(
-      cartDisplay,
-      cartOpacity,
-      menuDisplay,
-      windowSize,
-      toggleMenuDisplay,
-      toggleMenuOpacity,
-      toggleCartDisplay,
-      toggleCartOpacity,
-      updateCursorHover,
-      addRemoveFixedPositionOnBody
-    );
-  }
-
-  return (
-    <div className="CartIcon">
-      <div
-        onClick={handleClick}
-        onMouseEnter={() => updateCursorHover(true)}
-        onMouseLeave={() => updateCursorHover(false)}
-        className={`CartIcon__wrapper${
-          cartOpacity ? " CartIcon__wrapper--open" : ""
-        } ${
-          cartDisplay !== cartOpacity ? "CartIcon__wrapper--unclickable" : ""
-        }`}
-      >
-        <div className="CartIcon__word">Bag ({checkoutTotalLineItems})</div>
+  return useMemo(() => {
+    return (
+      <div className="CartIcon">
+        <div
+          onClick={() => handleCartIconClick()}
+          onMouseEnter={() => setCursorHover(true)}
+          onMouseLeave={() => setCursorHover(false)}
+          className={`CartIcon__wrapper${
+            cartOpacity ? " CartIcon__wrapper--open" : ""
+          } ${
+            cartDisplay !== cartOpacity ? "CartIcon__wrapper--unclickable" : ""
+          }`}
+        >
+          <div className="CartIcon__word">Bag ({cartCount})</div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }, [
+    cartDisplay,
+    cartOpacity,
+    cartCount,
+    menuDisplay,
+    windowSize,
+    scrollBarWidth,
+  ]);
 }
 
 export default CartIcon;

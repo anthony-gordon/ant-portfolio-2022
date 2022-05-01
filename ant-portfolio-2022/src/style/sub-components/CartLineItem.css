@@ -26,9 +26,6 @@
   text-align: right;
 }
 
-.CartLineItemDetails__product-title,
-.CartLineItemDetails__product-price,
-.CartLineItemDetails__product-variant-option,
 .CartLineItem__total-wrapper {
   font-family: var(--font-body-family);
   font-size: var(--font-body-size);

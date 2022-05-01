@@ -1,49 +1,23 @@
 import "../style/sub-components/NavLogo.css";
 
-import { actionCreators } from "./../state/index";
-import { ShopContext } from "../context/shopContext";
-import { LayoutContext } from "../context/layoutContext";
+import useHandleNavLogoClick from "../hooks/useHandleNavLogoClick";
+import useSetCursorHover from "../hooks/useSetCursorHover";
+import { useSelector, shallowEqual } from "react-redux";
 
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { useContext } from "react";
+import { useEffect, useMemo } from "react";
 
 function NavLogo() {
-  const dispatch = useDispatch();
-  const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
-  const { navLogoClick } = useContext(LayoutContext);
-
-  let { menuDisplay, cartDisplay, windowSize } = useSelector((state) => state);
-  const {
-    toggleMenuDisplay,
-    toggleMenuOpacity,
-    toggleCartOpacity,
-    toggleCartDisplay,
-    updateCursorHover,
-  } = bindActionCreators(actionCreators, dispatch);
-
-  function handleClick() {
-    navLogoClick(
-      menuDisplay,
-      cartDisplay,
-      windowSize,
-      toggleMenuDisplay,
-      toggleMenuOpacity,
-      toggleCartOpacity,
-      toggleCartDisplay,
-      updateCursorHover,
-      addRemoveFixedPositionOnBody
-    );
-  }
+  const { handleNavLogoClick } = useHandleNavLogoClick();
+  const { setCursorHover } = useSetCursorHover();
 
   return (
     <h1 className="NavLogo">
       <Link className="NavLogo__link" to={`/`}>
         <div
-          onMouseEnter={() => updateCursorHover(true)}
-          onMouseLeave={() => updateCursorHover(false)}
-          onClick={handleClick}
+          onMouseEnter={() => setCursorHover(true)}
+          onMouseLeave={() => setCursorHover(false)}
+          onClick={() => handleNavLogoClick()}
           className="NavLogo__text"
         >
           Anthony Gordon

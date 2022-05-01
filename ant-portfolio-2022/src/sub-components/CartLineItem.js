@@ -1,62 +1,19 @@
 import "../style/sub-components/CartLineItem.css";
-import { Link } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "./../state/index";
+
+import { useState, useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
+
+import { helpers } from "./../helpers/helpersIndex";
 import { ShopContext } from "../context/shopContext";
 import CartLineItemQuantityUpdate from "./CartLineItemQuantityUpdate";
 import CartLineItemDetails from "./CartLineItemDetails";
 
 function CartLineItem({ item, index }) {
-  const { getImageString, randomId, checkout, updateLineItems } =
-    useContext(ShopContext);
-  const [lineItemOptions] = useState(generateOptions());
-  const dispatch = useDispatch();
-  let { cartDisplay, checkoutUpdating } = useSelector((state) => state);
-  const {
-    toggleCartDisplay,
-    toggleCartOpacity,
-    updateCursorHover,
-    updateCheckoutUpdating,
-  } = bindActionCreators(actionCreators, dispatch);
+  let cartDisplay = useSelector((state) => state.cartDisplay);
 
   const [visible, setVisible] = useState(false);
-
-  function handleUpdateLineItems(variantId, quantity, checkoutId) {
-    updateCheckoutUpdating(true);
-    updateCursorHover(false);
-    setTimeout(() => updateCursorHover(true), 250);
-    updateLineItems(variantId, quantity, checkoutId).then(() => {
-      updateCheckoutUpdating(false);
-    });
-  }
-
-  function generateOptions() {
-    let optionsArray = [];
-    item.variant.selectedOptions.forEach((option) => {
-      let optionObject = {};
-      optionObject[`option_details`] = option;
-      optionObject[`key`] = randomId();
-
-      optionsArray.push(optionObject);
-    });
-    return optionsArray;
-  }
-
-  function toggleCartDisplayOpacity() {
-    if (!cartDisplay) {
-      toggleCartDisplay();
-      setTimeout(() => {
-        toggleCartOpacity();
-      }, 10);
-    } else if (cartDisplay) {
-      toggleCartOpacity();
-      setTimeout(() => {
-        toggleCartDisplay();
-      }, 500);
-    }
-  }
+  const { checkout } = useContext(ShopContext);
+  const { formatMoney } = helpers;
 
   useEffect(() => {
     if (cartDisplay) {
@@ -80,7 +37,11 @@ function CartLineItem({ item, index }) {
       </td>
 
       <td className="CartLineItem__total-wrapper">
-        {`$${(item.variant.price * item.quantity).toFixed(2)} NZ`}
+        {checkout &&
+          `${formatMoney(
+            parseFloat(item.variant.price * item.quantity) * 100,
+            "${{amount}}"
+          )}  ${checkout.currencyCode}`}
       </td>
     </tr>
   );

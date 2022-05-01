@@ -5,25 +5,25 @@ import { helpers } from "../helpers/helpersIndex";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
+import useSetFixedPositionBody from "../hooks/useSetFixedPositionBody";
 
 const LayoutContext = React.createContext();
 
 function LayoutProvider({ children }) {
-  const {
-    gridScroll,
-    menuIconClick,
-    navLogoClick,
-    cartIconClick,
-    navMenuItems,
-    cartClose,
-    generateLineItemOptions,
-    strings,
-  } = helpers;
+  const { gridScroll, navLogoClick, cartIconClick, cartClose, strings } =
+    helpers;
 
   const dispatch = useDispatch();
-  const { updateWindowSize, updateYOffset, updateHoverDevice } =
-    bindActionCreators(actionCreators, dispatch);
-  const { windowSize, hoverDevice } = useSelector((state) => state);
+  const { setFixedPositionBody } = useSetFixedPositionBody();
+  const {
+    updateWindowSize,
+    updateYOffset,
+    updateHoverDevice,
+    updateScrollBarWidth,
+  } = bindActionCreators(actionCreators, dispatch);
+  const { windowSize, hoverDevice, bodyNoScroll } = useSelector(
+    (state) => state
+  );
   useEffect(() => {
     const canHover = window.matchMedia("(hover: hover)").matches;
     updateHoverDevice(canHover);
@@ -38,6 +38,11 @@ function LayoutProvider({ children }) {
   useLayoutEffect(() => {
     const handleWindowResize = () => {
       updateWindowSize([window.innerWidth, window.innerHeight]);
+      if (bodyNoScroll) {
+        setFixedPositionBody("add", window.innerHeight);
+      } else {
+        setFixedPositionBody("remove", window.innerHeight);
+      }
       document
         .querySelector("html")
         .setAttribute(`style`, `--vh:${window.innerHeight / 100}px;`);
@@ -110,12 +115,9 @@ function LayoutProvider({ children }) {
         mousePositionX: mousePositionX,
         mousePositionY: mousePositionY,
         gridScroll: gridScroll,
-        menuIconClick: menuIconClick,
         navLogoClick: navLogoClick,
         cartIconClick: cartIconClick,
-        navMenuItems: navMenuItems,
         cartClose: cartClose,
-        generateLineItemOptions: generateLineItemOptions,
         strings: strings,
       }}
     >

@@ -150,3 +150,30 @@ export const updateCheckoutUpdating = (data) => {
     });
   };
 };
+
+export const updateCartCount = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateCartCount",
+      payload: data,
+    });
+  };
+};
+
+export const updateScrollBarWidth = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateScrollBarWidth",
+      payload: data,
+    });
+  };
+};
+
+export const updateBodyNoScroll = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "updateBodyNoScroll",
+      payload: data,
+    });
+  };
+};

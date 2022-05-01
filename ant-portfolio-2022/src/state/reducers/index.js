@@ -14,6 +14,9 @@ import updateYOffsetReducer from "./updateYOffsetReducer";
 import updateCursorHoverReducer from "./updateCursorHoverReducer";
 import updateHoverDeviceReducer from "./updateHoverDeviceReducer";
 import updateCheckoutUpdatingReducer from "./updateCheckoutUpdatingReducer";
+import updateCartCountReducer from "./updateCartCountReducer";
+import updateScrollBarWidthReducer from "./updateScrollBarWidthReducer";
+import updateBodyNoScrollReducer from "./updateBodyNoScrollReducer";
 
 const reducers = combineReducers({
   menuDisplay: toggleMenuDisplayReducer,
@@ -30,6 +33,9 @@ const reducers = combineReducers({
   cursorHover: updateCursorHoverReducer,
   hoverDevice: updateHoverDeviceReducer,
   checkoutUpdating: updateCheckoutUpdatingReducer,
+  cartCount: updateCartCountReducer,
+  scrollBarWidth: updateScrollBarWidthReducer,
+  bodyNoScroll: updateBodyNoScrollReducer,
 });
 
 export default reducers;

@@ -43,6 +43,7 @@
 
 html {
   --border-width: 2px;
+  --cart-checkout-button-height: 60px;
   --color-base-text: 49, 49, 49;
   --color-shadow: 49, 49, 49;
   --content-max-width: 1200px;
@@ -94,6 +95,8 @@ html {
   --page-margin: 20px;
   --page-desktop-margin: 50px;
   --page-max-width: 1200px;
+  --z-index-cart: 1001;
+  --z-index-cart-underlay: 10;
 }
 
 html,

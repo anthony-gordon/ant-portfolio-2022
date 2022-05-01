@@ -1,8 +1,14 @@
 import React, { useEffect, createRef } from "react";
 import "./../style/components/ScrollContainer.css";
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../state/index";
 
 function ScrollContainer({ children }) {
   const viewportRef = createRef();
+
+  const dispatch = useDispatch();
+  const { updateScrollBarWidth } = bindActionCreators(actionCreators, dispatch);
 
   function getRefDimensions(ref) {
     if (ref.current) {
@@ -13,6 +19,13 @@ function ScrollContainer({ children }) {
     }
   }
 
+  const loadingVisible = useSelector(
+    (state) => state.loadingVisible,
+    shallowEqual
+  );
+
+  const bodyNoScroll = useSelector((state) => state.bodyNoScroll, shallowEqual);
+
   useEffect(() => {
     const spacer = document.querySelector(".ScrollContainer__spacer");
     const newDimensions = getRefDimensions(viewportRef);
@@ -20,7 +33,16 @@ function ScrollContainer({ children }) {
       spacer.style.height = `${newDimensions.height}px`;
       console.log(newDimensions.height, spacer.offsetHeight);
     }
-  }, [viewportRef]);
+    if (!bodyNoScroll) {
+      updateScrollBarWidth(
+        window.innerWidth - document.documentElement.clientWidth
+      );
+      console.log(
+        "updateScrollBarWidth",
+        window.innerWidth - document.documentElement.clientWidth
+      );
+    }
+  }, [loadingVisible]);
 
   return (
     <>

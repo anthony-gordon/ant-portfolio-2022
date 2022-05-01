@@ -1,0 +1,11 @@
+.CartLineItemDetailsOptions__option {
+  font-family: var(--font-body-family);
+  font-size: var(--font-body-size);
+  margin-top: calc(var(--grid-spacing) / 2);
+  margin-bottom: calc(var(--grid-spacing) / 4);
+  color: var(--color-base-text);
+}
+
+.CartLineItemDetailsOptions__option--hidden {
+  display: none;
+}

@@ -1,53 +1,24 @@
 import "../style/sub-components/CartLineItemDetails.css";
-import { useContext, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "./../state/index";
-import { ShopContext } from "../context/shopContext";
-import { LayoutContext } from "../context/layoutContext";
+
+import { useContext } from "react";
+
+import CartLineItemDetailsOptions from "./CartLineItemDetailsOptions";
 import ClickLink from "./ClickLink";
+import { helpers } from "./../helpers/helpersIndex";
+import { ShopContext } from "../context/shopContext";
+import { strings } from "../context/strings";
+
+import useUpdateLineItemQuantity from "../hooks/useUpdateLineItemQuantity";
+import useHandleCartIconClick from "../hooks/useHandleCartIconClick";
+import useSetCursorHover from "../hooks/useSetCursorHover";
 
 function CartLineItemDetails({ item }) {
-  const {
-    getImageString,
-    checkout,
-    updateLineItems,
-    addRemoveFixedPositionOnBody,
-    generateProductLink,
-    updateLineItemQuantity,
-  } = useContext(ShopContext);
-  const { cartClose, generateLineItemOptions, strings } =
-    useContext(LayoutContext);
-  const [lineItemOptions] = useState(generateLineItemOptions(item));
-  const dispatch = useDispatch();
-  let { windowSize } = useSelector((state) => state);
-  const {
-    toggleCartDisplay,
-    toggleCartOpacity,
-    updateCursorHover,
-    updateCheckoutUpdating,
-  } = bindActionCreators(actionCreators, dispatch);
+  const { checkout } = useContext(ShopContext);
+  const { updateLineItemQuantity } = useUpdateLineItemQuantity();
+  const { handleCartIconClick } = useHandleCartIconClick();
+  const { setCursorHover } = useSetCursorHover();
 
-  function handleClick(number) {
-    updateLineItemQuantity(
-      item.id,
-      number,
-      checkout.id,
-      updateCheckoutUpdating,
-      updateCursorHover,
-      updateLineItems
-    );
-  }
-
-  function handleLinkClick() {
-    cartClose(
-      windowSize,
-      toggleCartDisplay,
-      toggleCartOpacity,
-      updateCursorHover,
-      addRemoveFixedPositionOnBody
-    );
-  }
+  const { getImageString, generateProductLink, formatMoney } = helpers;
 
   return (
     <>
@@ -67,30 +38,29 @@ function CartLineItemDetails({ item }) {
           className="CartLineItemDetails__product-link"
         >
           <div
-            onClick={handleLinkClick}
+            onClick={() => handleCartIconClick()}
             className="CartLineItemDetails__product-title"
           >{`${item.title}`}</div>
         </ClickLink>
         <div className="CartLineItemDetails__product-price">
-          {`$${item.variant.price} NZ`}
+          {checkout &&
+            `${formatMoney(
+              parseFloat(item.variant.price) * 100,
+              "${{amount}}"
+            )}  ${checkout.currencyCode}`}
         </div>
-        {lineItemOptions.length > 0 &&
-          lineItemOptions.map((option) => {
-            return (
-              <div
-                key={option.key}
-                className={`CartLineItemDetails__product-variant-option ${
-                  option.option_details.value == "Default Title"
-                    ? "CartLineItemDetails__product-variant-option--hidden"
-                    : ""
-                }`}
-              >{`${option.option_details.name}: ${option.option_details.value}`}</div>
-            );
-          })}
+        <CartLineItemDetailsOptions item={item} />
         <div
-          onClick={() => handleClick(0)}
-          onMouseEnter={() => updateCursorHover(true)}
-          onMouseLeave={() => updateCursorHover(false)}
+          onClick={() =>
+            updateLineItemQuantity(
+              item.id,
+              item.quantity,
+              0 - item.quantity,
+              checkout.id
+            )
+          }
+          onMouseEnter={() => setCursorHover(true)}
+          onMouseLeave={() => setCursorHover(false)}
           className="CartLineItemDetails__remove"
         >
           {strings.cart.remove_line_item}

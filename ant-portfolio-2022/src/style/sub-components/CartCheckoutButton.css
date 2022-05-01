@@ -1,0 +1,39 @@
+.CartCheckoutButton {
+  width: 100%;
+  border: var(--border-width) solid rgb(var(--color-base-text));
+  background-color: rgb(var(--color-base-text));
+  color: rgb(var(--color-base-text-inverse));
+  width: 100%;
+  height: var(--cart-checkout-button-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: var(--grid-spacing);
+  padding: 0;
+  cursor: pointer;
+  transition: var(--transition-on-hover);
+}
+
+.CartCheckoutButton:hover {
+  color: rgb(var(--color-base-text));
+  background-color: transparent;
+}
+
+.CartCheckoutButton span {
+  height: fit-content;
+  font-size: var(--font-header-h3-size);
+  font-weight: var(--font-body-weight);
+  font-family: var(--font-body-family);
+  text-transform: uppercase;
+  letter-spacing: calc(
+    var(--font-header-h3-size) / var(--letter-spacing-divider)
+  );
+}
+
+@media only screen and (min-width: 769px) {
+  .CartCheckoutButton {
+    max-width: calc(var(--page-max-width) / 3);
+    margin-left: auto;
+  }
+}

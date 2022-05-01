@@ -7,11 +7,15 @@ import ScrollContainer from "./components/ScrollContainer";
 import CursorWrapper from "./components/CursorWrapper";
 import SiteRoutes from "./SiteRoutes";
 
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, shallowEqual } from "react-redux";
 
 function AnthonyPortfolioSite() {
-  const { hoverDevice } = useSelector((state) => state);
+  const hoverDevice = useSelector((state) => state.hoverDevice, shallowEqual);
+
+  useEffect(() => {
+    console.log("re-render AnthonyPortfolioSite");
+  });
 
   return (
     <div className="AnthonyPortfolioSite">

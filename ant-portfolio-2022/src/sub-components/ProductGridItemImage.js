@@ -1,15 +1,13 @@
 import "../style/sub-components/ProductGridItemImage.css";
-import { useContext } from "react";
-import { ShopContext } from "../context/shopContext";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
+import { helpers } from "./../helpers/helpersIndex";
 
 function ProductGridItemImage({ src, size, aspect, alt }) {
-  const { getImageString } = useContext(ShopContext);
   const dispatch = useDispatch();
   const { updateCursorHover } = bindActionCreators(actionCreators, dispatch);
-
+  const { getImageString } = helpers;
   return (
     <div className="ProductGridItemImage">
       <div className="ProductGridItemImage__wrapper">
