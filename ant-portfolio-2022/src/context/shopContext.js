@@ -14,7 +14,7 @@ import { helpers } from "../helpers/helpersIndex";
 
 const ShopContext = React.createContext();
 
-function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
+function ShopProvider({ children }) {
   const dispatch = useDispatch();
   const { updateLineItemQuantity, generateProductLink, getImageString } =
     helpers;
@@ -25,13 +25,7 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
   const [checkout, setCheckout] = useState({});
   const [loadingProcessDone, setLoadingProcessDone] = useState(false);
   const [checkoutTotalLineItems, setCheckoutTotalLineItems] = useState(0);
-  const {
-    updateLoading,
-    updateLoadingOuterBackgroundInFrame,
-    updateLoadingVisible,
-    updateLoadingDisplay,
-    updateCartCount,
-  } = bindActionCreators(actionCreators, dispatch);
+  const { updateCartCount } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     const {
@@ -39,7 +33,6 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
       updateLoadingOuterBackgroundInFrame,
       updateLoadingVisible,
       updateLoadingDisplay,
-      updateCartCount,
     } = bindActionCreators(actionCreators, dispatch);
 
     if (
@@ -214,9 +207,6 @@ function ShopProvider({ children, y, mousePositionX, mousePositionY }) {
         addRemoveFixedPositionOnBody: addRemoveFixedPositionOnBody,
         variantsAsProducts: variantsAsProducts,
         randomId: randomId,
-        y: y,
-        mousePositionX: mousePositionX,
-        mousePositionY: mousePositionY,
         updateLineItems: updateLineItems,
         onClickBounce: onClickBounce,
         checkoutTotalLineItems: checkoutTotalLineItems,

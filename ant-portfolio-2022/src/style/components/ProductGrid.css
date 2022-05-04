@@ -6,16 +6,8 @@
   position: relative;
   width: 100vw;
   overflow: hidden;
-  max-width: 1200px;
-  padding: 100px 0px;
-}
-
-.ProductGrid__column {
-  display: grid;
-}
-
-.ProductGrid__column-wrapper {
-  display: grid;
+  max-width: var(--page-max-width);
+  padding: var(--header-height) 0px;
 }
 
 @media only screen and (min-width: 769px) {
