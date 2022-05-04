@@ -1,14 +1,15 @@
 import "../style/components/CursorWrapper.css";
 
-import { LayoutContext } from "../context/layoutContext";
+import { CursorWrapperContext } from "../context/cursorWrapperContext";
 
 import { useSelector } from "react-redux";
 import { useContext } from "react";
 import { animated as a } from "react-spring";
 
 function CursorWrapper() {
+  const { mousePositionX, mousePositionY } = useContext(CursorWrapperContext);
+
   let { cursorHover } = useSelector((state) => state);
-  const { mousePositionX, mousePositionY } = useContext(LayoutContext);
   return (
     <div className="CursorWrapper">
       <a.div

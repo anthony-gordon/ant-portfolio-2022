@@ -15,6 +15,7 @@ function ScrollContainer({ children }) {
       const { current } = ref;
       const boundingRect = current.getBoundingClientRect();
       const { width, height } = boundingRect;
+
       return { width: Math.round(width), height: Math.round(height) };
     }
   }
@@ -29,20 +30,20 @@ function ScrollContainer({ children }) {
   useEffect(() => {
     const spacer = document.querySelector(".ScrollContainer__spacer");
     const newDimensions = getRefDimensions(viewportRef);
+
     if (newDimensions.height !== spacer.offsetHeight) {
       spacer.style.height = `${newDimensions.height}px`;
-      console.log(newDimensions.height, spacer.offsetHeight);
     }
     if (!bodyNoScroll) {
       updateScrollBarWidth(
         window.innerWidth - document.documentElement.clientWidth
       );
-      console.log(
-        "updateScrollBarWidth",
-        window.innerWidth - document.documentElement.clientWidth
-      );
     }
   }, [loadingVisible]);
+
+  useEffect(() => {
+    console.log("scroll container init");
+  });
 
   return (
     <>

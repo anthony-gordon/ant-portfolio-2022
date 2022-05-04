@@ -1,12 +1,10 @@
 import "../style/sub-components/ProductGridItemImage.css";
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../state/index";
 import { helpers } from "./../helpers/helpersIndex";
+import useSetCursorHover from "../hooks/useSetCursorHover";
 
 function ProductGridItemImage({ src, size, aspect, alt }) {
-  const dispatch = useDispatch();
-  const { updateCursorHover } = bindActionCreators(actionCreators, dispatch);
+  const { setCursorHover } = useSetCursorHover();
+
   const { getImageString } = helpers;
   return (
     <div className="ProductGridItemImage">
@@ -24,9 +22,9 @@ function ProductGridItemImage({ src, size, aspect, alt }) {
         >
           <img
             alt={alt}
-            onMouseEnter={() => updateCursorHover(true)}
-            onMouseLeave={() => updateCursorHover(false)}
-            onClick={() => updateCursorHover(false)}
+            onMouseEnter={() => setCursorHover(true)}
+            onMouseLeave={() => setCursorHover(false)}
+            onClick={() => setCursorHover(false)}
             className={`ProductGridItemImage__image ${
               aspect > 1
                 ? "ProductGridItemImage__image--set-max-height"

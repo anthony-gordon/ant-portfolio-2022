@@ -6,6 +6,7 @@ import { generateLineItemOptions } from "./generateLineItemOptions";
 import { generateProductLink } from "./generateProductLink";
 import { formatMoney } from "./formatMoney";
 import { getImageString } from "./getImageString";
+import { dividedSplitProducts } from "./dividedSplitProducts";
 
 export const helpers = {
   navLogoClick: navLogoClick,
@@ -17,4 +18,5 @@ export const helpers = {
   generateProductLink: generateProductLink,
   formatMoney: formatMoney,
   getImageString: getImageString,
+  dividedSplitProducts: dividedSplitProducts,
 };

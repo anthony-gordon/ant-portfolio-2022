@@ -15,15 +15,12 @@ function LayoutProvider({ children }) {
 
   const dispatch = useDispatch();
   const { setFixedPositionBody } = useSetFixedPositionBody();
-  const {
-    updateWindowSize,
-    updateYOffset,
-    updateHoverDevice,
-    updateScrollBarWidth,
-  } = bindActionCreators(actionCreators, dispatch);
-  const { windowSize, hoverDevice, bodyNoScroll } = useSelector(
-    (state) => state
-  );
+  const { updateWindowSize, updateYOffset, updateHoverDevice } =
+    bindActionCreators(actionCreators, dispatch);
+
+  const windowSize = useSelector((state) => state.windowSize);
+  const bodyNoScroll = useSelector((state) => state.bodyNoScroll);
+
   useEffect(() => {
     const canHover = window.matchMedia("(hover: hover)").matches;
     updateHoverDevice(canHover);
@@ -64,41 +61,11 @@ function LayoutProvider({ children }) {
     },
   }));
 
-  const [{ mousePositionX, mousePositionY }, setMousePosition] = useSpring(
-    () => ({
-      mousePositionX: [0],
-      mousePositionY: [0],
-
-      config: {
-        mass: 1,
-        tension: 200,
-        friction: 30,
-        precision: 0.00001,
-        velocity: 0,
-        clamp: true,
-      },
-    })
-  );
-
   useEffect(() => {
     const handleScroll = () => set({ y: [-window.pageYOffset] });
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [set]);
-
-  useEffect(() => {
-    if (hoverDevice) {
-      const handleMouseMove = (e) => {
-        setMousePosition({
-          mousePositionX: [e.clientX],
-          mousePositionY: [e.clientY],
-        });
-      };
-      window.addEventListener("mousemove", (e) => handleMouseMove(e));
-      return () =>
-        window.removeEventListener("mousemove", (e) => handleMouseMove(e));
-    }
-  }, [setMousePosition]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -112,8 +79,6 @@ function LayoutProvider({ children }) {
     <LayoutContext.Provider
       value={{
         y: y,
-        mousePositionX: mousePositionX,
-        mousePositionY: mousePositionY,
         gridScroll: gridScroll,
         navLogoClick: navLogoClick,
         cartIconClick: cartIconClick,

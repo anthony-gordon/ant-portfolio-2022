@@ -7,6 +7,8 @@ import ScrollContainer from "./components/ScrollContainer";
 import CursorWrapper from "./components/CursorWrapper";
 import SiteRoutes from "./SiteRoutes";
 
+import CursorWrapperProvider from "./context/cursorWrapperContext";
+
 import React, { useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
@@ -19,7 +21,12 @@ function AnthonyPortfolioSite() {
 
   return (
     <div className="AnthonyPortfolioSite">
-      {hoverDevice && <CursorWrapper />}
+      {hoverDevice && (
+        <CursorWrapperProvider>
+          <CursorWrapper />
+        </CursorWrapperProvider>
+      )}
+
       <NavBar />
       <NavMenu />
       <Cart />
