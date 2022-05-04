@@ -1,0 +1,20 @@
+.CartLineItemQuantityUpdate {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: calc(var(--grid-desktop-horizontal-spacing) / 4);
+}
+
+.CartLineItemQuantityUpdate__decrease,
+.CartLineItemQuantityUpdate__increase,
+.CartLineItemQuantityUpdate span {
+  border: 0px;
+  font-size: var(--font-body-size);
+  font-family: var(--font-body-family);
+}
+
+.CartLineItemQuantityUpdate__decrease--no-click,
+.CartLineItemQuantityUpdate__increase--no-click {
+  pointer-events: none;
+}

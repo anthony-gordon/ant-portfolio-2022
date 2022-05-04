@@ -1,32 +1,50 @@
 import "../style/components/NavBar.css";
-import NavHamburgerIcon from "../sub-components/NavHamburgerIcon";
+
+import NavMenuIcon from "../sub-components/NavMenuIcon";
 import CartIcon from "../sub-components/CartIcon";
 import NavLogo from "../sub-components/NavLogo";
-import { useSelector } from "react-redux";
 import LoadingSpinner from "../sub-components/LoadingSpinner";
-import LoadingSpinnerTest from "../sub-components/LoadingSpinnerTest";
+import LoadingSpinnerProvider from "../context/loadingSpinnerContext";
+
+import { useSelector, shallowEqual } from "react-redux";
+import { useMemo, useEffect } from "react";
 
 function NavBar() {
-  let { loadingVisible, loadingDisplay } = useSelector((state) => state);
-
-  return (
-    <div
-      className={`NavBar ${loadingDisplay ? "NavBar--loading" : ""} ${
-        !loadingVisible ? "NavBar--loading-completed" : ""
-      }`}
-    >
-      <div className="NavBar__wrapper">
-        <NavHamburgerIcon />
-        <NavLogo />
-        <CartIcon />
-      </div>
-
-      <LoadingSpinner number={1} />
-      <LoadingSpinner number={2} />
-      <LoadingSpinner number={3} />
-      {/* <LoadingSpinnerTest number={1} /> */}
-    </div>
+  const spinners = 3;
+  let loadingVisible = useSelector(
+    (state) => state.loadingVisible,
+    shallowEqual
   );
+  let loadingDisplay = useSelector(
+    (state) => state.loadingDisplay,
+    shallowEqual
+  );
+
+  // useEffect(() => {
+  //   console.log("Nav Bar re-render");
+  // });
+  return useMemo(() => {
+    return (
+      <div
+        className={`NavBar ${loadingDisplay ? "NavBar--loading" : ""} ${
+          !loadingVisible ? "NavBar--loading-completed" : ""
+        }`}
+      >
+        <div className="NavBar__wrapper">
+          <NavMenuIcon />
+          <NavLogo />
+          <CartIcon />
+        </div>
+        {[...Array(spinners)].map((spinner, index) => {
+          return (
+            <LoadingSpinnerProvider key={index} number={index}>
+              <LoadingSpinner number={index} />
+            </LoadingSpinnerProvider>
+          );
+        })}
+      </div>
+    );
+  }, [loadingDisplay, loadingVisible]);
 }
 
 export default NavBar;

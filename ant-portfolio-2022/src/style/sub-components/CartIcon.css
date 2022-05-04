@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   margin: auto;
-  /* height: 50px; */
   margin-right: 0px;
+  justify-content: flex-end;
 }
 
 .CartIcon--unclickable {
@@ -17,29 +17,19 @@
 .CartIcon__word {
   color: rgb(var(--color-base-text-inverse));
   font-family: var(--font-body-family);
-  font-size: var(--font-heading-size-large);
+  font-size: var(--font-header-h3-size);
+  text-align: right;
 }
-
-.CartIcon svg {
-  height: 32px;
-  width: 32px;
-  transition: fill var(--transition-on-hover);
-  fill: rgb(var(--color-base-text-inverse));
-}
-
-/* .CartIcon__wrapper:hover svg {
-  fill: rgb(var(--color-base-text-highlight));
-} */
 
 .CartIcon {
-  width: 25%;
+  width: calc(2 * (100% / var(--grid-columns)));
 }
 
 @media only screen and (min-width: 769px) {
   .CartIcon__word {
-    font-size: var(--font-heading-size-extra-large);
+    font-size: var(--font-header-h3-size-desktop);
   }
   .CartIcon {
-    width: 12.5%;
+    width: calc(100% / var(--grid-columns));
   }
 }

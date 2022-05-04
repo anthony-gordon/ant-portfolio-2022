@@ -1,9 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+
+import { ShopContext } from "./context/shopContext";
+
 import Homepage from "./pages/Homepage";
 import ProductPage from "./pages/ProductPage";
 import ContactPage from "./pages/ContactPage";
-import { useContext } from "react";
-import { ShopContext } from "./context/shopContext";
 
 function SiteRoutes() {
   const { variantsAsProducts } = useContext(ShopContext);
@@ -15,9 +17,9 @@ function SiteRoutes() {
         path="/"
         element={<Homepage productList={variantsAsProducts} />}
       />
-      <Route exact path="/products/:productHandle" element={<ProductPage />} />
+      {/* <Route exact path="/products/:productHandle" element={<ProductPage />} /> */}
       <Route path="*" element={<Navigate to="/" />} />
-      <Route path="/contact" element={<ContactPage />} />
+      {/* <Route path="/contact" element={<ContactPage />} /> */}
     </Routes>
   );
 }

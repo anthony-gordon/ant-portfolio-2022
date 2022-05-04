@@ -1,16 +1,21 @@
 import "../style/sub-components/NavMenuLi.css";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "./../state/index";
-import { ShopContext } from "../context/shopContext";
-import { useContext, useState, useEffect } from "react";
+import { useSelector, shallowEqual } from "react-redux";
+
+import { useState, useEffect, useMemo } from "react";
+import useHandleNavMenuIconClick from "../hooks/useHandleNavMenuIconClick";
+import useSetCursorHover from "../hooks/useSetCursorHover";
 
 function NavMenuLi({ menuItem, index }) {
-  const { addRemoveFixedPositionOnBody } = useContext(ShopContext);
+  const { handleNavMenuIconClick } = useHandleNavMenuIconClick();
+  const { setCursorHover } = useSetCursorHover();
 
-  const dispatch = useDispatch();
-  let { menuDisplay } = useSelector((state) => state);
+  let menuDisplay = useSelector((state) => state.menuDisplay, shallowEqual);
+  let windowSize = useSelector((state) => state.windowSize, shallowEqual);
+  let scrollBarWidth = useSelector(
+    (state) => state.scrollBarWidth,
+    shallowEqual
+  );
 
   const [visible, setVisible] = useState(false);
 
@@ -24,38 +29,29 @@ function NavMenuLi({ menuItem, index }) {
     }
   }, [menuDisplay, index]);
 
-  const { toggleMenuDisplay, toggleMenuOpacity, updateCursorHover } =
-    bindActionCreators(actionCreators, dispatch);
-
-  function toggleMenuDisplayOpacity() {
-    if (menuDisplay) {
-      toggleMenuOpacity();
-      updateCursorHover(false);
-      setTimeout(() => {
-        toggleMenuDisplay();
-        addRemoveFixedPositionOnBody("remove");
-      }, 500);
-    }
-  }
-  return (
-    <li className={`NavMenu__li ${visible ? "NavMenu__li--visible" : ""}`}>
-      <Link
-        target={menuItem.internal ? "" : "_blank"}
-        rel={menuItem.internal ? "" : "noopener noreferrer"}
-        to={menuItem.link}
-        className="NavMenu__button"
-      >
-        <p
-          onMouseEnter={() => updateCursorHover(true)}
-          onMouseLeave={() => updateCursorHover(false)}
-          onClick={toggleMenuDisplayOpacity}
-          className="NavMenu__title"
+  return useMemo(() => {
+    return (
+      <li className={`NavMenu__li ${visible ? "NavMenu__li--visible" : ""}`}>
+        <Link
+          target={menuItem.internal ? "" : "_blank"}
+          rel={menuItem.internal ? "" : "noopener noreferrer"}
+          to={menuItem.link}
+          className="NavMenu__li-button"
         >
-          <span className={`NavMenu__title-span `}>{`${menuItem.words} `}</span>
-        </p>
-      </Link>
-    </li>
-  );
+          <p
+            onMouseEnter={() => setCursorHover(true)}
+            onMouseLeave={() => setCursorHover(false)}
+            onClick={() => handleNavMenuIconClick()}
+            className="NavMenu__li-title"
+          >
+            <span
+              className={`NavMenu__li-title-span `}
+            >{`${menuItem.words} `}</span>
+          </p>
+        </Link>
+      </li>
+    );
+  }, [menuDisplay, visible, windowSize, scrollBarWidth]);
 }
 
 export default NavMenuLi;
