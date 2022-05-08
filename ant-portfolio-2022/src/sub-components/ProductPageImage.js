@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
 import "../style/sub-components/ProductPageImage.css";
+
+import React, { useState, useEffect, useRef } from "react";
 
 import { useSpring, animated as a } from "react-spring";
 import { useSelector } from "react-redux";
 
+import useSetCursorHover from "./../hooks/useSetCursorHover";
+
 function ProductPageImage({ src, size, aspect, product }) {
   const figure = useRef(null);
   const hoverDevice = useSelector((state) => state.hoverDevice);
+  const { setCursorHover } = useSetCursorHover();
 
   const [{ mousePositionX, mousePositionY }, setMousePosition] = useSpring(
     () => ({
@@ -55,6 +59,8 @@ function ProductPageImage({ src, size, aspect, product }) {
       }}
       ref={figure}
       className="ProductPageImage"
+      onMouseEnter={() => setCursorHover(true)}
+      onMouseLeave={() => setCursorHover(false)}
     >
       <img src={src} className="ProductPageImage__image" />
     </a.figure>
