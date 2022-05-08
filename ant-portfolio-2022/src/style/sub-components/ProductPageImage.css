@@ -1,3 +1,18 @@
-.ProductPageImage {
+.ProductPageImage,
+.ProductPageImage img {
   width: 100%;
+}
+
+figure.ProductPageImage {
+  background-repeat: no-repeat;
+}
+
+figure.ProductPageImage:hover img {
+  opacity: 0;
+}
+
+.ProductPageImage img {
+  display: block;
+  width: 100%;
+  pointer-events: none;
 }
