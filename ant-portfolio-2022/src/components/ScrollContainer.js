@@ -24,6 +24,7 @@ function ScrollContainer({ children }) {
     (state) => state.loadingVisible,
     shallowEqual
   );
+  const windowSize = useSelector((state) => state.windowSize, shallowEqual);
 
   const bodyNoScroll = useSelector((state) => state.bodyNoScroll, shallowEqual);
 
@@ -39,7 +40,7 @@ function ScrollContainer({ children }) {
         window.innerWidth - document.documentElement.clientWidth
       );
     }
-  }, [loadingVisible]);
+  }, [loadingVisible, windowSize]);
 
   useEffect(() => {
     console.log("scroll container init");

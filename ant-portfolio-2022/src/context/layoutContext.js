@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { animated as a, useSpring } from "react-spring";
 import React, { useLayoutEffect } from "react";
-import { helpers } from "../helpers/helpersIndex";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
@@ -10,9 +9,6 @@ import useSetFixedPositionBody from "../hooks/useSetFixedPositionBody";
 const LayoutContext = React.createContext();
 
 function LayoutProvider({ children }) {
-  const { gridScroll, navLogoClick, cartIconClick, cartClose, strings } =
-    helpers;
-
   const dispatch = useDispatch();
   const { setFixedPositionBody } = useSetFixedPositionBody();
   const { updateWindowSize, updateYOffset, updateHoverDevice } =
@@ -79,11 +75,6 @@ function LayoutProvider({ children }) {
     <LayoutContext.Provider
       value={{
         y: y,
-        gridScroll: gridScroll,
-        navLogoClick: navLogoClick,
-        cartIconClick: cartIconClick,
-        cartClose: cartClose,
-        strings: strings,
       }}
     >
       {children}
