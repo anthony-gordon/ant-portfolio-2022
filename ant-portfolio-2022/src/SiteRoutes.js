@@ -17,9 +17,9 @@ function SiteRoutes() {
         path="/"
         element={<Homepage productList={variantsAsProducts} />}
       />
-      {/* <Route exact path="/products/:productHandle" element={<ProductPage />} /> */}
+      <Route exact path="/products/:productHandle" element={<ProductPage />} />
       <Route path="*" element={<Navigate to="/" />} />
-      {/* <Route path="/contact" element={<ContactPage />} /> */}
+      <Route path="/contact" element={<ContactPage />} />
     </Routes>
   );
 }
